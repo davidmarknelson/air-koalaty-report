@@ -9,7 +9,7 @@ describe('Navbar', () => {
 
   describe('a user who isn\'t logged in', () => {
     it('should have the brand link to the home page', () => {
-      cy.get('mat-toolbar > a').click().url().should('include', '');
+      cy.get('[data-test=brand-button]').click().url().should('include', '');
     });
   });
 });
