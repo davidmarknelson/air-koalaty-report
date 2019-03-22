@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <a routerLink=''>
+  <a *ngIf='!isLoggedIn' routerLink=''>
     <button data-test='brand-button' mat-button>KOALAty</button>
   </a>
 </mat-toolbar>
