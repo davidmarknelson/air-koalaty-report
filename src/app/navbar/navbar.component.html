@@ -1,5 +1,19 @@
 <mat-toolbar>
   <a *ngIf='!isLoggedIn' routerLink=''>
-    <button data-test='brand-button' mat-button>KOALAty</button>
+    <button data-test='brand-button' mat-raised-button>KOALAty</button>
   </a>
+  <!-- <a *ngIf='isLoggedIn' routerLink='/dashboard'>
+    <button data-test='dashboard-button' mat-button>KOALAty</button>
+  </a> -->
+  <!-- Buttons for users who aren't logged in -->
+  <a *ngIf='!isLoggedIn' routerLink='/signup'>
+    <button data-test='signup-button' mat-stroked-button>Sign up</button>
+  </a>
+  <a *ngIf='!isLoggedIn' routerLink='/login'>
+    <button data-test='login-button' mat-stroked-button>Login</button>
+  </a>
+  <!-- Buttons for users who are logged in -->
+  <!-- <a *ngIf='isLoggedIn' routerLink=''>
+    <button data-test='logout-button' mat-button>Logout</button>
+  </a> -->
 </mat-toolbar>

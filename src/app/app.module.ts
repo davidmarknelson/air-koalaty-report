@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
 
 // Components
 import { NavbarComponent } from './navbar/navbar.component';
@@ -26,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
