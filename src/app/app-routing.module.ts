@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginModule' }
+  { path: '', component: LandingComponent },
+  { path: 'callback', loadChildren: './callback/callback.module#CallbackModule' },
+  { path: 'home', loadChildren: './home/home.module#HomeModule' }
 ];
 
 @NgModule({
