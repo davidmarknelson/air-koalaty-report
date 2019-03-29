@@ -1,17 +1,17 @@
 <mat-toolbar>
-  <a *ngIf='!auth.isAuthenticated()' routerLink=''>
-    <button data-test='brand-button' mat-raised-button>KOALAty</button>
+  <a *ngIf='!auth.isAuthenticated()' data-test='brand-button' routerLink=''>
+    <button mat-raised-button>KOALAty</button>
   </a>
-  <a *ngIf='auth.isAuthenticated()' routerLink='/home'>
-    <button data-test='home-button' mat-raised-button>KOALAty</button>
+  <a *ngIf='auth.isAuthenticated()' data-test='home-button' routerLink='/home'>
+    <button mat-raised-button>KOALAty</button>
   </a>
   <!-- Button for users who aren't logged in -->
-  <a *ngIf='!auth.isAuthenticated()' (click)='auth.login()'>
-    <button data-test='login-button' mat-stroked-button>Log In / Sign up</button>
+  <a *ngIf='!auth.isAuthenticated()' data-test='login-button' (click)='auth.login()'>
+    <button mat-stroked-button>Log In / Sign up</button>
   </a>
   <!-- Buttons for users who are logged in -->
-  <a *ngIf='auth.isAuthenticated()' (click)='auth.logout()'>
-    <button data-test='logout-button' mat-stroked-button>Logout</button>
+  <a *ngIf='auth.isAuthenticated()' data-test='logout-button' (click)='auth.logout()'>
+    <button mat-stroked-button>Logout</button>
   </a>
 </mat-toolbar>
 
