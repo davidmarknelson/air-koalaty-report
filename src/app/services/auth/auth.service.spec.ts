@@ -20,7 +20,14 @@ describe('AuthService', () => {
     authService = TestBed.get(AuthService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(authService).toBeTruthy();
+  });
+
+  xdescribe('logout', () => {
+    it('should redirect a user to the landing page with auth.logout', () => {
+      
+      expect(authService.auth0.logout).toHaveBeenCalled();
+    });
   });
 });

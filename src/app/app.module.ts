@@ -14,6 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
 // Components
 import { LandingComponent } from './landing/landing.component';
 
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,

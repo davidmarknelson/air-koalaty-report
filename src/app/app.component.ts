@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,19 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService, private router: Router) {
     auth.handleAuthentication();
   }
 
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
       this.auth.renewTokens();
+      this.reroute();
     }
+  }
+
+  reroute(): void {
+    this.router.navigate(['/home']);
   }
 
 }

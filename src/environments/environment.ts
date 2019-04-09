@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   clientID: '', // Get info from .env
   domain: '', // Get info from .env
-  redirectUri: '' // Get info from .env
+  redirectUri: '', // Get info from .env
+  afterCallbackUri: 'localhost:4200'
 };
 
 /*
