@@ -8,9 +8,10 @@
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink='/home'>Home</button>
-    <button mat-menu-item >Search</button>
-    <button mat-menu-item >List</button>
+    <button mat-menu-item routerLink='/search'>Search</button>
+    <button mat-menu-item routerLink='/list'>List</button>
   </mat-menu>
+  <span class="fill-space"></span>
   <!-- Button for users who aren't logged in -->
   <a *ngIf='!auth.isAuthenticated()' data-test='login-button' (click)='auth.login()'>
     <button mat-stroked-button>Log In/Sign up</button>
