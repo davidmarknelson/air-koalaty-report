@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 class MockAuthService {
   public handleAuthentication = jasmine.createSpy('handleAuthentication');
@@ -32,6 +33,9 @@ describe('AppComponent', () => {
         { provide: AuthService, useClass:  MockAuthService },
         { provide: Router, useClass: MockRouter }
       ],
+      imports: [
+        MatMenuModule
+      ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));
@@ -59,14 +63,14 @@ describe('AppComponent', () => {
       expect(auth.renewTokens).toHaveBeenCalled();
     });
 
+    it('should have a link to the landing page when clicking the brand button', () => {
+      const link = fixture.debugElement.query(By.css('[data-test=brand-button]'));
+      expect(link.attributes.routerLink).toEqual('');
+    });
+
     it('should redirect a user who is logged in', () => {
       expect(router.navigate).toHaveBeenCalled();
     })
-
-    it('should have a link to the home page when clicking the brand button', () => {
-      const link = fixture.debugElement.query(By.css('[data-test=home-button]'));
-      expect(link.attributes.routerLink).toEqual('/home');
-    });
 
     it('should show the log out button', () => {
       expect(By.css('[data-test=logout-button]')).toBeTruthy();

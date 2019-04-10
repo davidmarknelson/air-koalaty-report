@@ -1,13 +1,19 @@
 <mat-toolbar color='primary'>
-  <a *ngIf='!auth.isAuthenticated()' data-test='brand-button' routerLink=''>
+  <a data-test='brand-button' routerLink=''>
     <button mat-raised-button>KOALAty</button>
   </a>
-  <a *ngIf='auth.isAuthenticated()' data-test='home-button' routerLink='/home'>
-    <button mat-raised-button>KOALAty</button>
-  </a>
+  <button mat-stroked-button [matMenuTriggerFor]="menu">
+    Menu
+    <!-- <i class="material-icons">expand_more</i> -->
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink='/home'>Home</button>
+    <button mat-menu-item >Search</button>
+    <button mat-menu-item >List</button>
+  </mat-menu>
   <!-- Button for users who aren't logged in -->
   <a *ngIf='!auth.isAuthenticated()' data-test='login-button' (click)='auth.login()'>
-    <button mat-stroked-button>Log In / Sign up</button>
+    <button mat-stroked-button>Log In/Sign up</button>
   </a>
   <!-- Buttons for users who are logged in -->
   <a *ngIf='auth.isAuthenticated()' data-test='logout-button' (click)='auth.logout()'>
