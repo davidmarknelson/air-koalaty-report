@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from "./services/auth/auth.service";
@@ -16,9 +16,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LandingComponent } from './landing/landing.component';
 
 
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
+// export function tokenGetter() {
+//   return localStorage.getItem('access_token');
+// }
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ export function tokenGetter() {
     LandingComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

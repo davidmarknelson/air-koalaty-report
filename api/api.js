@@ -3,7 +3,7 @@
  | Dependencies
  |--------------------------------------
 */
-
+const request = require('request');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const User = require('./models/User');
@@ -37,6 +37,16 @@ module.exports = function(app, config) {
   // GET API root
   app.get('/api/', (req, res) => {
     res.send('API works');
+  });
+
+  app.get('/api/waqi/', (req, res) => {
+    let lat = req.query.lat;
+    let long = req.query.long;
+    let url = 'https://api.waqi.info/feed/geo:' + lat + ';' + long + '/?token=' + process.env.WAQI_API_KEY;
+
+    request(url, function (error, response, body) {
+      res.status(200).json(body);
+    });
   });
 
 };

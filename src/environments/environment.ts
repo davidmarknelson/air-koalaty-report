@@ -7,7 +7,8 @@ export const environment = {
   clientID: '', // Get info from .env
   domain: '', // Get info from .env
   redirectUri: '', // Get info from .env
-  afterCallbackUri: 'localhost:4200'
+  afterCallbackUri: 'localhost:4200',
+  apiUri: 'http://localhost:8083/api/'
 };
 
 /*
