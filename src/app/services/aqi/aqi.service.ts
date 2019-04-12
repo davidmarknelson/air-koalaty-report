@@ -1,9 +1,7 @@
 import { Injectable, EventEmitter, Output} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { TestBed } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'
