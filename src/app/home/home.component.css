@@ -1,3 +1,10 @@
-mat-tab-group {
-  margin: 20px;
+mat-card {
+  width: 80%;
+  margin: 30px auto;
+}
+
+mat-card-title, mat-card-content {
+  display: inline-block;
+  margin: 0 auto;
+  padding-right: 10px;
 }

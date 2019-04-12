@@ -1,13 +1,16 @@
-<p>Lat: {{ latitude }}</p>
-<p>Long: {{ longitude }}</p>
 
-<p>error {{ error }}</p>
-
-<p>aqi {{data}}</p>
-
-
-
-<p>city {{city}}</p>
-
-<p>parsed {{parsed}}</p>
-
+<mat-card>
+  <div *ngIf='data; else loading'>
+    <mat-card-title>City:</mat-card-title>
+    <mat-card-content>{{data.data.city.name}}</mat-card-content>
+    <hr>
+    <mat-card-title>AQI:</mat-card-title>
+    <mat-card-content>{{data.data.aqi}}</mat-card-content>
+  </div>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+  <div *ngIf='error'>
+    <p>Error: {{ error }}</p>
+  </div>
+</mat-card>

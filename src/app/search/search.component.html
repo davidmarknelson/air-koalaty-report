@@ -1,3 +1,33 @@
-<p>
-  search works!
-</p>
+<mat-card>
+  <mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>
+      <mat-card-title>City:</mat-card-title>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-content>
+        <div *ngIf='city; else loading'>
+          {{city.data.city.name}}
+        </div>
+        <ng-template #loading>
+          <mat-spinner></mat-spinner>
+        </ng-template>
+      </mat-card-content>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-title>AQI:</mat-card-title>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-content>
+        <div *ngIf='city; else loading'>
+          {{city.data.aqi}}
+        </div>
+        <ng-template #loading>
+          <mat-spinner></mat-spinner>
+        </ng-template>
+      </mat-card-content>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
+<div *ngIf='error'>
+    <p>Error: {{ error }}</p>
+  </div>
