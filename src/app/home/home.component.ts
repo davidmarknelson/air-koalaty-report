@@ -7,18 +7,17 @@ import { AqiService } from '../services/aqi/aqi.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  data: any[];
+  data: any;
   error: string;
   aqi: number;
   city: string;
   
   constructor(private aqiService: AqiService) {
-    this.aqiService.data.subscribe(res => this.data = res);
-    this.aqiService.error.subscribe(res => this.error = res);
+    this.aqiService.aqiData.subscribe(res => this.data = res);
+    this.aqiService.aqiError.subscribe(res => this.error = res);
   }
 
   ngOnInit() {
-    this.aqiService.getCurrentCoordinatesData();
+    this.aqiService.getCurrentCoordinatesAqi();
   }
-
 }

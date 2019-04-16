@@ -3,6 +3,19 @@ mat-card {
   margin: 30px auto;
 }
 
-mat-spinner {
-  height: 50%;
+form {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+button {
+  margin: 10px;
 }

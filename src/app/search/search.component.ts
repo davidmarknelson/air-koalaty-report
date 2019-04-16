@@ -1,12 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AqiService } from '../services/aqi/aqi.service';
-import { City } from '../services/aqi/city';
-
-// test
-import { map, tap } from 'rxjs/operators';
-import { Observable, pipe } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 declare var google: any;
 
@@ -17,12 +11,14 @@ declare var google: any;
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  @ViewChild('citySearch') citySearch: ElementRef;
   searchForm: FormGroup;
-  @ViewChild('searchedCity') searchedCity: ElementRef;
-  @ViewChild('testGooglePlaces') citySearch: ElementRef;
+  location: any;
   aqi: number;
   city: string;
-  location: any;
+  error: string;
+  loading: boolean;
+
 
   constructor(
     private aqiService: AqiService, 
@@ -32,11 +28,13 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loading = false;
     this.createForm();
 
-    this.aqiService.getCityAQI('Hanoi').subscribe(res => {this.aqi = res.data.aqi;
-      this.city = 'Hanoi';
-    });
+    // to test aqi service with out calling Google maps places
+    // this.aqiService.getCityAQI('Hanoi').subscribe(res => {this.aqi = res.data.aqi;
+    //   this.city = 'Hanoi';
+    // });
 
     this.gmaps.load().then(() => {
       const autocomplete =
@@ -46,24 +44,26 @@ export class SearchComponent implements OnInit {
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           this.location = autocomplete.getPlace();
-
           console.log(autocomplete.getPlace());
         });
       });
     });
   }
 
-  // works, but waiting to figure out interface
-  search() {
+  getSearchedCityAqi() {
+    this.loading = true;
     let cityName = this.location.vicinity;
-    // this.searchedCity.nativeElement.value = '';
     this.city = cityName;
-    return this.aqiService.getCityAQI(cityName).subscribe(res => this.aqi = res.data.aqi);
+    return this.aqiService.getCityAQI(cityName).subscribe(res => {
+      this.aqi = res.data.aqi;
+      this.loading = false;
+      this.citySearch.nativeElement.value = '';
+    });
   }
 
   createForm() {
     this.searchForm = this.fb.group({
-      location: ['', Validators.required]
+      location: ['']
     });
   }
 }

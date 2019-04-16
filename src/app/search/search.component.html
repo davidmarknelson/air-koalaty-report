@@ -1,35 +1,37 @@
-
+<!-- Search for a city -->
 <form [formGroup]="searchForm" novalidate>
-  <div>
-    <mat-form-field>
-      <input matInput #testGooglePlaces autocorrect="off" formControlName="location" placeholder="Search for a City">
-    </mat-form-field>
-    <button mat-stroked-button (click)='search()'>Get City AQI</button>
-  </div>
+  <mat-form-field>
+    <input matInput #citySearch autocorrect="off" formControlName="location" placeholder="Search for a City">
+  </mat-form-field>
+  <button mat-stroked-button color='primary' (click)='getSearchedCityAqi()' [disabled]="!location">
+    Get City AQI
+  </button>
 </form>
 
-
-<div>
-    google places location test
-    <div *ngIf='location'>
-      {{location.vicinity}}
-    </div>
+<!-- Error message -->
+<div *ngIf='error'>
+  <p>Error: {{ error }}</p>
 </div>
 
+<!-- Display when no city has been searched -->
+<mat-card *ngIf='!city'>
+  <h2>Search for a city to see the air quality index.</h2>
+</mat-card>
 
-<mat-card>
+<!-- Display when request for AQI and city have been made and show the results -->
+<mat-card *ngIf='city'>
   <mat-grid-list cols="2" rowHeight="4:1">
     <mat-grid-tile>
       <mat-card-title>City:</mat-card-title>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card-content>
-        <div *ngIf='city; else loading'>
+        <div *ngIf='city'>
           {{city}} 
         </div>
-        <ng-template #loading>
+        <div *ngIf='loading'>
           <mat-spinner></mat-spinner>
-        </ng-template>
+        </div>
       </mat-card-content>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -37,16 +39,14 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card-content>
-        <div *ngIf='aqi; else loading'>
+        <div *ngIf='aqi'>
           {{aqi}}
         </div>
-        <ng-template #loading>
+        <div *ngIf='loading'>
           <mat-spinner></mat-spinner>
-        </ng-template>
+        </div>
       </mat-card-content>
     </mat-grid-tile>
   </mat-grid-list>
 </mat-card>
-<div *ngIf='error'>
-  <p>Error: {{ error }}</p>
-</div>
+
