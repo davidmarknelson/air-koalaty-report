@@ -47,7 +47,7 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.href = environment.afterCallbackUri;
         this.localLogin(authResult);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/list']);
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);

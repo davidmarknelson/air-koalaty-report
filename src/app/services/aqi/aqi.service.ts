@@ -1,7 +1,9 @@
 import { Injectable, EventEmitter, Output} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { City } from './city';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class AqiService {
   @Output() data: EventEmitter<object>;
   @Output() error: EventEmitter<string>;
 
-  aqiUrlCoords = environment.apiUri + 'waqi/';
+  aqiUrlCoords = environment.apiUri + 'waqi/geo/';
   aqiUrlCity = environment.apiUri + 'waqi/city/';
   latitude: string;
   longitude: string;
@@ -25,10 +27,10 @@ export class AqiService {
       this.latitude = pos.coords.latitude.toString();
       this.longitude = pos.coords.longitude.toString();
       this.getCurrentLocationAQI().subscribe(res => {
-        this.data.emit(JSON.parse(res));
+        this.data.emit(res);
       });
     }, (err) => {
-      this.error.emit(JSON.parse(err));
+      this.error.emit(err);
     });
   }
 
@@ -36,14 +38,28 @@ export class AqiService {
     return this.http.get<any>(this.aqiUrlCoords, { params: {
       lat: this.latitude,
       long: this.longitude
-    }});
+    }}).pipe(
+      map(res => {
+        return JSON.parse(res);
+      })
+    );
   }
 
+  // works!!!!
   getCityAQI(city): Observable<any> {
     return this.http.get<any>(this.aqiUrlCity, { params: {
       city: city
-    }});
+    }}).pipe(
+      map(res => {
+        return JSON.parse(res);
+      })
+    );
   }
+
+  // doesn't work with interface
+  // getCityAQI(city): Observable<City> {
+  //   return this.http.get<City>(this.aqiUrlCity, { params: { city: city }});
+  // }
 
   getLocation(): Observable<any> {
     return Observable.create(observer => {

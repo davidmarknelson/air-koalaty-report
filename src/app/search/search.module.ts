@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
+import { MatButtonModule } from '@angular/material/button';
+
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [SearchComponent],
   imports: [
@@ -12,7 +16,10 @@ import { SearchComponent } from './search.component';
     SearchRoutingModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule
   ]
 })
 export class SearchModule { }

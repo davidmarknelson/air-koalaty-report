@@ -1,3 +1,8 @@
+<mat-form-field>
+  <input matInput placeholder="Search for a City" #searchedCity type="text">
+</mat-form-field>
+<button mat-stroked-button (click)='search()'>Search</button>
+
 <mat-card>
   <mat-grid-list cols="2" rowHeight="4:1">
     <mat-grid-tile>
@@ -29,5 +34,5 @@
   </mat-grid-list>
 </mat-card>
 <div *ngIf='error'>
-    <p>Error: {{ error }}</p>
-  </div>
+  <p>Error: {{ error }}</p>
+</div>
