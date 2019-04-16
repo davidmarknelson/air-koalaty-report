@@ -1,7 +1,21 @@
-<mat-form-field>
-  <input matInput placeholder="Search for a City" #searchedCity type="text">
-</mat-form-field>
-<button mat-stroked-button (click)='search()'>Search</button>
+
+<form [formGroup]="searchForm" novalidate>
+  <div>
+    <mat-form-field>
+      <input matInput #testGooglePlaces autocorrect="off" formControlName="location" placeholder="Search for a City">
+    </mat-form-field>
+    <button mat-stroked-button (click)='search()'>Get City AQI</button>
+  </div>
+</form>
+
+
+<div>
+    google places location test
+    <div *ngIf='location'>
+      {{location.vicinity}}
+    </div>
+</div>
+
 
 <mat-card>
   <mat-grid-list cols="2" rowHeight="4:1">
@@ -11,7 +25,7 @@
     <mat-grid-tile>
       <mat-card-content>
         <div *ngIf='city; else loading'>
-          {{city.data.city.name}}
+          {{city}} 
         </div>
         <ng-template #loading>
           <mat-spinner></mat-spinner>
@@ -23,8 +37,8 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card-content>
-        <div *ngIf='city; else loading'>
-          {{city.data.aqi}}
+        <div *ngIf='aqi; else loading'>
+          {{aqi}}
         </div>
         <ng-template #loading>
           <mat-spinner></mat-spinner>

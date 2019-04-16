@@ -8,7 +8,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { MatButtonModule } from '@angular/material/button';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [SearchComponent],
   imports: [
@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     MatGridListModule,
     MatInputModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class SearchModule { }

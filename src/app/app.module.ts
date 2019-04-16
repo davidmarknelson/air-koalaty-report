@@ -15,10 +15,9 @@ import { MatMenuModule } from '@angular/material/menu';
 // Components
 import { LandingComponent } from './landing/landing.component';
 
-
-// export function tokenGetter() {
-//   return localStorage.getItem('access_token');
-// }
+// Google Places
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,11 @@ import { LandingComponent } from './landing/landing.component';
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMaps,
+      libraries: ['places']
+    })
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

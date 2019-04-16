@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Output} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { City } from './city';
 
@@ -54,6 +54,10 @@ export class AqiService {
         return JSON.parse(res);
       })
     );
+  }
+
+  autocompleteTest() {
+    return this.http.get<any>('http://autocomplete.travelpayouts.com/places2?term=Mos&locale=en&types[]=country')
   }
 
   // doesn't work with interface
