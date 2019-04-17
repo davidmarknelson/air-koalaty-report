@@ -19,3 +19,7 @@ mat-form-field {
 button {
   margin: 10px;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

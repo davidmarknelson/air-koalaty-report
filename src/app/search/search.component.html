@@ -1,9 +1,9 @@
 <!-- Search for a city -->
 <form [formGroup]="searchForm" novalidate>
   <mat-form-field>
-    <input matInput #citySearch autocorrect="off" formControlName="location" placeholder="Search for a City">
+    <input matInput #citySearch autocorrect="off" id='searchInput' formControlName="location" placeholder="Search for a City">
   </mat-form-field>
-  <button mat-stroked-button color='primary' (click)='getSearchedCityAqi()' [disabled]="!location">
+  <button mat-stroked-button color='accent' (click)='getSearchedCityAqi()' [disabled]="!location">
     Get City AQI
   </button>
 </form>
@@ -13,14 +13,12 @@
   <p>Error: {{ error }}</p>
 </div>
 
-<!-- Display when no city has been searched -->
-<mat-card *ngIf='!city'>
-  <h2>Search for a city to see the air quality index.</h2>
-</mat-card>
+<mat-card >
+  <!-- Display when no city has been searched -->
+  <h2 *ngIf='!city'>Search for a city to see the air quality index.</h2>
 
-<!-- Display when request for AQI and city have been made and show the results -->
-<mat-card *ngIf='city'>
-  <mat-grid-list cols="2" rowHeight="4:1">
+  <!-- Display when request for AQI and city have been made and show the results -->
+  <mat-grid-list cols="2" rowHeight="4:1" *ngIf='city'>
     <mat-grid-tile>
       <mat-card-title>City:</mat-card-title>
     </mat-grid-tile>
@@ -28,9 +26,6 @@
       <mat-card-content>
         <div *ngIf='city'>
           {{city}} 
-        </div>
-        <div *ngIf='loading'>
-          <mat-spinner></mat-spinner>
         </div>
       </mat-card-content>
     </mat-grid-tile>

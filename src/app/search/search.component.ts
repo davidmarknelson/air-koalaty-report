@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
@@ -10,7 +10,7 @@ declare var google: any;
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('citySearch') citySearch: ElementRef;
   searchForm: FormGroup;
   location: any;
@@ -18,7 +18,6 @@ export class SearchComponent implements OnInit {
   city: string;
   error: string;
   loading: boolean;
-
 
   constructor(
     private aqiService: AqiService, 
@@ -30,11 +29,10 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.loading = false;
     this.createForm();
-
-    // to test aqi service with out calling Google maps places
-    // this.aqiService.getCityAQI('Hanoi').subscribe(res => {this.aqi = res.data.aqi;
-    //   this.city = 'Hanoi';
-    // });
+    this.searchForm.valueChanges.subscribe(res => {
+      this.location = res.location;
+      console.log('form',this.location);
+    });
 
     this.gmaps.load().then(() => {
       const autocomplete =
@@ -43,21 +41,37 @@ export class SearchComponent implements OnInit {
       });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          this.location = autocomplete.getPlace();
-          console.log(autocomplete.getPlace());
+          this.location = autocomplete.getPlace().name;
         });
       });
     });
   }
 
+  ngAfterViewInit() {
+    let input = document.getElementById('searchInput');
+    let enterPressed = false;
+
+    input.addEventListener('keypress', (e) => {
+      if (e.keyCode === 13 && !enterPressed) { 
+          e.preventDefault();
+          e.stopPropagation();
+          enterPressed = !enterPressed;
+      } else if (e.keyCode === 13 && enterPressed) {
+        enterPressed = !enterPressed;
+      }
+    });
+  }
+
   getSearchedCityAqi() {
     this.loading = true;
-    let cityName = this.location.vicinity;
+    let cityName = this.location;
+    console.log('cityName', cityName);
     this.city = cityName;
     return this.aqiService.getCityAQI(cityName).subscribe(res => {
       this.aqi = res.data.aqi;
       this.loading = false;
-      this.citySearch.nativeElement.value = '';
+      this.searchForm.reset();
+      this.location = '';
     });
   }
 
