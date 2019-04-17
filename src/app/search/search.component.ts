@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
@@ -10,7 +10,7 @@ declare var google: any;
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('citySearch') citySearch: ElementRef;
   searchForm: FormGroup;
   location: any;
@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   city: string;
   error: string;
   loading: boolean;
+  enterPressed: boolean;
 
   constructor(
     private aqiService: AqiService, 
@@ -31,7 +32,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.createForm();
     this.searchForm.valueChanges.subscribe(res => {
       this.location = res.location;
-      console.log('form',this.location);
     });
 
     this.gmaps.load().then(() => {
@@ -45,21 +45,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
         });
       });
     });
+
+    this.enterPressed = false;
+    this.citySearch.nativeElement.addEventListener('keypress', this.toggleEnterToSubmit);
   }
 
-  ngAfterViewInit() {
-    let input = document.getElementById('searchInput');
-    let enterPressed = false;
-
-    input.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13 && !enterPressed) { 
-          e.preventDefault();
-          e.stopPropagation();
-          enterPressed = !enterPressed;
-      } else if (e.keyCode === 13 && enterPressed) {
-        enterPressed = !enterPressed;
-      }
-    });
+  ngOnDestroy() {
   }
 
   getSearchedCityAqi() {
@@ -73,6 +64,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
       this.searchForm.reset();
       this.location = '';
     });
+  }
+
+  toggleEnterToSubmit(e) {
+    if (e.keyCode === 13 && !this.enterPressed) { 
+      e.preventDefault();
+      e.stopPropagation();
+      this.enterPressed = !this.enterPressed;
+    } else if (e.keyCode === 13 && this.enterPressed) {
+      this.enterPressed = !this.enterPressed;
+    } 
   }
 
   createForm() {
