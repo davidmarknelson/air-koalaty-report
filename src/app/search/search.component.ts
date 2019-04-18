@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@an
 import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
+import { Subscription } from 'rxjs';
 declare var google: any;
 
 @Component({
@@ -18,7 +19,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   error: string;
   loading: boolean;
   enterPressed: boolean;
-  inputSub;
+  inputSub: Subscription;
 
   constructor(
     private aqiService: AqiService, 
@@ -62,17 +63,16 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.searchForm.reset();
       this.location = '';
+      this.enterPressed = false;
     });
   }
 
   toggleEnterToSubmit(event) {
-    if (!this.enterPressed) { 
+    if (!this.enterPressed && this.location) { 
       event.preventDefault();
       event.stopPropagation();
-      this.enterPressed = !this.enterPressed;
-    } else if (this.enterPressed) {
-      this.enterPressed = !this.enterPressed;
-    } 
+      this.enterPressed = true;
+    }
   }
 
   createForm() {

@@ -36,6 +36,7 @@ module.exports = function(app, config) {
 
   // GET API root
   app.get('/api', (req, res) => {
+    // promise.then(req => res.send('API works')).catch(res.send('error!!!'));
     res.send('API works');
   });
 
@@ -58,4 +59,9 @@ module.exports = function(app, config) {
       res.status(200).json(body);
     });
   });
+
+  // let promise = new Promise((resolve, reject) => {
+  //   let data;
+  //   data ? resolve(data) : reject();
+  // });
 };

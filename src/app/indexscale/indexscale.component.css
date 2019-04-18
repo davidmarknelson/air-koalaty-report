@@ -1,0 +1,32 @@
+.my-headers-align .mat-expansion-panel-header-title, 
+.my-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+mat-panel-description, mat-panel-title {
+  color: black;
+}
+
+.index-1 {
+  background: rgba(168, 224, 95, 0.65);
+}
+
+.index-2 {
+  background-color: rgba(253, 215, 75, 0.65);
+}
+
+.index-3 {
+  background-color: rgba(254, 155, 87, 0.65);
+}
+
+.index-4 {
+  background-color: rgba(254, 106, 105, 0.65);
+}
+
+.index-5 {
+  background-color: rgba(169, 122, 188, 0.65);
+}
+
+.index-6 {
+  background-color: rgba(168, 115, 131, 0.65);
+}

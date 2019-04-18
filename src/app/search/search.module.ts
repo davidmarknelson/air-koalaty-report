@@ -7,10 +7,14 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { MatButtonModule } from '@angular/material/button';
+import { IndexscaleComponent } from '../indexscale/indexscale.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [SearchComponent],
+    declarations: [SearchComponent, IndexscaleComponent],
   imports: [
     CommonModule,
     SearchRoutingModule,
@@ -20,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule
   ]
 })
 export class SearchModule { }
