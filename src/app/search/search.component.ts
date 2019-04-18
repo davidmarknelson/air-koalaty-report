@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 declare var google: any;
 
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -19,18 +18,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   error: string;
   loading: boolean;
   enterPressed: boolean;
+  inputSub;
 
   constructor(
     private aqiService: AqiService, 
     private ngZone: NgZone, 
     private gmaps: MapsAPILoader, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
+    this.enterPressed = false;
     this.loading = false;
     this.createForm();
-    this.searchForm.valueChanges.subscribe(res => {
+    this.inputSub = this.searchForm.valueChanges.subscribe(res => {
       this.location = res.location;
     });
 
@@ -45,18 +46,16 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
       });
     });
-
-    this.enterPressed = false;
-    this.citySearch.nativeElement.addEventListener('keypress', this.toggleEnterToSubmit);
   }
 
   ngOnDestroy() {
+    this.inputSub.unsubscribe();
   }
 
   getSearchedCityAqi() {
     this.loading = true;
+    this.aqi = null;
     let cityName = this.location;
-    console.log('cityName', cityName);
     this.city = cityName;
     return this.aqiService.getCityAQI(cityName).subscribe(res => {
       this.aqi = res.data.aqi;
@@ -66,12 +65,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleEnterToSubmit(e) {
-    if (e.keyCode === 13 && !this.enterPressed) { 
-      e.preventDefault();
-      e.stopPropagation();
+  toggleEnterToSubmit(event) {
+    if (!this.enterPressed) { 
+      event.preventDefault();
+      event.stopPropagation();
       this.enterPressed = !this.enterPressed;
-    } else if (e.keyCode === 13 && this.enterPressed) {
+    } else if (this.enterPressed) {
       this.enterPressed = !this.enterPressed;
     } 
   }

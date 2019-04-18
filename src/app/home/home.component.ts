@@ -21,3 +21,9 @@ export class HomeComponent implements OnInit {
     this.aqiService.getCurrentCoordinatesAqi();
   }
 }
+
+// testing lat & long
+// lat
+// 21.0217217
+// long
+// 105.8188748

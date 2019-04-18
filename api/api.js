@@ -35,7 +35,7 @@ module.exports = function(app, config) {
 */
 
   // GET API root
-  app.get('/api/', (req, res) => {
+  app.get('/api', (req, res) => {
     res.send('API works');
   });
 
@@ -58,5 +58,4 @@ module.exports = function(app, config) {
       res.status(200).json(body);
     });
   });
-
 };
