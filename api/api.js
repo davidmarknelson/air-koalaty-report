@@ -36,32 +36,31 @@ module.exports = function(app, config) {
 
   // GET API root
   app.get('/api', (req, res) => {
-    // promise.then(req => res.send('API works')).catch(res.send('error!!!'));
     res.send('API works');
   });
 
   // Air Quality Routes
-  app.get('/api/waqi/geo', (req, res) => {
+  app.get('/api/airvisual/geo', (req, res) => {
     let lat = req.query.lat;
     let long = req.query.long;
-    let url = `https://api.waqi.info/feed/geo:${lat};${long}/?token=${process.env.WAQI_API_KEY}`;
-
+    let url = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${long}&key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
+      if (error) {
+        console.log(error);
+      }
       res.status(200).json(body);
     });
   });
 
-  app.get('/api/waqi/city', (req, res) => {
+  app.get('/api/airvisual/city', (req, res) => {
     let city = req.query.city;
-    let url = `https://api.waqi.info/feed/${city}/?token=${process.env.WAQI_API_KEY}`;
-
+    let state = req.query.state;
+    let country;
+    (req.query.country === 'United States') ? country = 'USA' : country = req.query.country;
+    let url = `https://api.airvisual.com/v2/city?city=${city}&state=${state}&country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
+    console.log(url);
     request(url, function(error, response, body) {
       res.status(200).json(body);
     });
   });
-
-  // let promise = new Promise((resolve, reject) => {
-  //   let data;
-  //   data ? resolve(data) : reject();
-  // });
 };

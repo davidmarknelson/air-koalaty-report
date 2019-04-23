@@ -12,8 +12,8 @@ export class AqiService {
   @Output() aqiData: EventEmitter<object>;
   @Output() aqiError: EventEmitter<string>;
   // Variables for this service
-  aqiUrlCoords = environment.apiUri + 'waqi/geo/';
-  aqiUrlCity = environment.apiUri + 'waqi/city/';
+  aqiUrlCoords = environment.apiUri + 'airvisual/geo/';
+  aqiUrlCity = environment.apiUri + 'airvisual/city/';
   latitude: string;
   longitude: string;
 
@@ -45,9 +45,11 @@ export class AqiService {
     );
   }
 
-  getCityAQI(city): Observable<any> {
+  getCityAQI(city, state, country): Observable<any> {
     return this.http.get<any>(this.aqiUrlCity, { params: {
-      city: city
+      city: city,
+      state: state,
+      country: country
     }}).pipe(
       map(res => {
         return JSON.parse(res);

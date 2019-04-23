@@ -15,11 +15,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   location: any;
   aqi: number;
-  city: string;
   error: string;
   loading: boolean;
   enterPressed: boolean;
   inputSub: Subscription;
+  city: string;
+  state: string;
+  country: string;
+  autocomplete: any;
 
   constructor(
     private aqiService: AqiService, 
@@ -43,7 +46,12 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          this.location = autocomplete.getPlace().name;
+          this.autocomplete = autocomplete.getPlace();
+          console.log(this.autocomplete);
+          this.city = this.autocomplete.address_components['0'].long_name;
+          this.state = this.autocomplete.address_components['2'].long_name;      
+          this.country = this.autocomplete.address_components['3'].long_name;
+          console.log(this.city);
         });
       });
     });
@@ -56,19 +64,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   getSearchedCityAqi() {
     this.loading = true;
     this.aqi = null;
-    let cityName = this.location;
-    this.city = cityName;
-    return this.aqiService.getCityAQI(cityName).subscribe(res => {
-      this.aqi = res.data.aqi;
+    return this.aqiService.getCityAQI(this.city, this.state, this.country).subscribe(res => {
+      this.aqi = res;
       this.loading = false;
       this.searchForm.reset();
-      this.location = '';
+      this.autocomplete = null;
       this.enterPressed = false;
     });
   }
 
   toggleEnterToSubmit(event) {
-    if (!this.enterPressed && this.location) { 
+    if (!this.enterPressed && this.autocomplete) { 
+      console.log('in if');
       event.preventDefault();
       event.stopPropagation();
       this.enterPressed = true;
