@@ -6,6 +6,12 @@
     <hr>
     <mat-card-title>AQI:</mat-card-title>
     <mat-card-content>{{aqi.data.current.pollution.aqius}}</mat-card-content>
+    <hr>
+    <mat-card-title>Temperature:</mat-card-title>
+    <mat-card-content>{{aqi.data.current.weather.tp}}</mat-card-content>
+    <hr>
+    <mat-card-title>Humidity:</mat-card-title>
+    <mat-card-content>{{aqi.data.current.weather.hu}}</mat-card-content>
   </div>
   <ng-template #loading>
     <mat-spinner></mat-spinner>

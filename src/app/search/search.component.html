@@ -45,6 +45,32 @@
         </div>
       </mat-card-content>
     </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-title>Temperature:</mat-card-title>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-content>
+        <div *ngIf='aqi'>
+          {{aqi.data.current.weather.tp}}
+        </div>
+        <div *ngIf='loading'>
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-title>Humidity:</mat-card-title>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card-content>
+        <div *ngIf='aqi'>
+          {{aqi.data.current.weather.hu}}%
+        </div>
+        <div *ngIf='loading'>
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+    </mat-grid-tile>
   </mat-grid-list>
 </mat-card>
 

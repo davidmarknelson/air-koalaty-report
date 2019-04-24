@@ -4,24 +4,26 @@ import * as auth0 from 'auth0-js';
 import { environment } from '../../../environments/environment';
 import { Subscription, of, timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  // private observer: Observer<string>;
   private _idToken: string;
   private _accessToken: string;
   private _expiresAt: number;
   // Subscribe to token expiration stream
   refreshSub: Subscription;
+  userProfile: any;
 
   auth0 = new auth0.WebAuth({
     clientID: environment.clientID,
     domain: environment.domain,
     responseType: 'token id_token',
     redirectUri: environment.redirectUri,
-    scope: 'openid profile'
+    scope: 'openid profile edit:cities'
   });
 
   constructor(public router: Router) {
@@ -52,6 +54,7 @@ export class AuthService {
         this.router.navigate(['/']);
         console.log(err);
       }
+      // this.getProfile(err);
     });
   }
 
@@ -142,5 +145,34 @@ export class AuthService {
       this.refreshSub.unsubscribe();
     }
   }
+
+  // from Auth0 guide
+  // public getProfile(cb): void {
+  //   if (!this._accessToken) {
+  //     throw new Error('Access Token must exist to fetch profile');
+  //   }
+  
+  //   const self = this;
+  //   this.auth0.client.userInfo(this._accessToken, (err, profile) => {
+  //     if (profile) {
+  //       self.userProfile = profile;
+  //     }
+  //     cb(err, profile);
+  //   });
+  // }
+
+  // from github issues
+  // public getProfile(): void {
+  //   // const accessToken = localStorage.getItem('access_token');
+  //   if (!this._accessToken) {
+  //     throw new Error('Access token must exist to fetch profile');
+  //   }
+  //   const self = this;
+  //   this.auth0.client.userInfo(this._accessToken, (err, profile) => {
+  //   if (profile) {
+  //       this.observer.next(profile.picture);
+  //     }
+  //   });
+  // }
 
 }
