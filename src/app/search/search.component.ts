@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@an
 import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
-import { Subscription } from 'rxjs';
 declare var google: any;
 
 @Component({
@@ -10,15 +9,14 @@ declare var google: any;
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit {
   @ViewChild('citySearch') citySearch: ElementRef;
   searchForm: FormGroup;
-  location: any;
   aqi: number;
-  error: string;
+  errorMessage: string;
   loading: boolean;
-  enterPressed: boolean;
-  inputSub: Subscription;
+  firstSearchInitiated: boolean;
+  searchComplete: boolean;
   city: string;
   state: string;
   country: string;
@@ -32,12 +30,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.enterPressed = false;
+    this.firstSearchInitiated = false;
     this.loading = false;
+    this.searchComplete = false;
     this.createForm();
-    this.inputSub = this.searchForm.valueChanges.subscribe(res => {
-      this.location = res.location;
-    });
 
     this.gmaps.load().then(() => {
       const autocomplete =
@@ -47,38 +43,37 @@ export class SearchComponent implements OnInit, OnDestroy {
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           this.autocomplete = autocomplete.getPlace();
-          console.log(this.autocomplete);
-          this.city = this.autocomplete.address_components['0'].long_name;
-          this.state = this.autocomplete.address_components['2'].long_name;      
-          this.country = this.autocomplete.address_components['3'].long_name;
-          console.log(this.city);
+          // If a user has selected an option from the Google autocomplete suggestions, address_components
+          // will be true. If the user has typed the city and not selected a suggestion, autocomplete will
+          // only have { name: typedName } and address_components will be false. Info from address_components 
+          // is needed for the api to get data.
+          this.parseAutocompleteData(this.autocomplete.address_components);
         });
       });
     });
   }
 
-  ngOnDestroy() {
-    this.inputSub.unsubscribe();
-  }
 
   getSearchedCityAqi() {
+    this.firstSearchInitiated = true;
     this.loading = true;
     this.aqi = null;
-    return this.aqiService.getCityAQI(this.city, this.state, this.country).subscribe(res => {
-      this.aqi = res;
-      this.loading = false;
-      this.searchForm.reset();
-      this.autocomplete = null;
-      this.enterPressed = false;
-    });
+    if (this.searchComplete) {
+      return this.aqiService.getCityAQI(this.city, this.state, this.country)
+      .subscribe(res => {
+        this.aqi = res;
+        this.loading = false;
+        this.resetSearch();
+      });
+    } else {
+      return this.errorMessage = 'Select city from the autocomplete suggestions';
+    }
   }
 
   toggleEnterToSubmit(event) {
-    if (!this.enterPressed && this.autocomplete) { 
-      console.log('in if');
+    if (!this.searchComplete) {
       event.preventDefault();
       event.stopPropagation();
-      this.enterPressed = true;
     }
   }
 
@@ -87,4 +82,25 @@ export class SearchComponent implements OnInit, OnDestroy {
       location: ['']
     });
   }
+
+  resetSearch() {
+    this.searchComplete = false;
+    this.city = '';
+    this.state = '';
+    this.country = '';
+    this.autocomplete = null;
+    this.searchForm.reset();
+  }
+
+  parseAutocompleteData(address) {
+    if (address) {
+      this.searchComplete = true;
+      this.city = address['0'].long_name;
+      this.state = address['2'].long_name;      
+      this.country = address['3'].long_name;
+    } else {
+      this.searchComplete = false;
+    }
+  }
 }
+
