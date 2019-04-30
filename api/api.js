@@ -5,7 +5,10 @@
 */
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
-const router = require('./routes/routes');
+const express = require('express');
+const air = require('./controllers/air');
+const users = require('./controllers/users');
+const middleware = require('./middleware/middleware');
 
 /*
  |--------------------------------------
@@ -33,5 +36,19 @@ module.exports = function(app, config) {
  |--------------------------------------
 */
 
-  app.use(router);
+  // GET API root
+  app.get('/api', air.get);
+
+  // Air Quality Routes
+  app.get('/api/airvisual/geo', air.geo);
+  app.get('/api/airvisual/city', air.city);
+
+  // Create new user
+  app.post('/api/newuser', jwtCheck, users.newuser);
+
+  // List of cities routes
+  app.get('/api/citylist');
+  app.post('/api/citylist/new');
+  app.put('api/citylist/update');
+  app.delete('api/citylist/remove');
 };

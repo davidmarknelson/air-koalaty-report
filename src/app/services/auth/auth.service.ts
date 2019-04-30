@@ -4,13 +4,11 @@ import * as auth0 from 'auth0-js';
 import { environment } from '../../../environments/environment';
 import { Subscription, of, timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // private observer: Observer<string>;
   private _idToken: string;
   private _accessToken: string;
   private _expiresAt: number;
@@ -23,7 +21,8 @@ export class AuthService {
     domain: environment.domain,
     responseType: 'token id_token',
     redirectUri: environment.redirectUri,
-    scope: 'openid profile edit:cities'
+    audience: environment.audience,
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) {
@@ -54,7 +53,6 @@ export class AuthService {
         this.router.navigate(['/']);
         console.log(err);
       }
-      // this.getProfile(err);
     });
   }
 
@@ -62,6 +60,7 @@ export class AuthService {
     // Set the time that the access token will expire at
     const expiresAt = (authResult.expiresIn * 1000) + Date.now();
     this._accessToken = authResult.accessToken;
+    localStorage.setItem('accessToken', this._accessToken);
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
     localStorage.setItem('expires_at', JSON.stringify(this._expiresAt));
@@ -88,6 +87,7 @@ export class AuthService {
   public logout(): void {
     // Remove tokens and expiry time
     this._accessToken = '';
+    localStorage.removeItem('accessToken');
     this._idToken = '';
     this._expiresAt = 0;
     this._clearExpiration();
@@ -102,9 +102,9 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    // return this._accessToken && Date.now() < this._expiresAt; (this is a previous line)
     let expiration = JSON.parse(localStorage.getItem('expires_at'));
-    if (Date.now() < expiration) {
+    let access = localStorage.getItem('accessToken');
+    if (Date.now() < expiration && access) {
       return true;
     } else {
       return false;
@@ -146,33 +146,19 @@ export class AuthService {
     }
   }
 
-  // from Auth0 guide
-  // public getProfile(cb): void {
-  //   if (!this._accessToken) {
-  //     throw new Error('Access Token must exist to fetch profile');
-  //   }
+  public getProfile(cb): void {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      throw new Error('Access Token must exist to fetch profile');
+    }
   
-  //   const self = this;
-  //   this.auth0.client.userInfo(this._accessToken, (err, profile) => {
-  //     if (profile) {
-  //       self.userProfile = profile;
-  //     }
-  //     cb(err, profile);
-  //   });
-  // }
-
-  // from github issues
-  // public getProfile(): void {
-  //   // const accessToken = localStorage.getItem('access_token');
-  //   if (!this._accessToken) {
-  //     throw new Error('Access token must exist to fetch profile');
-  //   }
-  //   const self = this;
-  //   this.auth0.client.userInfo(this._accessToken, (err, profile) => {
-  //   if (profile) {
-  //       this.observer.next(profile.picture);
-  //     }
-  //   });
-  // }
+    const self = this;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        self.userProfile = profile;
+      }
+      cb(err, profile);
+    });
+  }
 
 }

@@ -7,22 +7,22 @@ import { AuthService } from '../services/auth/auth.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  // id: any;
+  id: any;
 
   constructor(
-    // public auth: AuthService
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
-    // if (this.auth.userProfile) {
-    //   this.id = this.auth.userProfile;
-    //   console.log(this.id);
-    // } else {
-    //   this.auth.getProfile((err, profile) => {
-    //     this.id = profile;
-    //     console.log(profile);
-    //   });
-    // }
+    if (this.auth.userProfile) {
+      this.id = this.auth.userProfile;
+      console.log(this.id);
+    } else {
+      this.auth.getProfile((err, profile) => {
+        this.id = profile;
+        console.log(profile);
+      });
+    }
   }
 
 }
