@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-list',
@@ -8,19 +9,25 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class ListComponent implements OnInit {
   id: any;
+  test: any;
+  cities: any;
 
-  constructor(
-    public auth: AuthService
-  ) { }
+  constructor(public auth: AuthService, private user: UserService) { }
 
   ngOnInit() {
+    // if statement never fires. WHY?
     if (this.auth.userProfile) {
       this.id = this.auth.userProfile;
-      console.log(this.id);
+      console.log('use rprofile',this.id);
     } else {
       this.auth.getProfile((err, profile) => {
-        this.id = profile;
-        console.log(profile);
+        this.id = profile.sub;
+        this.user.getCityList(this.id).subscribe(res => {
+          this.test = res;
+          this.cities = res.cities;
+          console.log(this.test);
+        });
+        console.log('get profile', profile);
       });
     }
   }

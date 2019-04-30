@@ -2,4 +2,14 @@
   list works!
 </p>
 
-<!-- <p>{{id.sub}}</p> -->
+<p>{{id}}</p>
+
+<div *ngIf='test'>
+  <p>{{test.userId}}</p>
+</div>
+
+<div *ngIf='cities'>
+  <div *ngFor='let city of cities'>
+    <p>{{city.city}}, {{city.state}}, {{city.country}}</p>
+  </div>
+</div>

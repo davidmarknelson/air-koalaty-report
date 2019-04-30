@@ -43,11 +43,8 @@ module.exports = function(app, config) {
   app.get('/api/airvisual/geo', air.geo);
   app.get('/api/airvisual/city', air.city);
 
-  // Create new user
-  app.post('/api/newuser', jwtCheck, users.newuser);
-
   // List of cities routes
-  app.get('/api/citylist');
+  app.get('/api/citylist', jwtCheck, middleware.userObj, users.getCityList);
   app.post('/api/citylist/new');
   app.put('api/citylist/update');
   app.delete('api/citylist/remove');

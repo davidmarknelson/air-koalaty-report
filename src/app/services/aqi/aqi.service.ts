@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, pipe } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Aqi } from './aqi';
 
 @Injectable({
   providedIn: 'root'

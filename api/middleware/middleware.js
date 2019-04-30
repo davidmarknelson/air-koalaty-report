@@ -1,29 +1,33 @@
 const middleware = {
-  newuserObj: {
-    userId: 2,
-    cities: {
-      cityA: {
-        city: null,
-        state: null,
-        Country: null
-      },
-      cityB: {
-        city: null,
-        state: null,
-        Country: null
-      },
-      cityC: {
-        city: null,
-        state: null,
-        Country: null
-      },
-      cityD: {
-        city: null,
-        state: null,
-        Country: null
-      }
-    }
-  } 
+  userObj: (req, res, next) => {
+    let userId = req.query.userId;
+    res.locals.user = {
+      userId: userId,
+      cities: [
+        // {
+        //   city: null,
+        //   state: null,
+        //   country: null
+        // },
+        // {
+        //   city: null,
+        //   state: null,
+        //   country: null
+        // }
+        {
+          city: 'Hanoi',
+          state: 'Hanoi',
+          country: "Vietnam"
+        },
+        {
+          city: "Huntsville",
+          state: "Alabama",
+          country: "USA"
+        }
+      ]
+    },
+    next();
+  }
 }
 
 module.exports = middleware;
