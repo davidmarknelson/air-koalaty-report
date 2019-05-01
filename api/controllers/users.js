@@ -7,17 +7,18 @@ const users = {
     let userId = req.query.userId;
     User.findOne({ userId: userId}, (err, citylist) => {
       if (err) {
-        return console.log(err);
+        console.log(err);
       }
-      // if (citylist === null) {
-      //   User.create(res.locals.user, (err, newUser) => {
-      //     if (err) {
-      //       console.log(err);
-      //     }
-      //     res.status(200).json(newUser);
-      //   });
-      // }
-      res.status(200).json(citylist);
+      if (citylist === null) {
+        User.create(res.locals.user, (err, newUser) => {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).json(newUser);
+        });
+      } else {
+        res.status(200).json(citylist);
+      }
     });
   }
 }

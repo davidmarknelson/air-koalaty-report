@@ -14,7 +14,6 @@ export class AuthService {
   private _expiresAt: number;
   // Subscribe to token expiration stream
   refreshSub: Subscription;
-  userProfile: any;
 
   auth0 = new auth0.WebAuth({
     clientID: environment.clientID,
@@ -152,11 +151,7 @@ export class AuthService {
       throw new Error('Access Token must exist to fetch profile');
     }
   
-    const self = this;
     this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if (profile) {
-        self.userProfile = profile;
-      }
       cb(err, profile);
     });
   }

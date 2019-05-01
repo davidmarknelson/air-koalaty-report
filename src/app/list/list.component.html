@@ -8,8 +8,16 @@
   <p>{{test.userId}}</p>
 </div>
 
-<div *ngIf='cities'>
-  <div *ngFor='let city of cities'>
+<div *ngIf='test'>
+  <div *ngFor='let city of test.cities'>
     <p>{{city.city}}, {{city.state}}, {{city.country}}</p>
   </div>
+</div>
+
+<div *ngIf='aqiTest'>
+  <p>{{aqiTest.data.current.pollution.aqius}}</p>
+</div>
+
+<div *ngFor='let city of aqiCities'>
+  <p>{{city.data.city}}, {{city.data.country}}, temperature: {{city.data.current.weather.tp}}, aqi: {{city.data.current.pollution.aqius}}</p>
 </div>

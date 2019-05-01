@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
+import { AqiService } from '../services/aqi/aqi.service';
+import { resetComponentState } from '@angular/core/src/render3/state';
 
 @Component({
   selector: 'app-list',
@@ -9,27 +11,31 @@ import { UserService } from '../services/user/user.service';
 })
 export class ListComponent implements OnInit {
   id: any;
-  test: any;
-  cities: any;
+  aqiCities: Array<Object> = [];
 
-  constructor(public auth: AuthService, private user: UserService) { }
+  constructor(public auth: AuthService, private user: UserService, private aqiService: AqiService) { }
 
   ngOnInit() {
-    // if statement never fires. WHY?
-    if (this.auth.userProfile) {
-      this.id = this.auth.userProfile;
-      console.log('use rprofile',this.id);
-    } else {
-      this.auth.getProfile((err, profile) => {
-        this.id = profile.sub;
-        this.user.getCityList(this.id).subscribe(res => {
-          this.test = res;
-          this.cities = res.cities;
-          console.log(this.test);
-        });
-        console.log('get profile', profile);
-      });
+    this.auth.getProfile((err, profile) => {
+      this.id = profile.sub;
+      this.getAqiInfo(this.id);
+    });
+  }
+
+  getAqiInfo(id) {
+    this.user.getCityList(id).subscribe(res => {
+      let cities = res.cities;
+      this.loopCityArray(cities);
+    });
+  }
+
+  loopCityArray(cities) {
+    for (let city of cities) {
+      this.aqiService.getCityAQI(city.city, city.state, city.country).subscribe(
+        res => this.aqiCities.unshift(res)
+      );
     }
+    console.log(this.aqiCities);
   }
 
 }

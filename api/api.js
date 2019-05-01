@@ -5,7 +5,6 @@
 */
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
-const express = require('express');
 const air = require('./controllers/air');
 const users = require('./controllers/users');
 const middleware = require('./middleware/middleware');
