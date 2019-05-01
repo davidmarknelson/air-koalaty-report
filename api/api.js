@@ -6,7 +6,7 @@
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const air = require('./controllers/air');
-const users = require('./controllers/users');
+const cityList = require('./controllers/citylist');
 const middleware = require('./middleware/middleware');
 
 /*
@@ -43,8 +43,7 @@ module.exports = function(app, config) {
   app.get('/api/airvisual/city', air.city);
 
   // List of cities routes
-  app.get('/api/citylist', jwtCheck, middleware.userObj, users.getCityList);
-  app.post('/api/citylist/new');
-  app.put('api/citylist/update');
-  app.delete('api/citylist/remove');
+  app.get('/api/citylist', jwtCheck, middleware.userObj, cityList.getCityList);
+  app.put('/api/citylist/addcity', cityList.addCity);
+  app.put('api/citylist/removecity');
 };
