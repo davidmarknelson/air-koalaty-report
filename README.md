@@ -17,8 +17,8 @@ Create a `.env` file with the same fields as the `.env.default` file. `AUTH0_API
 ## Auth0 variables
 `clientID`, `domain`, `redirectUri`, `AUTH0_DOMAIN` are all variables from you can get from your free Auth0 account.
 
-## World Air Quality Index (waqi) variables
-You can get your free api key from `http://aqicn.org/api/`. `WAQI_URI` is the api uri. `WAQI_API_KEY` is your api key.
+## World Air Quality Index variables
+You can get your free api key from `https://www.airvisual.com/`. `AIRVISUAL_URI` is the api uri. `AIRVISUAL_API_KEY` is your api key.
 
 ## Build
 
