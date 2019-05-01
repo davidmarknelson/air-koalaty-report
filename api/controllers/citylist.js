@@ -34,7 +34,21 @@ const cityList = {
       }
       res.status(200).json(user);
     }); 
+  },
+  removeCity: (req, res) => {
+    let userId = req.query.userId;
+    let city = req.query.city;
+    let state = req.query.state;
+    let country;
+    (req.query.country === 'United States') ? country = 'USA' : country = req.query.country;
+    let cityObj = { city: city, state: state, country: country};
+    User.findOneAndUpdate({ userId: userId }, {$pull: {cities: cityObj}}, {new: true}, (err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).json(user);
+    }); 
   }
 }
 
-module.exports = users;
+module.exports = cityList;

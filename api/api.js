@@ -45,5 +45,5 @@ module.exports = function(app, config) {
   // List of cities routes
   app.get('/api/citylist', jwtCheck, middleware.userObj, cityList.getCityList);
   app.put('/api/citylist/addcity', cityList.addCity);
-  app.put('api/citylist/removecity');
+  app.put('/api/citylist/removecity', cityList.removeCity);
 };
