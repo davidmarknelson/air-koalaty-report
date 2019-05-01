@@ -9,8 +9,8 @@ import { environment } from '../../../environments/environment';
 })
 export class AqiService {
   // Variables for the home module
-  @Output() aqiData: EventEmitter<object>;
-  @Output() aqiError: EventEmitter<string>;
+  @Output() aqiData = new EventEmitter<object>();
+  @Output() aqiError = new EventEmitter<string>();
   // Variables for this service
   aqiUrlCoords = environment.apiUri + 'airvisual/geo/';
   aqiUrlCity = environment.apiUri + 'airvisual/city/';
@@ -18,10 +18,7 @@ export class AqiService {
   longitude: string;
   environment = environment;
 
-  constructor(private http: HttpClient) {
-    this.aqiData = new EventEmitter();
-    this.aqiError = new EventEmitter();
-  }
+  constructor(private http: HttpClient) {}
 
   getCurrentCoordinatesAqi() {
     this.getLocation().subscribe(pos => {

@@ -2,31 +2,3 @@ mat-card {
   width: 80%;
   margin: 30px auto;
 }
-
-form {
-  display: flex;
-  justify-content: center;
-  margin: 30px auto;
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-mat-form-field {
-  width: 80%;
-}
-
-button {
-  margin: 10px;
-}
-
-button:disabled {
-  cursor: not-allowed;
-}
-
-.indexscale {
-  
-}
-/* app-indexscale {
-  padding: 0 30px;
-} */
