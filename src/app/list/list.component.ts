@@ -11,6 +11,7 @@ import { AqiService } from '../services/aqi/aqi.service';
 export class ListComponent implements OnInit {
   id: any;
   aqiCities: Array<Object> = [];
+  canEdit: boolean;
 
   constructor(
     public auth: AuthService, 
@@ -19,6 +20,7 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.canEdit = false;
     this.auth.getProfile((err, profile) => {
       this.id = profile.sub;
       this.getAqiInfo(this.id);
@@ -54,6 +56,10 @@ export class ListComponent implements OnInit {
     this.user.deleteCity(cityObj).subscribe(() => {
       this.aqiCities = this.aqiCities.filter(x => x !== city);
     });
+  }
+
+  toggleEdit() {
+    this.canEdit = !this.canEdit;
   }
 
 }

@@ -18,8 +18,10 @@ export class AqiService {
     return this.http.get<any>(this.aqiUrlCoords, { params: {
       lat: lat,
       long: long
-    }}).pipe(
+    }})
+    .pipe(
       map(res => {
+        // console.log(typeof res );
         return JSON.parse(res);
       })
     );
