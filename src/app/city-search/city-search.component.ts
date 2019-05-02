@@ -10,14 +10,15 @@ declare var google: any;
   styleUrls: ['./city-search.component.css']
 })
 export class CitySearchComponent implements OnInit {
-  @ViewChild('citySearch') citySearch: ElementRef;
-  city: string;
-  state: string;
-  country: string;
+  @ViewChild('citySearch')
+  private citySearch: ElementRef;
   @Output() firstSearchInitiated = new EventEmitter<boolean>();
   @Output() loading = new EventEmitter<boolean>();
   @Output() aqi = new EventEmitter<object>();
   @Output() errorMessage = new EventEmitter<string>();
+  city: string;
+  state: string;
+  country: string;
   searchForm: FormGroup;
   autocomplete: any;
   searchComplete: boolean;
@@ -54,18 +55,17 @@ export class CitySearchComponent implements OnInit {
   }
 
   getSearchedCityAqi() {
-    this.firstSearchInitiated.emit(true);
-    this.loading.emit(true);
-    this.aqi.emit(null);
     if (this.searchComplete) {
-      return this.aqiService.getCityAQI(this.city, this.state, this.country)
-      .subscribe(res => {
+      this.firstSearchInitiated.emit(true);
+      this.loading.emit(true);
+      this.aqi.emit(null);
+      this.aqiService.getCityAqi(this.city, this.state, this.country).subscribe(res => {
         this.aqi.emit(res);
         this.loading.emit(false);
         this.resetSearch();
       });
     } else {
-      return this.errorMessage.emit('Select city from the autocomplete suggestions');
+      this.errorMessage.emit('Select city from the autocomplete suggestions');
     }
   }
 
@@ -85,12 +85,19 @@ export class CitySearchComponent implements OnInit {
     }
   }
 
+  // Some cities have county, city, state, country variables and
+  // some have only city, state, country. The else if takes care of that.
   parseAutocompleteData(address) {
-    if (address) {
+    if (address.length === 4) {
       this.searchComplete = true;
       this.city = address['0'].long_name;
       this.state = address['2'].long_name;
       this.country = address['3'].long_name;
+    } else if (address.length === 3) {
+      this.searchComplete = true;
+      this.city = address['0'].long_name;
+      this.state = address['1'].long_name;
+      this.country = address['2'].long_name;
     } else {
       this.searchComplete = false;
     }

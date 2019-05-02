@@ -18,6 +18,15 @@
   <p>{{aqiTest.data.current.pollution.aqius}}</p>
 </div>
 
-<div *ngFor='let city of aqiCities'>
-  <p>{{city.data.city}}, {{city.data.country}}, temperature: {{city.data.current.weather.tp}}, aqi: {{city.data.current.pollution.aqius}}</p>
+<div>
+  <div *ngFor='let city of aqiCities'>
+    <p>{{city.data.city}}, {{city.data.country}}, temperature: {{city.data.current.weather.tp}}, aqi: {{city.data.current.pollution.aqius}}</p>
+    <button mat-stroked-button color='accent' (click)='deleteCity(city)'>Delete City</button>
+  </div>
 </div>
+
+<a routerLink='addcity'>
+  <button mat-stroked-button color='primary'>
+    Get City AQI
+  </button>
+</a>

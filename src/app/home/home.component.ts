@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AqiService } from '../services/aqi/aqi.service';
+import { Aqi } from '../services/aqi/aqi';
 
 @Component({
   selector: 'app-home',
@@ -10,18 +11,21 @@ export class HomeComponent implements OnInit {
   aqi: any;
   errorMessage: string;
   
-  constructor(private aqiService: AqiService) {
-    this.aqiService.aqiData.subscribe(res => this.aqi = res);
-    this.aqiService.aqiError.subscribe(res => this.errorMessage = res);
-  }
+  constructor(private aqiService: AqiService) {}
 
   ngOnInit() {
-    this.aqiService.getCurrentCoordinatesAqi();
+    this.getCurrentCoordinatesAqi();
+  }
+
+  getCurrentCoordinatesAqi() {
+    this.aqiService.getLocation().subscribe(pos => {
+      let lat = pos.coords.latitude.toString();
+      let long = pos.coords.longitude.toString();
+      this.aqiService.getCurrentLocationAqi(lat, long).subscribe((res) => {
+        this.aqi = res;
+      });
+    }, (err) => {
+      this.errorMessage = err;
+    });
   }
 }
-
-// testing lat & long
-// lat
-// 21.0217217
-// long
-// 105.8188748

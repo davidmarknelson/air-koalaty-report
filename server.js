@@ -31,8 +31,8 @@ monDb.once('open', function callback() {
 
 const app = express();
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
 
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== 'dev') {
  |--------------------------------------
  | Routes
  |--------------------------------------
- */
+*/
 
 require('./api/api')(app, config);
 

@@ -5,8 +5,8 @@ const airRoutes = {
     res.send('API works');
   },
   geo: (req, res) => {
-    let lat = req.query.lat;
-    let long = req.query.long;
+    let lat = req.body.lat;
+    let long = req.body.long;
     let url = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${long}&key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
       if (error) {

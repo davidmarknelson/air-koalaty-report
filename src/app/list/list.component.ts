@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { AqiService } from '../services/aqi/aqi.service';
-import { resetComponentState } from '@angular/core/src/render3/state';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +12,11 @@ export class ListComponent implements OnInit {
   id: any;
   aqiCities: Array<Object> = [];
 
-  constructor(public auth: AuthService, private user: UserService, private aqiService: AqiService) { }
+  constructor(
+    public auth: AuthService, 
+    private user: UserService, 
+    private aqiService: AqiService
+  ) { }
 
   ngOnInit() {
     this.auth.getProfile((err, profile) => {
@@ -31,11 +34,26 @@ export class ListComponent implements OnInit {
 
   loopCityArray(cities) {
     for (let city of cities) {
-      this.aqiService.getCityAQI(city.city, city.state, city.country).subscribe(
+      let cityName = city.city;
+      let state = city.state;
+      let country = city.country;
+      
+      this.aqiService.getCityAqi(cityName, state, country).subscribe(
         res => this.aqiCities.unshift(res)
       );
     }
-    console.log(this.aqiCities);
+  }
+
+  deleteCity(city) {
+    let cityObj = {
+      userId: this.id,
+      city: city.data.city,
+      state: city.data.state,
+      country: city.data.country
+    }
+    this.user.deleteCity(cityObj).subscribe(() => {
+      this.aqiCities = this.aqiCities.filter(x => x !== city);
+    });
   }
 
 }
