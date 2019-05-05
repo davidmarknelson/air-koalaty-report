@@ -26,8 +26,8 @@ import { environment } from '../environments/environment';
     LandingComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,

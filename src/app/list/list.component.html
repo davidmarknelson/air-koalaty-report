@@ -23,12 +23,14 @@
 <div>
   <div *ngFor='let city of aqiCities'>
     <p>{{city.data.city}}, {{city.data.country}}, temperature: {{city.data.current.weather.tp}}, aqi: {{city.data.current.pollution.aqius}}</p>
-    <button mat-stroked-button color='accent' (click)='deleteCity(city)' *ngIf='canEdit'>Delete City</button>
+    <button mat-icon-button color='warn' (click)='deleteCity(city)' *ngIf='canEdit'>
+      <i class="material-icons">delete</i>
+    </button>
   </div>
 </div>
 
 <a routerLink='addcity' *ngIf='canEdit'>
   <button mat-stroked-button color='primary'>
-    Get City AQI
+    Get City AQI <i class="material-icons">chevron_right</i>
   </button>
 </a>

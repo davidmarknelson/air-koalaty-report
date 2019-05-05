@@ -6,7 +6,7 @@ import { ListAddComponent } from './list-add/list-add.component';
 
 const routes: Routes = [
   { path: '', component: ListComponent, canActivate: [AuthGuard] },
-  { path: 'addcity', component: ListAddComponent }
+  { path: 'addcity', component: ListAddComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

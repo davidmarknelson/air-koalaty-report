@@ -15,6 +15,27 @@ const airRoutes = {
       res.status(200).json(body);
     });
   },
+  countries: (req, res) => {
+    let url = `https://api.airvisual.com/v2/countries?key=${process.env.AIRVISUAL_API_KEY}`;
+    request(url, function(error, response, body) {
+      res.status(200).json(body);
+    });
+  },
+  states: (req, res) => {
+    let country = req.query.country;
+    let url = `https://api.airvisual.com/v2/states?country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
+    request(url, function(error, response, body) {
+      res.status(200).json(body);
+    });
+  },
+  cities: (req, res) => {
+    let country = req.query.country;
+    let state = req.query.state;    
+    let url = `https://api.airvisual.com/v2/cities?state=${state}&country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
+    request(url, function(error, response, body) {
+      res.status(200).json(body);
+    });
+  },
   city: (req, res) => {
     let city = req.query.city;
     let state = req.query.state;

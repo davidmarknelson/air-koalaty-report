@@ -40,7 +40,7 @@ export class ListComponent implements OnInit {
       let state = city.state;
       let country = city.country;
       
-      this.aqiService.getCityAqi(cityName, state, country).subscribe(
+      this.aqiService.getCity(cityName, state, country).subscribe(
         res => this.aqiCities.unshift(res)
       );
     }

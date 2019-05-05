@@ -6,7 +6,7 @@ export interface Aqi {
         country: string,
         location: {
             type: string,
-            coordinates: Array<number>
+            coordinates: [number]
         },
         current: {
             weather: {

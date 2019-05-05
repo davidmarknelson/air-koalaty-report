@@ -59,7 +59,7 @@ export class CitySearchComponent implements OnInit {
       this.firstSearchInitiated.emit(true);
       this.loading.emit(true);
       this.aqi.emit(null);
-      this.aqiService.getCityAqi(this.city, this.state, this.country).subscribe(res => {
+      this.aqiService.getCity(this.city, this.state, this.country).subscribe(res => {
         this.aqi.emit(res);
         this.loading.emit(false);
         this.resetSearch();

@@ -38,9 +38,19 @@ module.exports = function(app, config) {
   // GET API root
   app.get('/api', air.get);
 
-  // Air Quality Routes
+  // Air Geolocation Route
   app.get('/api/airvisual/geo', air.geo);
+
+  // Air get city route
   app.get('/api/airvisual/city', air.city);
+
+  // Air get country list routes
+  app.get('/api/airvisual/countries', air.countries);
+  app.get('/api/airvisual/countries/:country', air.states);
+  app.get('/api/airvisual/countries/:country/:state', air.cities);
+  app.get('/api/airvisual/countries/:country/:state/:city', air.city);
+
+
 
   // List of cities routes
   app.get('/api/citylist', jwtCheck, middleware.userObj, cityList.getCityList);
