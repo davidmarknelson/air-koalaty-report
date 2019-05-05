@@ -10,10 +10,11 @@ import { Aqi } from './aqi';
 })
 export class AqiService {
   aqiUrlCoords = `${environment.apiUri}airvisual/geo/`;
-  aqiUrlCity = `${environment.apiUri}airvisual/city/`;
   aqiUrlCountries = `${environment.apiUri}airvisual/countries`;
   aqiUrlStates = `${environment.apiUri}airvisual/states`;
   aqiUrlCities = `${environment.apiUri}airvisual/cities`;
+  aqiUrlCity = `${environment.apiUri}airvisual/city/`;
+
 
   constructor(private http: HttpClient) {}
  
@@ -54,16 +55,21 @@ export class AqiService {
     );
   }
 
-  getStates(): Observable<any> {
-    return this.http.get<any>(this.aqiUrlStates).pipe(
+  getStates(country): Observable<any> {
+    return this.http.get<any>(this.aqiUrlStates, { params: {
+      country: country
+    }}).pipe(
       map(res => {
         return JSON.parse(res);
       })
     );
   }
 
-  getCities(): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCities).pipe(
+  getCities(state, country): Observable<any> {
+    return this.http.get<any>(this.aqiUrlCities, { params: {
+      state: state,
+      country: country
+    }}).pipe(
       map(res => {
         return JSON.parse(res);
       })
@@ -71,8 +77,7 @@ export class AqiService {
   }
 
   getCity(city, state, country): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCity, 
-      { params: {
+    return this.http.get<any>(this.aqiUrlCity, { params: {
       city: city,
       state: state,
       country: country

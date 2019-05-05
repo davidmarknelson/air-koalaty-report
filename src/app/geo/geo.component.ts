@@ -4,11 +4,11 @@ import { Aqi } from '../services/aqi/aqi';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-geo',
+  templateUrl: './geo.component.html',
+  styleUrls: ['./geo.component.css']
 })
-export class HomeComponent implements OnInit {
+export class GeoComponent implements OnInit {
   aqi: any;
   errorMessage: string;
   

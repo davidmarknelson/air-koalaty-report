@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { GeoRoutingModule } from './geo-routing.module';
+import { GeoComponent } from './geo.component';
 import { MatCardModule } from '@angular/material/card';
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [GeoComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule,
+    GeoRoutingModule,
     MatProgressSpinnerModule,
     MatCardModule
   ]
 })
-export class HomeModule { }
+export class GeoModule { }

@@ -46,9 +46,9 @@ module.exports = function(app, config) {
 
   // Air get country list routes
   app.get('/api/airvisual/countries', air.countries);
-  app.get('/api/airvisual/countries/:country', air.states);
-  app.get('/api/airvisual/countries/:country/:state', air.cities);
-  app.get('/api/airvisual/countries/:country/:state/:city', air.city);
+  app.get('/api/airvisual/states', air.states);
+  app.get('/api/airvisual/cities', air.cities);
+  app.get('/api/airvisual/city', air.city);
 
 
 

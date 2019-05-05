@@ -2,23 +2,21 @@
   <a data-test='brand-button' routerLink=''>
     <button mat-raised-button>KOALAty</button>
   </a>
-  <button mat-stroked-button [matMenuTriggerFor]="menu">
-    Menu
-    <!-- <i class="material-icons">expand_more</i> -->
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink='/home'>AQI Geolocation</button>
-    <button mat-menu-item routerLink='/search'>Search for Cities</button>
-    <button mat-menu-item routerLink='/list'>Your Saved List</button>
-    <button mat-menu-item routerLink='/countries'>Search Countries</button>
-  </mat-menu>
+
+  <button mat-button routerLink='/geo'>Your Geolocation AQI</button>
+  <button mat-button routerLink='/search'>Search for Cities</button>
+  <button mat-button routerLink='/countries'>Search Countries</button>
+  <button mat-button routerLink='/list'>Your Saved List</button>
+
   <span class="fill-space"></span>
+
   <!-- Button for users who aren't logged in -->
   <a *ngIf='!auth.isAuthenticated()' data-test='login-button' (click)='auth.login()'>
     <button mat-stroked-button>
       Log In <i class="material-icons">chevron_right</i>
     </button>
   </a>
+  
   <!-- Buttons for users who are logged in -->
   <a *ngIf='auth.isAuthenticated()' data-test='logout-button' (click)='auth.logout()'>
     <button mat-stroked-button>Logout</button>
