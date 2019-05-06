@@ -1,59 +1,26 @@
-/*
- |--------------------------------------
- | Dependencies
- |--------------------------------------
-*/
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
+// Dependencies
 const air = require('./controllers/air');
 const cityList = require('./controllers/citylist');
 const middleware = require('./middleware/middleware');
+const router = require('express').Router();
 
-/*
- |--------------------------------------
- | Authentication Middleware
- |--------------------------------------
-*/
+// API Routes
 
-module.exports = function(app, config) {
-  // Authentication middleware
-  const jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${config.AUTH0_DOMAIN}/.well-known/jwks.json`
-    }),
-    audience: config.AUTH0_API_AUDIENCE,
-    issuer: `https://${config.AUTH0_DOMAIN}/`,
-    algorithm: 'RS256'
-  });
+// GET API root
+router.get('/api', air.get);
 
-/*
- |--------------------------------------
- | API Routes
- |--------------------------------------
-*/
+// Air Geolocation Route
+router.get('/api/airvisual/geo', air.geo);;
 
-  // GET API root
-  app.get('/api', air.get);
+// Air country, state, and city list routes
+router.get('/api/airvisual/countries', air.countries);
+router.get('/api/airvisual/states', air.states);
+router.get('/api/airvisual/cities', air.cities);
+router.get('/api/airvisual/city', air.city);
 
-  // Air Geolocation Route
-  app.get('/api/airvisual/geo', air.geo);
+// List of city list routes for authorized users
+router.get('/api/citylist', middleware.jwtCheck, middleware.userObj, cityList.getCityList);
+router.put('/api/citylist/addcity', middleware.jwtCheck, cityList.addCity);
+router.put('/api/citylist/deletecity', middleware.jwtCheck, cityList.deleteCity);
 
-  // Air get city route
-  app.get('/api/airvisual/city', air.city);
-
-  // Air get country list routes
-  app.get('/api/airvisual/countries', air.countries);
-  app.get('/api/airvisual/states', air.states);
-  app.get('/api/airvisual/cities', air.cities);
-  app.get('/api/airvisual/city', air.city);
-
-
-
-  // List of cities routes
-  app.get('/api/citylist', jwtCheck, middleware.userObj, cityList.getCityList);
-  app.put('/api/citylist/addcity', jwtCheck, cityList.addCity);
-  app.put('/api/citylist/deletecity', jwtCheck, cityList.deleteCity);
-};
+module.exports = router;

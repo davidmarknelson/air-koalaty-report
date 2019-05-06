@@ -5,3 +5,16 @@
 .fill-space {
   flex: 1 1 auto;
 }
+
+.navbar {
+  position: fixed;
+  top: 0;
+}
+
+.auth-button {
+  margin-top: 20px;
+}
+
+.content {
+  padding-top: 64px;
+}

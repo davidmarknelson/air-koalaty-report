@@ -1,17 +1,12 @@
-const express = require('express');
+const app = require('express')();
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const routes = require('./api/api');
 const cors = require('cors');
-// Config
-const config = require('./api/config');
 
-/*
- |--------------------------------------
- | MongoDB
- |--------------------------------------
-*/
+// MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 const monDb = mongoose.connection;
 
@@ -23,14 +18,7 @@ monDb.once('open', function callback() {
   console.info('Connected to MongoDB:', process.env.MONGO_URI);
 });
 
-/*
- |--------------------------------------
- | App
- |--------------------------------------
-*/
-
-const app = express();
-
+// App
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -46,13 +34,8 @@ if (process.env.NODE_ENV !== 'dev') {
   app.use('/', express.static(path.join(__dirname, './dist')));
 }
 
-/*
- |--------------------------------------
- | Routes
- |--------------------------------------
-*/
-
-require('./api/api')(app, config);
+// Routes
+app.use(routes);
 
 // Pass routing to Angular app
 // Don't run in dev
@@ -62,10 +45,5 @@ if (process.env.NODE_ENV !== 'dev') {
   });
 }
 
-/*
- |--------------------------------------
- | Server
- |--------------------------------------
-*/
-
+// Server
 app.listen(port, () => console.log(`Server running on localhost:${port}`));

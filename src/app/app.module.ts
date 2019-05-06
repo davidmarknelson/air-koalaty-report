@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 // Components
 import { LandingComponent } from './landing/landing.component';
@@ -34,6 +35,7 @@ import { environment } from '../environments/environment';
     MatCardModule,
     MatButtonModule,
     MatMenuModule,
+    MatButtonToggleModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleMaps,
       libraries: ['places']
