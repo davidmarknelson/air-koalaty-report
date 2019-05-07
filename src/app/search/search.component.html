@@ -6,71 +6,19 @@
   (errorMessage)='onErrorMessage($event)'
 ></app-city-search>
 
-<!-- Error message -->
-<div *ngIf='errorMessage'>
-  <p>Error: {{ errorMessage }}</p>
-</div>
-
-<mat-card >
-  <!-- Display when no city has been searched -->
-  <h2 *ngIf='!firstSearchInitiated'>Search for a city to see the air quality index.</h2>
-
-  <!-- Display when request for AQI and city have been made and show the results -->
-  <mat-grid-list cols='2' rowHeight='4:1' *ngIf='firstSearchInitiated'>
-    <mat-grid-tile>
-      <mat-card-title>City:</mat-card-title>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-content>
-        <div *ngIf='aqi'>
-          {{aqi.data.city}}, {{aqi.data.state}}
-        </div>
-        <div *ngIf='loading'>
-          <mat-spinner></mat-spinner>
-        </div>
-      </mat-card-content>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-title>AQI:</mat-card-title>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-content>
-        <div *ngIf='aqi'>
-          {{aqi.data.current.pollution.aqius}}
-        </div>
-        <div *ngIf='loading'>
-          <mat-spinner></mat-spinner>
-        </div>
-      </mat-card-content>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-title>Temperature:</mat-card-title>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-content>
-        <div *ngIf='aqi'>
-          {{aqi.data.current.weather.tp}}
-        </div>
-        <div *ngIf='loading'>
-          <mat-spinner></mat-spinner>
-        </div>
-      </mat-card-content>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-title>Humidity:</mat-card-title>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card-content>
-        <div *ngIf='aqi'>
-          {{aqi.data.current.weather.hu}}%
-        </div>
-        <div *ngIf='loading'>
-          <mat-spinner></mat-spinner>
-        </div>
-      </mat-card-content>
-    </mat-grid-tile>
-  </mat-grid-list>
+<!-- Display when no city has been searched -->
+<mat-card *ngIf='!firstSearchInitiated'>
+  <h2>Search for a city to see the air quality index.</h2>
 </mat-card>
+
+<!-- Display when request for AQI and city have been made and show the results -->
+<app-aqi-card 
+  *ngIf='firstSearchInitiated'
+  [aqi]='aqi' 
+  [errorMessage]='errorMessage'
+  [loading]='loading'
+></app-aqi-card>
+
 
 <div class='indexscale'>
   <app-indexscale></app-indexscale>

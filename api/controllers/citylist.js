@@ -5,11 +5,11 @@ mongoose.set('useFindAndModify', false);
 const cityList = {
   getCityList: (req, res) => {
     let userId = req.query.userId;
-    User.findOne({ userId: userId }, (err, citylist) => {
+    User.findOne({ userId: userId }, (err, cityList) => {
       if (err) {
         console.log(err);
       }
-      if (citylist === null) {
+      if (cityList === null) {
         User.create(res.locals.user, (err, newUser) => {
           if (err) {
             console.log(err);
@@ -17,7 +17,9 @@ const cityList = {
           res.status(200).json(newUser);
         });
       } else {
-        res.status(200).json(citylist);
+        console.log('body - ', cityList);
+        console.log(typeof cityList);
+        res.status(200).json(cityList);
       }
     });
   },

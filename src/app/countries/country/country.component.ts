@@ -9,7 +9,7 @@ import { AqiService } from '../../services/aqi/aqi.service';
 })
 export class CountryComponent implements OnInit {
   country: string;
-  states: any;
+  states: Array<object>;
 
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 

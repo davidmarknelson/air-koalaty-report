@@ -8,6 +8,7 @@ import { StateComponent } from './state/state.component';
 import { CityComponent } from './city/city.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AqiCardModule } from '../aqi-card/aqi-card.module';
 
 
 
@@ -17,7 +18,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     CountriesRoutingModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AqiCardModule
   ]
 })
 export class CountriesModule { }

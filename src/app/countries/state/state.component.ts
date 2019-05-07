@@ -10,7 +10,7 @@ import { AqiService } from '../../services/aqi/aqi.service';
 export class StateComponent implements OnInit {
   country: any;
   state: any;
-  cities: any;
+  cities: Array<object>;
   
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 

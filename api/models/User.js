@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // TODO = validate length of the array
+const checkCitiesLength = citiesLength => {
+  return citiesLength <= 3;
+}
 
 const citySchema = new Schema({
   city: String,

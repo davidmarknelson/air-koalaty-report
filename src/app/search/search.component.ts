@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Aqi } from '../services/aqi/aqi';
 
 @Component({
   selector: 'app-search',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  aqi: object;
+  aqi: Aqi;
   errorMessage: string;
   loading: boolean;
   firstSearchInitiated: boolean;
@@ -20,7 +21,7 @@ export class SearchComponent implements OnInit {
 
   onFirstSearchInitiated(firstSearchInitiated: boolean) { this.firstSearchInitiated = firstSearchInitiated }
   onLoading(loading: boolean) { this.loading = loading }
-  onAqi(aqi: object) { this.aqi = aqi }
+  onAqi(aqi: Aqi) { this.aqi = aqi }
   onErrorMessage(errorMessage: string) { this.errorMessage = errorMessage }
 }
 

@@ -8,6 +8,7 @@ import { SearchComponent } from './search.component';
 import { IndexscaleComponent } from '../indexscale/indexscale.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CitySearchModule } from '../city-search/city-search.module';
+import { AqiCardModule } from '../aqi-card/aqi-card.module';
 
 @NgModule({
     declarations: [SearchComponent, IndexscaleComponent],
@@ -18,7 +19,8 @@ import { CitySearchModule } from '../city-search/city-search.module';
     MatCardModule,
     MatGridListModule,
     MatExpansionModule,
-    CitySearchModule
+    CitySearchModule,
+    AqiCardModule
   ]
 })
 export class SearchModule { }

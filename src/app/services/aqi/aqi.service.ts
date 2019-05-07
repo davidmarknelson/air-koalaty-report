@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Aqi } from './aqi';
+import { Countries } from './countries';
+import { States } from './states';
+import { Cities } from './cities';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,6 @@ export class AqiService {
   aqiUrlStates = `${environment.apiUri}airvisual/states`;
   aqiUrlCities = `${environment.apiUri}airvisual/cities`;
   aqiUrlCity = `${environment.apiUri}airvisual/city/`;
-
 
   constructor(private http: HttpClient) {}
  
@@ -34,58 +35,36 @@ export class AqiService {
     });
   }
 
-  getGeoLocationAqi(lat, long): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCoords, { params: {
+  getGeoLocationAqi(lat, long): Observable<Aqi> {
+    return this.http.get<Aqi>(this.aqiUrlCoords, { params: {
       lat: lat,
       long: long
-    }})
-    // HttpClient should return an object, but it is only returning a string. WHY???
-    .pipe(
-      map(res => {
-        return JSON.parse(res);
-      })
-    );
+    }});
   }
 
-  getCountries(): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCountries).pipe(
-      map(res => {
-        return JSON.parse(res);
-      })
-    );
+  getCountries(): Observable<Countries> {
+    return this.http.get<Countries>(this.aqiUrlCountries);
   }
 
-  getStates(country): Observable<any> {
-    return this.http.get<any>(this.aqiUrlStates, { params: {
+  getStates(country): Observable<States> {
+    return this.http.get<States>(this.aqiUrlStates, { params: {
       country: country
-    }}).pipe(
-      map(res => {
-        return JSON.parse(res);
-      })
-    );
+    }});
   }
 
-  getCities(state, country): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCities, { params: {
+  getCities(state, country): Observable<Cities> {
+    return this.http.get<Cities>(this.aqiUrlCities, { params: {
       state: state,
       country: country
-    }}).pipe(
-      map(res => {
-        return JSON.parse(res);
-      })
-    );
+    }});
   }
 
-  getCity(city, state, country): Observable<any> {
-    return this.http.get<any>(this.aqiUrlCity, { params: {
+  getCity(city, state, country): Observable<Aqi> {
+    return this.http.get<Aqi>(this.aqiUrlCity, { params: {
       city: city,
       state: state,
       country: country
-    }}).pipe(
-      map(res => {
-        return JSON.parse(res);
-      })
-    );
+    }});
   }
 
 }

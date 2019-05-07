@@ -4,7 +4,9 @@ const cityList = require('./controllers/citylist');
 const middleware = require('./middleware/middleware');
 const router = require('express').Router();
 
+// ==============================================
 // API Routes
+// ==============================================
 
 // GET API root
 router.get('/api', air.get);

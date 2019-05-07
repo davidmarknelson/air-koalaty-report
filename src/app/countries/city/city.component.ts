@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { AqiService } from '../../services/aqi/aqi.service';
+import { Aqi } from '../../services/aqi/aqi';
 
 @Component({
   selector: 'app-city',
@@ -8,10 +9,11 @@ import { AqiService } from '../../services/aqi/aqi.service';
   styleUrls: ['./city.component.css']
 })
 export class CityComponent implements OnInit {
-  country: any;
-  state: any;
-  city: any;
-  aqi: any;
+  country: string;
+  state: string;
+  city: string;
+  aqi: Aqi;
+  loading: boolean;
 
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 
@@ -20,7 +22,11 @@ export class CityComponent implements OnInit {
     this.country = params['country'];
     this.state = params['state'];
     this.city = params['city'];
-    this.aqiService.getCity(this. city, this.state, this.country).subscribe(res => this.aqi = res);
+    this.loading = true;
+    this.aqiService.getCity(this. city, this.state, this.country).subscribe(res => {
+      this.loading = false;
+      this.aqi = res;
+    });
   }
 
 }

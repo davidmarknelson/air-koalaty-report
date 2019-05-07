@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { AqiService } from '../services/aqi/aqi.service';
+import { Aqi } from '../services/aqi/aqi';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,7 @@ import { AqiService } from '../services/aqi/aqi.service';
 })
 export class ListComponent implements OnInit {
   id: any;
-  aqiCities: Array<Object> = [];
+  aqiCities: Array<Aqi> = [];
   canEdit: boolean;
 
   constructor(

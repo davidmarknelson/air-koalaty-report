@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, EventEmitter, Output 
 import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
+import { Aqi } from '../services/aqi/aqi';
 declare var google: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class CitySearchComponent implements OnInit {
   private citySearch: ElementRef;
   @Output() firstSearchInitiated = new EventEmitter<boolean>();
   @Output() loading = new EventEmitter<boolean>();
-  @Output() aqi = new EventEmitter<object>();
+  @Output() aqi = new EventEmitter<Aqi>();
   @Output() errorMessage = new EventEmitter<string>();
   city: string;
   state: string;
@@ -28,7 +29,8 @@ export class CitySearchComponent implements OnInit {
     private ngZone: NgZone,
     private gmaps: MapsAPILoader,
     private fb: FormBuilder,
-    private aqiService: AqiService) { }
+    private aqiService: AqiService
+  ) { }
 
   ngOnInit() {
     this.firstSearchInitiated.emit(false);
@@ -59,7 +61,7 @@ export class CitySearchComponent implements OnInit {
       this.firstSearchInitiated.emit(true);
       this.loading.emit(true);
       this.aqi.emit(null);
-      this.aqiService.getCity(this.city, this.state, this.country).subscribe(res => {
+      this.aqiService.getCity(this.city, this.state, this.country).subscribe((res: Aqi) => {
         this.aqi.emit(res);
         this.loading.emit(false);
         this.resetSearch();
@@ -86,7 +88,7 @@ export class CitySearchComponent implements OnInit {
   }
 
   // Some cities have county, city, state, country variables and
-  // some have only city, state, country. The else if takes care of that.
+  // some have only city, state, country. This checks for that.
   parseAutocompleteData(address) {
     if (address.length === 4) {
       this.searchComplete = true;

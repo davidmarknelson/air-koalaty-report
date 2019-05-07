@@ -12,20 +12,23 @@ const airRoutes = {
       if (error) {
         console.log(error);
       }
-      res.status(200).json(body);
+      let parsedBody = JSON.parse(body);
+      res.status(200).json(parsedBody);
     });
   },
   countries: (req, res) => {
     let url = `https://api.airvisual.com/v2/countries?key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
-      res.status(200).json(body);
+      let parsedBody = JSON.parse(body);
+      res.status(200).json(parsedBody);
     });
   },
   states: (req, res) => {
     let country = req.query.country;
     let url = `https://api.airvisual.com/v2/states?country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
-      res.status(200).json(body);
+      let parsedBody = JSON.parse(body);
+      res.status(200).json(parsedBody);
     });
   },
   cities: (req, res) => {
@@ -33,7 +36,8 @@ const airRoutes = {
     let state = req.query.state;    
     let url = `https://api.airvisual.com/v2/cities?state=${state}&country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
-      res.status(200).json(body);
+      let parsedBody = JSON.parse(body);
+      res.status(200).json(parsedBody);
     });
   },
   city: (req, res) => {
@@ -43,7 +47,8 @@ const airRoutes = {
     (req.query.country === 'United States') ? country = 'USA' : country = req.query.country;
     let url = `https://api.airvisual.com/v2/city?city=${city}&state=${state}&country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
     request(url, function(error, response, body) {
-      res.status(200).json(body);
+      let parsedBody = JSON.parse(body);
+      res.status(200).json(parsedBody);
     });
   }
 }

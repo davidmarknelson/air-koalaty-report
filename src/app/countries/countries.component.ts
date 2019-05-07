@@ -7,7 +7,7 @@ import { AqiService } from '../services/aqi/aqi.service';
   styleUrls: ['./countries.component.css']
 })
 export class CountriesComponent implements OnInit {
-  countries: any;
+  countries: Array<object>;
   constructor(private aqiService: AqiService) { }
 
   ngOnInit() {
