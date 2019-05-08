@@ -6,20 +6,25 @@
   (errorMessage)='onErrorMessage($event)'
 ></app-city-search>
 
-<!-- Display when no city has been searched -->
-<mat-card *ngIf='!firstSearchInitiated'>
-  <h2>Search for a city to see the air quality index.</h2>
-</mat-card>
+<div class='content'>
+    
+  <div class='aqi-card'>
+    <!-- Display when no city has been searched -->
+    <mat-card *ngIf='!firstSearchInitiated'>
+      <h2>Search for a city to see the air quality index.</h2>
+    </mat-card>
 
-<!-- Display when request for AQI and city have been made and show the results -->
-<app-aqi-card 
-  *ngIf='firstSearchInitiated'
-  [aqi]='aqi' 
-  [errorMessage]='errorMessage'
-  [loading]='loading'
-></app-aqi-card>
+    <!-- Display when request for AQI and city have been made and show the results -->
+    <app-aqi-card 
+      *ngIf='firstSearchInitiated'
+      [aqi]='aqi' 
+      [errorMessage]='errorMessage'
+      [loading]='loading'
+    ></app-aqi-card>
+  </div>
+  
+  <div class='aqi-index'>  
+    <app-indexscale></app-indexscale>
+  </div>
 
-
-<div class='indexscale'>
-  <app-indexscale></app-indexscale>
 </div>

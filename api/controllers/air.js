@@ -53,7 +53,4 @@ const airRoutes = {
   }
 }
 
-
-
-
 module.exports = airRoutes;

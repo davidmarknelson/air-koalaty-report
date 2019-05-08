@@ -17,8 +17,6 @@ const cityList = {
           res.status(200).json(newUser);
         });
       } else {
-        console.log('body - ', cityList);
-        console.log(typeof cityList);
         res.status(200).json(cityList);
       }
     });

@@ -18,4 +18,7 @@
 
 .content {
   padding-top: 64px;
+  margin: 0 auto;
+  width: 1000px;
+  max-width: 90%;
 }

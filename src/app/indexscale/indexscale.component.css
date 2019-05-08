@@ -3,11 +3,6 @@
   flex-basis: 0;
 }
 
-.test {
-  min-width: 275px;
-  max-width: 500px;
-}
-
 mat-panel-description, mat-panel-title {
   color: black;
 }

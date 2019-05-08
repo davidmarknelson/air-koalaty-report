@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from "@angular/material";
 
 // Components
 import { LandingComponent } from './landing/landing.component';
@@ -20,11 +21,13 @@ import { LandingComponent } from './landing/landing.component';
 // Google Places
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../environments/environment';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { environment } from '../environments/environment';
     MatButtonModule,
     MatMenuModule,
     MatButtonToggleModule,
+    MatDialogModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleMaps,
       libraries: ['places']
@@ -49,6 +53,7 @@ import { environment } from '../environments/environment';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule { }

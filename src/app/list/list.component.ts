@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from "@angular/material";
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { AqiService } from '../services/aqi/aqi.service';
@@ -17,7 +19,8 @@ export class ListComponent implements OnInit {
   constructor(
     public auth: AuthService, 
     private user: UserService, 
-    private aqiService: AqiService
+    private aqiService: AqiService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -47,20 +50,37 @@ export class ListComponent implements OnInit {
     }
   }
 
-  deleteCity(city) {
-    let cityObj = {
+  toggleEdit() {
+    this.canEdit = !this.canEdit;
+  }
+
+  createCityObject(city) {
+    return {
       userId: this.id,
       city: city.data.city,
       state: city.data.state,
       country: city.data.country
     }
-    this.user.deleteCity(cityObj).subscribe(() => {
-      this.aqiCities = this.aqiCities.filter(x => x !== city);
+  }
+
+  openDeleteDialog(city) {  
+    let cityObj = this.createCityObject(city);
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {
+        city: city.data.city,
+        country: city.data.country
+      }
     });
-  }
 
-  toggleEdit() {
-    this.canEdit = !this.canEdit;
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data) {
+          this.user.deleteCity(cityObj).subscribe(() => {
+            this.aqiCities = this.aqiCities.filter(x => x !== city);
+          });
+        } 
+      }
+    );  
   }
-
+  
 }

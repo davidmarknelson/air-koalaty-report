@@ -9,8 +9,7 @@ import { CityComponent } from './city/city.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
-
-
+import { IndexscaleModule } from '../indexscale/indexscale.module';
 
 @NgModule({
   declarations: [CountriesComponent, CountryComponent, StateComponent, CityComponent],
@@ -19,7 +18,8 @@ import { AqiCardModule } from '../aqi-card/aqi-card.module';
     CountriesRoutingModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    AqiCardModule
+    AqiCardModule,
+    IndexscaleModule
   ]
 })
 export class CountriesModule { }

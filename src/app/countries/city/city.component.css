@@ -1,10 +1,15 @@
-mat-card {
-  width: 80%;
-  margin: 30px auto;
+.content {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 
-mat-card-title, mat-card-content {
+.aqi-card {
   display: inline-block;
-  margin: 0 auto;
-  padding-right: 10px;
+  max-width: 275px;
+}
+
+.aqi-index {
+  display: inline-block;
+  width: 275px;
 }
