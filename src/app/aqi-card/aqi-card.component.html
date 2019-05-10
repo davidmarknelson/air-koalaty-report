@@ -1,16 +1,16 @@
 <mat-card>
   <div *ngIf='aqi'>
     <mat-card-title>City:</mat-card-title>
-    <mat-card-content>{{aqi.data.city}}, {{aqi.data.state}}</mat-card-content>
+    <mat-card-content>{{aqi.city}}, {{aqi.state}}</mat-card-content>
     <hr>
     <mat-card-title>AQI:</mat-card-title>
-    <mat-card-content>{{aqi.data.current.pollution.aqius}}</mat-card-content>
+    <mat-card-content>{{aqi.current.pollution.aqius}}</mat-card-content>
     <hr>
     <mat-card-title>Temperature:</mat-card-title>
-    <mat-card-content>{{aqi.data.current.weather.tp}}</mat-card-content>
+    <mat-card-content>{{aqi.current.weather.tp}}</mat-card-content>
     <hr>
     <mat-card-title>Humidity:</mat-card-title>
-    <mat-card-content>{{aqi.data.current.weather.hu}}</mat-card-content>
+    <mat-card-content>{{aqi.current.weather.hu}}</mat-card-content>
   </div>
   <div *ngIf='loading'>
     <mat-spinner></mat-spinner>

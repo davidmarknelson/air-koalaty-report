@@ -26,10 +26,14 @@ export class GeoComponent implements OnInit {
       this.aqiService.getGeoLocationAqi(lat, long).subscribe((res: Aqi) => {
         this.loading = false;
         this.aqi = res;
+      },
+      err => {
+        this.loading = false;
+        this.errorMessage = err.error.message;
       });
     }, (err) => {
       this.loading = false;
-      this.errorMessage = err;
+      this.errorMessage = err.message;
     });
   }
 }

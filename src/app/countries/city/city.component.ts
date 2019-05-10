@@ -14,6 +14,7 @@ export class CityComponent implements OnInit {
   city: string;
   aqi: Aqi;
   loading: boolean;
+  errorMessage: string;
 
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 
@@ -26,6 +27,10 @@ export class CityComponent implements OnInit {
     this.aqiService.getCity(this. city, this.state, this.country).subscribe(res => {
       this.loading = false;
       this.aqi = res;
+    },
+    err => {
+      this.loading = false;
+      this.errorMessage = err.error.message;
     });
   }
 

@@ -23,6 +23,6 @@ export class UserService {
   }
 
   deleteCity(city): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}citylist/deletecity`, city);
+    return this.http.put<User>(`${this.apiUrl}citylist/removecity`, city);
   }
 }

@@ -57,9 +57,9 @@ export class ListComponent implements OnInit {
   createCityObject(city) {
     return {
       userId: this.id,
-      city: city.data.city,
-      state: city.data.state,
-      country: city.data.country
+      city: city.city,
+      state: city.state,
+      country: city.country
     }
   }
 
@@ -67,8 +67,9 @@ export class ListComponent implements OnInit {
     let cityObj = this.createCityObject(city);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {
-        city: city.data.city,
-        country: city.data.country
+        city: city.city,
+        state: city.state,
+        country: city.country
       }
     });
 

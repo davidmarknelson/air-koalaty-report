@@ -15,7 +15,7 @@ export class AqiService {
   aqiUrlCountries = `${environment.apiUri}airvisual/countries`;
   aqiUrlStates = `${environment.apiUri}airvisual/states`;
   aqiUrlCities = `${environment.apiUri}airvisual/cities`;
-  aqiUrlCity = `${environment.apiUri}airvisual/city/`;
+  aqiUrlCity = `${environment.apiUri}airvisual/city`;
 
   constructor(private http: HttpClient) {}
  
@@ -67,4 +67,7 @@ export class AqiService {
     }});
   }
 
+  handleError(error) {
+    return Observable.throw(error);
+  }
 }

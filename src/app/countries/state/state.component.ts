@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { AqiService } from '../../services/aqi/aqi.service';
+import { Cities } from '../../services/aqi/cities';
 
 @Component({
   selector: 'app-state',
@@ -10,7 +11,9 @@ import { AqiService } from '../../services/aqi/aqi.service';
 export class StateComponent implements OnInit {
   country: any;
   state: any;
-  cities: Array<object>;
+  loading: boolean;
+  errorMessage: string;
+  cities: Cities;
   
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 
@@ -18,7 +21,15 @@ export class StateComponent implements OnInit {
     let params = this.route.snapshot.params;
     this.country = params['country'];
     this.state = params['state'];
-    this.aqiService.getCities(this.state, this.country).subscribe(res => this.cities = res.data);
+    this.loading = true;
+    this.aqiService.getCities(this.state, this.country).subscribe(res => {
+      this.loading = false;
+      this.cities = res
+    },
+    err => {
+      this.loading = false;
+      this.errorMessage = err.error.message;
+    });
   }
 
 }

@@ -40,9 +40,9 @@ export class ListAddComponent implements OnInit {
     if (this.aqi) {
       let city = {
         userId: this.id,
-        city: this.aqi.data.city,
-        state: this.aqi.data.state,
-        country: this.aqi.data.country
+        city: this.aqi.city,
+        state: this.aqi.state,
+        country: this.aqi.country
       }
       return city;
     }

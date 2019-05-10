@@ -7,7 +7,8 @@ const routes = require('./api/api');
 const cors = require('cors');
 
 // MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useCreateIndex: false, useFindAndModify: false, useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
