@@ -28,7 +28,6 @@ router.use((req, res, next) => {
 router.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
-    check: 'in api error handler',
     message: error.message
   });
 });

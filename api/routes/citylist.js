@@ -23,9 +23,7 @@ router.put('/addcity', middleware.jwtCheck, middleware.parseReqBodyToAddCity, (r
     .then(user => {
       res.status(200).json(user);
     })
-    .catch(err => {
-      res.status(500).json({ message: err.message })
-    });
+    .catch(err => res.status(500).json({ message: err.message }));
 });
 
 router.put('/removecity', middleware.jwtCheck, (req, res) => {
@@ -33,9 +31,7 @@ router.put('/removecity', middleware.jwtCheck, (req, res) => {
     .then(() => {
       res.status(200).json({ message: 'City successfully deleted.' });
     })
-    .catch(err => {
-      res.status(500).json({ message: err.message })
-    }); 
+    .catch(err => res.status(500).json({ message: err.message })); 
 });
 
 
