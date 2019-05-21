@@ -15,6 +15,8 @@ export class ListComponent implements OnInit {
   id: any;
   aqiCities: Array<Aqi> = [];
   canEdit: boolean;
+  errorMessage: any;
+  loading: boolean;
 
   constructor(
     public auth: AuthService, 
@@ -26,6 +28,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.canEdit = false;
     this.auth.getProfile((err, profile) => {
+      if (err) {this.errorMessage = err.message}
       this.id = profile.sub;
       this.getAqiInfo(this.id);
     });
@@ -40,12 +43,15 @@ export class ListComponent implements OnInit {
 
   loopCityArray(cities) {
     for (let city of cities) {
-      let cityName = city.city;
-      let state = city.state;
-      let country = city.country;
-      
-      this.aqiService.getCity(cityName, state, country).subscribe(
-        res => this.aqiCities.unshift(res)
+      this.aqiService.getCity(city.city, city.state, city.country).subscribe(
+        res => {
+          res._id = city._id;
+          this.aqiCities.unshift(res);
+        },
+        err => {
+          this.loading = false;
+          this.errorMessage = err.message;
+        }
       );
     }
   }
@@ -54,17 +60,12 @@ export class ListComponent implements OnInit {
     this.canEdit = !this.canEdit;
   }
 
-  createCityObject(city) {
-    return {
+  openDeleteDialog(city) {
+    let cityObj = {
       userId: this.id,
-      city: city.city,
-      state: city.state,
-      country: city.country
+      cityId: city._id
     }
-  }
 
-  openDeleteDialog(city) {  
-    let cityObj = this.createCityObject(city);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {
         city: city.city,

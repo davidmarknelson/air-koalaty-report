@@ -29,7 +29,7 @@ export class GeoComponent implements OnInit {
       },
       err => {
         this.loading = false;
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.message;
       });
     }, (err) => {
       this.loading = false;

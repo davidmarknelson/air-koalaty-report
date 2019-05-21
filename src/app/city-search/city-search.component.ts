@@ -68,7 +68,7 @@ export class CitySearchComponent implements OnInit {
       },
       err => {
         this.loading.emit(false);
-        this.errorMessage.emit(err.error.message);
+        this.errorMessage.emit(err.message);
       });
     } else {
       this.errorMessage.emit('Select city from the autocomplete suggestions');

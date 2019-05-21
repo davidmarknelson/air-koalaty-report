@@ -3,9 +3,9 @@ const jwks = require('jwks-rsa');
 const mongoose = require('mongoose');
 
 const middleware = {
-  userObj: (req, res, next) => {
+  createNewUserObj: (req, res, next) => {
     let userId = req.query.userId;
-    res.locals.user = {
+    res.locals.newUser = {
       _id: new mongoose.Types.ObjectId(),
       userId: userId,
       cities: []
@@ -33,11 +33,7 @@ const middleware = {
       country: country
     };
     next();
-  },
-  parseReqBodyToRemoveCity: (req, res, next) => {
-    (req.body.country === 'United States') ? res.locals.country = 'USA' : res.locals.country = req.body.country;
-    next();
-  },
+  }
 }
 
 module.exports = middleware;

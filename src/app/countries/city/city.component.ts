@@ -30,7 +30,8 @@ export class CityComponent implements OnInit {
     },
     err => {
       this.loading = false;
-      this.errorMessage = err.error.message;
+      this.errorMessage = err;
+      console.log(err);
     });
   }
 

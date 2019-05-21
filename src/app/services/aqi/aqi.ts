@@ -1,4 +1,5 @@
 export interface Aqi {
+  _id?: string,
   city: string,
   state: string,
   country: string,

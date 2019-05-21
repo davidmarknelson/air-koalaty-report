@@ -2,11 +2,10 @@ const User = require('../models/user');
 const middleware = require('../middleware/middleware');
 const router = require('express').Router();
 
-router.get('/', middleware.jwtCheck, middleware.userObj, (req, res) => {
-  let userId = req.query.userId;
-  User.findOne({ userId: userId })
+router.get('/', middleware.jwtCheck, middleware.createNewUserObj, (req, res) => {
+  User.findOne({ userId: req.query.userId })
     .then(user => {
-      if (!user) { return User.create(res.locals.user) }
+      if (!user) { return User.create(res.locals.newUser) }
       return user;
     })
     .then(cityList => {
@@ -16,9 +15,11 @@ router.get('/', middleware.jwtCheck, middleware.userObj, (req, res) => {
 });
 
 router.put('/addcity', middleware.jwtCheck, middleware.parseReqBodyToAddCity, (req, res) => {
-  let userId = req.body.userId;
-  console.log(res.locals.cityObj);
-  User.findOneAndUpdate({userId: userId}, {$push: {cities: res.locals.cityObj}}, {new: true})
+  User.findOne({userId: req.body.userId})
+    .then(user => {
+      user.cities.push(res.locals.cityObj);
+      return user.save();
+    })
     .then(user => {
       res.status(200).json(user);
     })
@@ -27,21 +28,8 @@ router.put('/addcity', middleware.jwtCheck, middleware.parseReqBodyToAddCity, (r
     });
 });
 
-router.put('/removecity', middleware.jwtCheck, middleware.parseReqBodyToRemoveCity, (req, res) => {
-  let userId = req.body.userId;
-  User.findOne({ userId: userId })
-    .then(user => {
-      for (let city of user.cities) {
-        if (city.city === req.body.city &&
-            city.state === req.body.state &&
-            city.country === res.locals.country) {
-          return city._id
-        }
-      }
-    })
-    .then(cityId => {
-      return User.findOneAndUpdate({userId: userId}, {$pull: {cities: {_id: cityId}}}, {new: true})
-    })
+router.put('/removecity', middleware.jwtCheck, (req, res) => {
+  User.findOneAndUpdate({userId: req.body.userId}, {$pull: {cities: {_id: req.body.cityId}}})
     .then(() => {
       res.status(200).json({ message: 'City successfully deleted.' });
     })
