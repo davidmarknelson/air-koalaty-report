@@ -3,7 +3,6 @@
   (aqi)='onAqi($event)'
   (firstSearchInitiated)='onFirstSearchInitiated($event)'
   (loading)='onLoading($event)'
-  (errorMessage)='onErrorMessage($event)'
 ></app-city-search>
 
 <div class='content'>
@@ -18,7 +17,6 @@
     <app-aqi-card 
       *ngIf='firstSearchInitiated'
       [aqi]='aqi' 
-      [errorMessage]='errorMessage'
       [loading]='loading'
     ></app-aqi-card>
   </div>

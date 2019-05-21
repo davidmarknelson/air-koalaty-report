@@ -9,7 +9,6 @@ import { Countries } from '../services/aqi/countries';
 export class CountriesComponent implements OnInit {
   countries: Countries;
   loading: boolean;
-  errorMessage: string;
   
   constructor(private aqiService: AqiService) { }
 
@@ -21,7 +20,6 @@ export class CountriesComponent implements OnInit {
     },
     err => {
       this.loading = false;
-      this.errorMessage = err.error.message;
     });
   }
 

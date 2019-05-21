@@ -5,7 +5,6 @@
     <div *ngFor='let city of aqiCities'>
       <app-aqi-card 
         [aqi]='city' 
-        [errorMessage]='errorMessage'
         [loading]='loading'
       ></app-aqi-card>
       <button mat-icon-button color='warn' (click)='openDeleteDialog(city)' *ngIf='canEdit'>

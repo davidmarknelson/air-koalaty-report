@@ -12,7 +12,6 @@ export class StateComponent implements OnInit {
   country: any;
   state: any;
   loading: boolean;
-  errorMessage: string;
   cities: Cities;
   
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
@@ -28,7 +27,6 @@ export class StateComponent implements OnInit {
     },
     err => {
       this.loading = false;
-      this.errorMessage = err.error.message;
     });
   }
 

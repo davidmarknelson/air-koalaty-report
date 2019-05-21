@@ -4,17 +4,15 @@
     (aqi)='onAqi($event)'
     (firstSearchInitiated)='onFirstSearchInitiated($event)'
     (loading)='onLoading($event)'
-    (errorMessage)='onErrorMessage($event)'
   ></app-city-search>
 
   <!-- Card that shows city info -->
   <app-aqi-card 
-    *ngIf='aqi'
+    *ngIf='firstSearchInitiated'
     [aqi]='aqi' 
-    [errorMessage]='errorMessage'
     [loading]='loading'
   ></app-aqi-card>
-  
+
   <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
     Add this city
   </button>

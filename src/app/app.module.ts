@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from "@angular/material";
+import { MatSnackBarModule } from '@angular/material';
 
 // Components
 import { LandingComponent } from './landing/landing.component';
@@ -22,12 +23,14 @@ import { LandingComponent } from './landing/landing.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../environments/environment';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatMenuModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatSnackBarModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleMaps,
       libraries: ['places']
@@ -51,7 +55,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    MatSnackBarComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteDialogComponent]

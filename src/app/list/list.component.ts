@@ -12,10 +12,9 @@ import { Aqi } from '../services/aqi/aqi';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  id: any;
+  id: string;
   aqiCities: Array<Aqi> = [];
   canEdit: boolean;
-  errorMessage: any;
   loading: boolean;
 
   constructor(
@@ -28,7 +27,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.canEdit = false;
     this.auth.getProfile((err, profile) => {
-      if (err) {this.errorMessage = err.message}
+      if (err) {console.log(err);}
       this.id = profile.sub;
       this.getAqiInfo(this.id);
     });
@@ -50,7 +49,6 @@ export class ListComponent implements OnInit {
         },
         err => {
           this.loading = false;
-          this.errorMessage = err.message;
         }
       );
     }

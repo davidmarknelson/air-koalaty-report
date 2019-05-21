@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
+// import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AqiCardModule } from '../aqi-card/aqi-card.module';
     MatProgressSpinnerModule,
     MatButtonToggleModule,
     AqiCardModule
+    // MatSnackBarModule
   ]
 })
 export class ListModule { }

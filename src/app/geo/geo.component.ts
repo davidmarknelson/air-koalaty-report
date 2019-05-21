@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AqiService } from '../services/aqi/aqi.service';
 import { Aqi } from '../services/aqi/aqi';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-geo',
@@ -9,10 +10,10 @@ import { Aqi } from '../services/aqi/aqi';
 })
 export class GeoComponent implements OnInit {
   aqi: Aqi;
-  errorMessage: any;
+  error: boolean;
   loading: boolean;
   
-  constructor(private aqiService: AqiService) {}
+  constructor(private aqiService: AqiService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getCurrentCoordinatesAqi();
@@ -29,11 +30,12 @@ export class GeoComponent implements OnInit {
       },
       err => {
         this.loading = false;
-        this.errorMessage = err.message;
       });
-    }, (err) => {
+    }, err => {
       this.loading = false;
-      this.errorMessage = err.message;
+      this.snackBar.open(`ERROR: ${err.message}`,'Close');
+      this.error = true;
+      console.log(err);
     });
   }
 }

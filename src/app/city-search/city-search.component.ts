@@ -16,7 +16,6 @@ export class CitySearchComponent implements OnInit {
   @Output() firstSearchInitiated = new EventEmitter<boolean>();
   @Output() loading = new EventEmitter<boolean>();
   @Output() aqi = new EventEmitter<Aqi>();
-  @Output() errorMessage = new EventEmitter<string>();
   city: string;
   state: string;
   country: string;
@@ -68,10 +67,7 @@ export class CitySearchComponent implements OnInit {
       },
       err => {
         this.loading.emit(false);
-        this.errorMessage.emit(err.message);
       });
-    } else {
-      this.errorMessage.emit('Select city from the autocomplete suggestions');
     }
   }
 
@@ -94,6 +90,7 @@ export class CitySearchComponent implements OnInit {
   // Some cities have county, city, state, country variables and
   // some have only city, state, country. This checks for that.
   parseAutocompleteData(address) {
+    if (!address) return this.searchComplete = false;
     if (address.length === 4) {
       this.searchComplete = true;
       this.city = address['0'].long_name;

@@ -6,7 +6,6 @@ import { Aqi } from '../services/aqi/aqi';
   styleUrls: ['./aqi-card.component.css']
 })
 export class AqiCardComponent implements OnInit {
-  @Input() errorMessage: string;
   @Input() aqi: Aqi;
   @Input() loading: boolean;
 

@@ -6,6 +6,7 @@ import { AqiCardModule } from '../aqi-card/aqi-card.module';
 import { GeoComponent } from './geo.component';
 import { MatCardModule } from '@angular/material/card';
 import { IndexscaleModule } from '../indexscale/indexscale.module';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [GeoComponent],
@@ -15,7 +16,8 @@ import { IndexscaleModule } from '../indexscale/indexscale.module';
     MatProgressSpinnerModule,
     MatCardModule,
     AqiCardModule,
-    IndexscaleModule
+    IndexscaleModule,
+    MatSnackBarModule
   ]
 })
 export class GeoModule { }
