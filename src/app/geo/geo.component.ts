@@ -33,7 +33,9 @@ export class GeoComponent implements OnInit {
       });
     }, err => {
       this.loading = false;
-      this.snackBar.open(`ERROR: ${err.message}`,'Close');
+      this.snackBar.open(`ERROR: ${err.message}`,'Close', {
+        panelClass: ['red-snackbar']
+      });
       this.error = true;
       console.log(err);
     });

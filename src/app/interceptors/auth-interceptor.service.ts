@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
 
@@ -25,8 +25,9 @@ export class AuthInterceptorService implements HttpInterceptor {
     .pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
-          console.log('All is fine');
-          console.log(event.status);
+          if (event.body.message) {
+            this.snackBar.openSnackBar(event.body.message, 'Close', 'green-snackbar');
+          }
         }
       }, error => {
         console.log("----response----");
@@ -35,7 +36,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         console.error(error.message);
         console.error(error.error.message);
         console.log("--- end of response---");
-        this.snackBar.openSnackBar(`ERROR: ${error.error.message}`,'Close');
+        this.snackBar.openSnackBar(`ERROR: ${error.error.message}`,'Close', 'red-snackbar');
       })
     );
   }

@@ -13,10 +13,11 @@ export class MatSnackBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, className: string) {
 
     this.snackBar.open(message, action, {
-      duration: 5000
+      duration: 5000,
+      panelClass: [className]
     });
   }
 
