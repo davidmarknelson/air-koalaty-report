@@ -66,8 +66,4 @@ export class AqiService {
       country: country
     }});
   }
-
-  handleError(error) {
-    return Observable.throw(error);
-  }
 }

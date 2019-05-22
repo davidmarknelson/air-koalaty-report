@@ -3,6 +3,7 @@ import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Aqi } from '../services/aqi/aqi';
+import { StorageService } from '../services/storage/storage.service';
 declare var google: any;
 
 @Component({
@@ -28,7 +29,8 @@ export class CitySearchComponent implements OnInit {
     private ngZone: NgZone,
     private gmaps: MapsAPILoader,
     private fb: FormBuilder,
-    private aqiService: AqiService
+    private aqiService: AqiService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -56,11 +58,30 @@ export class CitySearchComponent implements OnInit {
   }
 
   getSearchedCityAqi() {
-    if (this.searchComplete) {
+    let cityObj = this.storageService.createCityObj(this.city, this.state, this.country);
+    let storedCity = this.storageService.checkStorageForCity(cityObj);
+    this.getAqiWithStoredCity(storedCity);
+    this.getAqiWithApi(storedCity);
+  }
+
+  getAqiWithStoredCity(storedCity) {
+    if (this.searchComplete && storedCity) {
+      if (storedCity) {
+        this.firstSearchInitiated.emit(true);
+        this.aqi.emit(storedCity);
+        this.resetSearch();
+        console.log('from stored city!')
+      }
+    }
+  }
+
+  getAqiWithApi(storedCity) {
+    if (this.searchComplete && !storedCity) {
       this.firstSearchInitiated.emit(true);
       this.loading.emit(true);
       this.aqi.emit(null);
       this.aqiService.getCity(this.city, this.state, this.country).subscribe((res: Aqi) => {
+        console.log('from api!')
         this.aqi.emit(res);
         this.loading.emit(false);
         this.resetSearch();

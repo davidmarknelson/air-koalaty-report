@@ -13,7 +13,10 @@ export class GeoComponent implements OnInit {
   error: boolean;
   loading: boolean;
   
-  constructor(private aqiService: AqiService, private snackBar: MatSnackBar) {}
+  constructor(
+    private aqiService: AqiService, 
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.getCurrentCoordinatesAqi();
@@ -40,4 +43,6 @@ export class GeoComponent implements OnInit {
       console.log(err);
     });
   }
+
+  
 }

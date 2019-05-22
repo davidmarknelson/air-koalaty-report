@@ -18,12 +18,12 @@ import { MatSnackBarModule } from '@angular/material';
 
 // Components
 import { LandingComponent } from './landing/landing.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 
 // Google Places
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../environments/environment';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
-import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 
 @NgModule({
   declarations: [

@@ -4,11 +4,16 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
+import { StorageService } from '../services/storage/storage.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private snackBar: MatSnackBarComponent) { }
+  constructor(
+    private auth: AuthService, 
+    private snackBar: MatSnackBarComponent,
+    private storageService: StorageService
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('accessToken');
@@ -25,8 +30,19 @@ export class AuthInterceptorService implements HttpInterceptor {
     .pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
+          // Notify when a city has been saved or deleted from the city list
           if (event.body.message) {
             this.snackBar.openSnackBar(event.body.message, 'Close', 'green-snackbar');
+          }
+          // Save aqi data to visited cities within the last hour
+          if (event.body.current) {
+            let key = this.storageService.createAqiCityKey(event.body);
+            let value = this.storageService.createAqiValueWithTimestamp(event.body);
+            localStorage.setItem(key, JSON.stringify(value));
+          }
+          // Save city list to local storage
+          if (event.body.userId) {
+            localStorage.setItem('cityList', JSON.stringify(event.body.cities));
           }
         }
       }, error => {
@@ -36,9 +52,9 @@ export class AuthInterceptorService implements HttpInterceptor {
         console.error(error.message);
         console.error(error.error.message);
         console.log("--- end of response---");
+        // Show errors to the user
         this.snackBar.openSnackBar(`ERROR: ${error.error.message}`,'Close', 'red-snackbar');
       })
     );
   }
-
 }

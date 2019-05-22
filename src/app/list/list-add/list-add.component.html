@@ -13,8 +13,10 @@
     [loading]='loading'
   ></app-aqi-card>
 
-  <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
-    Add this city
-  </button>
+  <div *ngIf='!isCityListAtLimit'>
+    <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
+      Add this city
+    </button>
+  </div>
 </div>
 

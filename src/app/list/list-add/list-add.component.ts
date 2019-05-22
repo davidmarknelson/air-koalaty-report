@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Aqi } from '../../services/aqi/aqi';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-list-add',
@@ -14,16 +15,20 @@ export class ListAddComponent implements OnInit {
   loading: boolean;
   firstSearchInitiated: boolean;
   id: string;
+  isCityListAtLimit: boolean;
 
   constructor(
     private user: UserService, 
     private router: Router, 
     private auth: AuthService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.auth.getProfile((err, profile) => {
+      if (err) { console.log(err); }
       this.id = profile.sub;
+      this.checkCityListLengthForMax();
     });
   }
 
@@ -32,7 +37,7 @@ export class ListAddComponent implements OnInit {
   onAqi(aqi: Aqi) { this.aqi = aqi }
 
   addCity() {
-    let city = this.createCityObj();
+    let city = this.createCityObjWithId();
     this.user.addCity(city).subscribe(
       () => {
         this.router.navigate(['/list'])
@@ -43,7 +48,7 @@ export class ListAddComponent implements OnInit {
     );
   }
 
-  createCityObj() {
+  createCityObjWithId() {
     if (this.aqi) {
       let city = {
         userId: this.id,
@@ -53,5 +58,16 @@ export class ListAddComponent implements OnInit {
       }
       return city;
     }
+  }
+
+  checkCityListLengthForMax() {
+    this.user.getCityList(this.id).subscribe(res => {
+      this.isCityListAtLimit = res.cities.length >= 3;
+      if (this.isCityListAtLimit) {
+        this.snackBar.open('You already have the maximum number of cities saved on your list.','Close', {
+          panelClass: ['blue-snackbar']
+        });
+      }
+    });
   }
 }

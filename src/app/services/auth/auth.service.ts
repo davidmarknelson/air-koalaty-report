@@ -90,6 +90,7 @@ export class AuthService {
     this._idToken = '';
     this._expiresAt = 0;
     this._clearExpiration();
+    localStorage.removeItem('cityList');
 
     this.auth0.logout({
       clientID: environment.clientID,

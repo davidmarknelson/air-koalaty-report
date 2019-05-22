@@ -16,6 +16,11 @@ body {
   color: black;
 }
 
+.blue-snackbar {
+  background: #03a9f4;
+  color: black;
+}
+
 .mat-simple-snackbar-action {
   color: black !important;
 }

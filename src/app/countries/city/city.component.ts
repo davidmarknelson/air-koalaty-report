@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { AqiService } from '../../services/aqi/aqi.service';
 import { Aqi } from '../../services/aqi/aqi';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-city',
@@ -15,7 +16,11 @@ export class CityComponent implements OnInit {
   aqi: Aqi;
   loading: boolean;
 
-  constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private aqiService: AqiService,
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
     let params = this.route.snapshot.params;
@@ -23,6 +28,24 @@ export class CityComponent implements OnInit {
     this.state = params['state'];
     this.city = params['city'];
     this.loading = true;
+    this.checkLocalStorage(this.city, this.state, this.country);
+    if (!this.aqi) {
+      this.getAqiFromApi();
+    }
+  }
+
+  checkLocalStorage(city, state, country) {
+    let cityObj = this.storageService.createCityObj(city, state, country);
+    let storedCity = this.storageService.checkStorageForCity(cityObj);
+    if (storedCity) {
+      this.loading = false;
+      this.aqi = storedCity;
+    } else {
+      return null;
+    }
+  }
+
+  getAqiFromApi() {
     this.aqiService.getCity(this. city, this.state, this.country).subscribe(res => {
       this.loading = false;
       this.aqi = res;
@@ -31,5 +54,4 @@ export class CityComponent implements OnInit {
       this.loading = false;
     });
   }
-
 }
