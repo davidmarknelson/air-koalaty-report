@@ -8,8 +8,8 @@ router.get('/geo', (req, res) => {
       res.status(200).json(body.data);
     })
     .catch(err => {
-      if (!err.statusCode) err.statusCode = 500;
-      res.status(err.statusCode).json({ message: err.error.data.message || 'Something went wrong!' });
+      if (!err.statusCode) res.status(500).json({ message: 'Something went wrong!'});
+      res.status(err.statusCode).json({ message: err.error.data.message });
     });
 });
 
@@ -20,8 +20,8 @@ router.get('/countries', (req, res) => {
       res.status(200).json(body.data);
     })
     .catch(err => {
-      if (!err.statusCode) err.statusCode = 500;
-      res.status(err.statusCode).json({ message: err.error.data.message || 'Something went wrong!' });
+      if (!err.statusCode) res.status(500).json({ message: 'Something went wrong!'});
+      res.status(err.statusCode).json({ message: err.error.data.message });
     });
 });
 
@@ -32,8 +32,8 @@ router.get('/states', (req, res) => {
       res.status(200).json(body.data);
     })
     .catch(err => {
-      if (!err.statusCode) err.statusCode = 500;
-      res.status(err.statusCode).json({ message: err.error.data.message || 'Something went wrong!' });
+      if (!err.statusCode) res.status(500).json({ message: 'Something went wrong!'});
+      res.status(err.statusCode).json({ message: err.error.data.message });
     });
 });
 
@@ -44,8 +44,8 @@ router.get('/cities', (req, res) => {
       res.status(200).json(body.data);
     })
     .catch(err => {
-      if (!err.statusCode) err.statusCode = 500;
-      res.status(err.statusCode).json({ message: err.error.data.message || 'Something went wrong!' });
+      if (!err.statusCode) res.status(500).json({ message: 'Something went wrong!'});
+      res.status(err.statusCode).json({ message: err.error.data.message });
     });
 });
 
@@ -56,8 +56,8 @@ router.get('/city', (req, res) => {
       res.status(200).json(body.data);
     })
     .catch(err => {
-      if (!err.statusCode) err.statusCode = 500;
-      res.status(err.statusCode).json({ message: err.error.data.message || 'Something went wrong!' });
+      if (!err.statusCode) res.status(500).json({ message: 'Something went wrong!'});
+      res.status(err.statusCode).json({ message: err.error.data.message });
     });
 });
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// Interfaces
 import { Aqi } from '../services/aqi/aqi';
 
 @Component({

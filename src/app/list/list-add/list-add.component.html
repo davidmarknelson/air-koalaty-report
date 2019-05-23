@@ -1,22 +1,19 @@
-<div class='content'>
-  <!-- Search for a city -->
-  <app-city-search
-    (aqi)='onAqi($event)'
-    (firstSearchInitiated)='onFirstSearchInitiated($event)'
-    (loading)='onLoading($event)'
-  ></app-city-search>
+<!-- Search for a city -->
+<app-city-search
+  (aqi)='onAqi($event)'
+  (firstSearchInitiated)='onFirstSearchInitiated($event)'
+  (loading)='onLoading($event)'
+></app-city-search>
 
-  <!-- Card that shows city info -->
-  <app-aqi-card 
-    *ngIf='firstSearchInitiated'
-    [aqi]='aqi' 
-    [loading]='loading'
-  ></app-aqi-card>
+<!-- Card that shows city info -->
+<app-aqi-card 
+  *ngIf='firstSearchInitiated'
+  [aqi]='aqi' 
+  [loading]='loading'
+></app-aqi-card>
 
-  <div *ngIf='!isCityListAtLimit'>
-    <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
-      Add this city
-    </button>
-  </div>
+<div *ngIf='!isCityListAtLimit'>
+  <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
+    Add this city
+  </button>
 </div>
-

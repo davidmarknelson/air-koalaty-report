@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import * as auth0 from 'auth0-js';
-import { environment } from '../../../environments/environment';
-import { Subscription, of, timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Subscription, of, timer } from 'rxjs';
+// Authjs
+import * as auth0 from 'auth0-js';
+// Environment
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

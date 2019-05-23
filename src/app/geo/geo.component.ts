@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AqiService } from '../services/aqi/aqi.service';
-import { Aqi } from '../services/aqi/aqi';
+// Angular Material
 import { MatSnackBar } from '@angular/material';
+// Interfaces
+import { Aqi } from '../services/aqi/aqi';
+// Services
+import { AqiService } from '../services/aqi/aqi.service';
 
 @Component({
   selector: 'app-geo',

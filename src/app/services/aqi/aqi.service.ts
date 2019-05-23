@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+// Environment
 import { environment } from '../../../environments/environment';
+// Interfaces
 import { Aqi } from './aqi';
+import { Cities } from './cities';
 import { Countries } from './countries';
 import { States } from './states';
-import { Cities } from './cities';
 
 @Injectable({
   providedIn: 'root'

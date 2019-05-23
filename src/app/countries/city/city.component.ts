@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { AqiService } from '../../services/aqi/aqi.service';
+// Interfaces
 import { Aqi } from '../../services/aqi/aqi';
+// Services
+import { AqiService } from '../../services/aqi/aqi.service';
 import { StorageService } from '../../services/storage/storage.service';
 
 @Component({

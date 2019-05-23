@@ -2,10 +2,11 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-// Services
-import { StorageService } from '../services/storage/storage.service';
 // Angular Material
 import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
+// Services
+import { StorageService } from '../services/storage/storage.service';
+
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {

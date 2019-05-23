@@ -1,25 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { CountriesRoutingModule } from './countries-routing.module';
+// Angular Material
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// Components
+import { CityComponent } from './city/city.component';
 import { CountriesComponent } from './countries.component';
 import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
-import { CityComponent } from './city/city.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// Child Modules
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
-import { IndexscaleModule } from '../indexscale/indexscale.module';
 
 @NgModule({
   declarations: [CountriesComponent, CountryComponent, StateComponent, CityComponent],
   imports: [
     CommonModule,
     CountriesRoutingModule,
+    // Angular Material
     MatCardModule,
     MatProgressSpinnerModule,
-    AqiCardModule,
-    IndexscaleModule
+    // Child Modules
+    AqiCardModule
   ]
 })
 export class CountriesModule { }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { AqiService } from '../../services/aqi/aqi.service';
+// Interfaces
 import { Cities } from '../../services/aqi/cities';
+// Services
+import { AqiService } from '../../services/aqi/aqi.service';
 
 @Component({
   selector: 'app-state',

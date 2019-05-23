@@ -1,0 +1,36 @@
+.good {
+  background-color: green;
+}
+
+.moderate {
+  background-color: yellow;
+
+}
+
+.sensitive {
+  background-color: orange;
+
+}
+
+.unhealthy {
+  background-color: red;
+
+}
+
+.very-unhealthy {
+  background-color: purple;
+
+}
+
+.hazardous {
+  background-color: brown;
+
+}
+
+.selectedText {
+  color: black;
+}
+
+.gray {
+  color: gray;
+}

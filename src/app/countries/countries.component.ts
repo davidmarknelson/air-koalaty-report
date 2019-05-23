@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AqiService } from '../services/aqi/aqi.service';
+// Interfaces
 import { Countries } from '../services/aqi/countries';
+// Services
+import { AqiService } from '../services/aqi/aqi.service';
+
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',

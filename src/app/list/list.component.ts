@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 // Angular Material
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatDialog } from "@angular/material";
+// Interfaces
+import { Aqi } from '../services/aqi/aqi';
 // Services
 import { AqiService } from '../services/aqi/aqi.service';
 import { AuthService } from '../services/auth/auth.service';
 import { StorageService } from '../services/storage/storage.service';
 import { UserService } from '../services/user/user.service';
-// Interfaces
-import { Aqi } from '../services/aqi/aqi';
+
 
 @Component({
   selector: 'app-list',

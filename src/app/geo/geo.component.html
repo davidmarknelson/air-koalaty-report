@@ -1,13 +1,8 @@
-<div class='content'>
-  <div class='aqi-card'>
-    <app-aqi-card 
-      *ngIf='!error'
-      [aqi]='aqi' 
-      [loading]='loading'
-    ></app-aqi-card>
-  </div>
-  
-  <div class='aqi-index'>
-    <app-indexscale></app-indexscale>
-  </div>
-</div>
+<app-aqi-card 
+  *ngIf='!error'
+  [aqi]='aqi' 
+  [loading]='loading'
+></app-aqi-card>
+
+<app-indexscale></app-indexscale>
+
