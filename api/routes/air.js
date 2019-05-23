@@ -50,9 +50,7 @@ router.get('/cities', (req, res) => {
 });
 
 router.get('/city', (req, res) => {
-  let country;
-  (req.query.country === 'United States') ? country = 'USA' : country = req.query.country;
-  let url = `https://api.airvisual.com/v2/city?city=${req.query.city}&state=${req.query.state}&country=${country}&key=${process.env.AIRVISUAL_API_KEY}`;
+  let url = `https://api.airvisual.com/v2/city?city=${req.query.city}&state=${req.query.state}&country=${req.query.country}&key=${process.env.AIRVISUAL_API_KEY}`;
   rp({uri: url, json: true})
     .then(body => {
       res.status(200).json(body.data);

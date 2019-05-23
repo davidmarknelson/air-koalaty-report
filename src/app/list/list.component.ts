@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from "@angular/material";
+// Angular Material
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { AuthService } from '../services/auth/auth.service';
-import { UserService } from '../services/user/user.service';
+import { MatDialog } from "@angular/material";
+// Services
 import { AqiService } from '../services/aqi/aqi.service';
-import { Aqi } from '../services/aqi/aqi';
+import { AuthService } from '../services/auth/auth.service';
 import { StorageService } from '../services/storage/storage.service';
+import { UserService } from '../services/user/user.service';
+// Interfaces
+import { Aqi } from '../services/aqi/aqi';
 
 @Component({
   selector: 'app-list',
@@ -49,18 +52,16 @@ export class ListComponent implements OnInit {
   }
 
   loopCityArrayForAqi(cities) {
-    for (let i = 0; i < cities.length; i++) {
+    for (let city of cities) {
       this.loading = true;
-      let cityObj = this.storageService.createCityObj(cities[i].city, cities[i].state, cities[i].country);
+      let cityObj = this.storageService.createCityObj(city.city, city.state, city.country);
       let storedCity = this.storageService.checkStorageForCity(cityObj);
       if (storedCity) {
-        storedCity._id = cities[i]._id;
+        storedCity._id = city._id;
+        this.loading = false;
         this.aqiCities.push(storedCity);
-        if (i === cities.length - 1) {
-          this.loading = false;
-        }
       } else {
-        this.getAqiFromApi(cities[i], cities, i);
+        this.getAqiFromApi(city);
       }
     }
   }
@@ -88,21 +89,20 @@ export class ListComponent implements OnInit {
         if (data) {
           this.user.deleteCity(cityObj).subscribe(() => {
             this.aqiCities = this.aqiCities.filter(x => x !== city);
-            this.checkCityListLengthForMax()
+            this.checkCityListLengthForMax();
           });
         }
       }
     );  
   }
 
-  getAqiFromApi(cityObj, cityList, i) {
+  getAqiFromApi(cityObj) {
+    this.loading = true;
     this.aqiService.getCity(cityObj.city, cityObj.state, cityObj.country).subscribe(
       res => {
+        this.loading = false;
         res._id = cityObj._id;
         this.aqiCities.push(res);
-        if (i === cityList.length - 1) {
-          this.loading = false;
-        }
       },
       err => {
         this.loading = false;

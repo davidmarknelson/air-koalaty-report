@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, EventEmitter, Output } from '@angular/core';
-import { AqiService } from '../services/aqi/aqi.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MapsAPILoader } from '@agm/core';
-import { Aqi } from '../services/aqi/aqi';
+// Services
+import { AqiService } from '../services/aqi/aqi.service';
 import { StorageService } from '../services/storage/storage.service';
+// Interfaces
+import { Aqi } from '../services/aqi/aqi';
+// Google autocomplete
+import { MapsAPILoader } from '@agm/core';
 declare var google: any;
 
 @Component({
@@ -70,7 +73,6 @@ export class CitySearchComponent implements OnInit {
         this.firstSearchInitiated.emit(true);
         this.aqi.emit(storedCity);
         this.resetSearch();
-        console.log('from stored city!')
       }
     }
   }
@@ -81,7 +83,6 @@ export class CitySearchComponent implements OnInit {
       this.loading.emit(true);
       this.aqi.emit(null);
       this.aqiService.getCity(this.city, this.state, this.country).subscribe((res: Aqi) => {
-        console.log('from api!')
         this.aqi.emit(res);
         this.loading.emit(false);
         this.resetSearch();
@@ -101,13 +102,6 @@ export class CitySearchComponent implements OnInit {
     this.searchForm.reset();
   }
 
-  toggleEnterToSubmit(event) {
-    if (!this.searchComplete) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }
-
   // Some cities have county, city, state, country variables and
   // some have only city, state, country. This checks for that.
   parseAutocompleteData(address) {
@@ -116,14 +110,36 @@ export class CitySearchComponent implements OnInit {
       this.searchComplete = true;
       this.city = address['0'].long_name;
       this.state = address['2'].long_name;
-      this.country = address['3'].long_name;
+      let country = this.parseUSA(address['3'].long_name);
+      this.country = country;
     } else if (address.length === 3) {
       this.searchComplete = true;
       this.city = address['0'].long_name;
       this.state = address['1'].long_name;
-      this.country = address['2'].long_name;
+      let country = this.parseUSA(address['2'].long_name);
+      this.country = country;
     } else {
       this.searchComplete = false;
+    }
+  }
+
+  // Google autocomplete saves the USA as United States.
+  // The api lists the USA as USA. This formats the data for the api.
+  parseUSA(country) {
+    if (country === 'United States') {
+      return 'USA';
+    } else {
+      return country;
+    }
+  }
+
+  // This prevents users from using the enter key to submit the city
+  // until they have selected a city from Google autocomplete.
+  // Then they can use the enter key as normal.
+  toggleEnterToSubmit(event) {
+    if (!this.searchComplete) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 

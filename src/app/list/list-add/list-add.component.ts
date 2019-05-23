@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user/user.service';
-import { AuthService } from '../../services/auth/auth.service';
-import { Aqi } from '../../services/aqi/aqi';
+// Angular Material
 import { MatSnackBar } from '@angular/material';
+// Interfaces
+import { Aqi } from '../../services/aqi/aqi';
+// Services
+import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
+
+
 
 @Component({
   selector: 'app-list-add',
@@ -11,11 +16,11 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./list-add.component.css']
 })
 export class ListAddComponent implements OnInit {
-  aqi: Aqi;
-  loading: boolean;
   firstSearchInitiated: boolean;
-  id: string;
   isCityListAtLimit: boolean;
+  loading: boolean;
+  aqi: Aqi;
+  id: string;
 
   constructor(
     private user: UserService, 

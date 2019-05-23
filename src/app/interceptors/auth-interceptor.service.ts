@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AuthService } from '../services/auth/auth.service';
-import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
+// Services
 import { StorageService } from '../services/storage/storage.service';
+// Angular Material
+import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(
-    private auth: AuthService, 
     private snackBar: MatSnackBarComponent,
     private storageService: StorageService
   ) { }
@@ -30,19 +30,15 @@ export class AuthInterceptorService implements HttpInterceptor {
     .pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
-          // Notify when a city has been saved or deleted from the city list
+          // Notify users when a city has been saved or deleted from the city list
           if (event.body.message) {
             this.snackBar.openSnackBar(event.body.message, 'Close', 'green-snackbar');
           }
-          // Save aqi data to visited cities within the last hour
+          // Save aqi data to visited cities with a timestamp
           if (event.body.current) {
             let key = this.storageService.createAqiCityKey(event.body);
             let value = this.storageService.createAqiValueWithTimestamp(event.body);
             localStorage.setItem(key, JSON.stringify(value));
-          }
-          // Save city list to local storage
-          if (event.body.userId) {
-            localStorage.setItem('cityList', JSON.stringify(event.body.cities));
           }
         }
       }, error => {

@@ -8,7 +8,7 @@ export class StorageService {
   constructor() { }
 
   // Used in interceptor
-  createAqiValueWithTimestamp(eventBody): Object {
+  createAqiValueWithTimestamp(eventBody): object {
     eventBody.timestamp = Date.now();
     return eventBody;
   }
@@ -25,7 +25,6 @@ export class StorageService {
   // Used in components
   checkStorageForCity(cityObj) {
     let key = this.createAqiCityKey(cityObj);
-    console.log('check storage for city', localStorage.getItem(key));
     let storedCity = JSON.parse(localStorage.getItem(key));
     if (!storedCity) return null;
     let expiredTime = this.hasTimestampExpired(storedCity);
@@ -37,17 +36,15 @@ export class StorageService {
     }
   }
 
-  hasTimestampExpired(storedCityObj): Boolean {
-    console.log('in timestamp');
+  hasTimestampExpired(storedCityObj): boolean {
     if (!storedCityObj) return true;
     let timestamp = storedCityObj.timestamp;
     let now = Date.now();
     let hour = 60 * 60 * 1000;
-    console.log('timestamp', (now - hour) > timestamp);
     return (now - hour) > timestamp;
   }
 
-  createCityObj(city, state, country): Object {
+  createCityObj(city, state, country): object {
     let cityObj = {
       city: city,
       state: state,
