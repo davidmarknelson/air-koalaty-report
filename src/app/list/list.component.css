@@ -1,0 +1,11 @@
+.flex-row {
+  display: flex;
+}
+
+.space-fill {
+  flex: 1;
+}
+
+.edit-button {
+  margin-bottom: 20px;
+}

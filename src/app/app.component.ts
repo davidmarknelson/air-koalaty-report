@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   checkIfMobile() {
-    (document.body.offsetWidth <= 800) ? this.mobile = true : this.mobile = false;    
+    (document.body.offsetWidth <= 767) ? this.mobile = true : this.mobile = false;    
   }
 
 }

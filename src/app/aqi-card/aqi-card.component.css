@@ -1,36 +1,25 @@
-.good {
-  background-color: green;
+.aqi-card {
+  height: 325px;
+  margin-bottom: 20px;
 }
 
-.moderate {
-  background-color: yellow;
-
+.aqi-flex-column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.sensitive {
-  background-color: orange;
-
+.aqi-city {
+  text-align: center;
 }
 
-.unhealthy {
-  background-color: red;
-
+.aqi-number {
+  font-size: 7em;
+  text-align: center;
 }
 
-.very-unhealthy {
-  background-color: purple;
-
-}
-
-.hazardous {
-  background-color: brown;
-
-}
-
-.selectedText {
-  color: black;
-}
-
-.gray {
-  color: gray;
+.aqi-subtitle {
+  color: rgb(145, 145, 145);
+  text-align: center;
 }

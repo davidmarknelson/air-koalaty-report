@@ -1,10 +1,19 @@
-<mat-button-toggle (click)='toggleEdit()'>Edit</mat-button-toggle>
+<div class='flex-row'>
+  <div class='space-fill'></div>
+  <mat-button-toggle (click)='toggleEdit()' class='edit-button'>
+    Edit
+  </mat-button-toggle>
+</div>
+
 
 <div *ngFor='let city of aqiCities'>
   <app-aqi-card 
     [aqi]='city' 
     [loading]='loading'
   ></app-aqi-card>
+  <app-weather-card
+    [aqi]='city' 
+  ></app-weather-card>
   <button mat-icon-button color='warn' (click)='openDeleteDialog(city)' *ngIf='canEdit'>
     <i class="material-icons">delete</i>
   </button>
@@ -18,3 +27,4 @@
     </button>
   </a>
 </div>
+

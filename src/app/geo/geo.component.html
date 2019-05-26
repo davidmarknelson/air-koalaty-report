@@ -1,8 +1,21 @@
-<app-aqi-card 
-  *ngIf='!error'
-  [aqi]='aqi' 
-  [loading]='loading'
-></app-aqi-card>
+<div class='row'>
+  <div class='col-md-5'>
+    <app-aqi-card 
+      *ngIf='!error'
+      [aqi]='aqi' 
+      [loading]='loading'
+    ></app-aqi-card>
+  </div>
 
-<app-indexscale></app-indexscale>
-
+  <div class='col-md-5'>
+    <app-weather-card
+      *ngIf='!error'
+      [aqi]='aqi'
+      [loading]='loading'
+    ></app-weather-card>
+  </div>
+  <!-- <div class='col-md-1'></div> -->
+  <div class='col-md-2'>
+    <app-indexscale></app-indexscale>
+  </div>
+</div>

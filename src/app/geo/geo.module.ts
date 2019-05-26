@@ -9,6 +9,7 @@ import { MatSnackBarModule } from '@angular/material';
 // Child Modules
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
 import { IndexscaleModule } from '../indexscale/indexscale.module';
+import { WeatherCardModule } from '../weather-card/weather-card.module';
 
 @NgModule({
   declarations: [GeoComponent],
@@ -21,7 +22,8 @@ import { IndexscaleModule } from '../indexscale/indexscale.module';
     MatSnackBarModule,
     // Child Modules
     AqiCardModule,
-    IndexscaleModule
+    IndexscaleModule,
+    WeatherCardModule
   ]
 })
 export class GeoModule { }

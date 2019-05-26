@@ -1,24 +1,21 @@
 [mat-raised-button] {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .fill-space {
   flex: 1 1 auto;
 }
 
-.navbar {
+.angular-navbar {
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 99;
 }
 
 .auth-button {
   margin-top: 20px;
 }
 
-.content {
+.pad-content {
   padding-top: 84px;
-  margin: 0 auto;
-  width: 1000px;
-  max-width: 90%;
 }

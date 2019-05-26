@@ -1,36 +1,9 @@
-.my-headers-align .mat-expansion-panel-header-title, 
-.my-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
+.flex-button-container {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-mat-panel-description, mat-panel-title {
-  color: black;
-}
-
-.sensitive-number-align {
-  align-items: center;
-}
-
-.index-1 {
-  background-color: rgba(168, 224, 95, 0.3);
-}
-
-.index-2 {
-  background-color: rgba(253, 215, 75, 0.3);
-}
-
-.index-3 {
-  background-color: rgba(254, 155, 87, 0.3);
-}
-
-.index-4 {
-  background-color: rgba(254, 106, 105, 0.3);
-}
-
-.index-5 {
-  background-color: rgba(169, 122, 188, 0.3);
-}
-
-.index-6 {
-  background-color: rgba(168, 115, 131, 0.3);
+.aqi-button {
+  width: 100px;
+  margin-bottom: 20px;
 }

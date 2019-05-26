@@ -1,0 +1,56 @@
+.weather-card {
+  margin-bottom: 20px;
+  height: 325px;
+  position: relative;
+}
+
+.weather-full-height {
+  height: 100%;
+}
+
+.weather-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.weather-content {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.weather-icon-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.weather-icon {
+  width: 100%;
+  padding: 16px;
+}
+
+.weather-numbers {
+  font-size: 2em;
+
+}
+
+.weather-subtitle {
+  color: rgb(145, 145, 145);
+}
+
+.units {
+  font-size: .75em;
+}
+
+.temp-and-speed-button {
+  font-size: .9em;
+  color: rgb(156, 156, 156);
+  right: 10px;
+  top: 5px;
+  position: absolute;
+  z-index: 10;
+}

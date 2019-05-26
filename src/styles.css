@@ -6,21 +6,53 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+button:focus {outline:0;}
+
+/* Snackbar styles */
 .green-snackbar {
-  background: #1DE9B6;
+  background: #d4edda;
   color: black;
 }
 
 .red-snackbar {
-  background: #B00020;
+  background: #f8d7da;
   color: black;
 }
 
 .blue-snackbar {
-  background: #03a9f4;
+  background: #cce5ff;
   color: black;
 }
 
 .mat-simple-snackbar-action {
   color: black !important;
+}
+
+/* Aqi Index Scale Colors */
+.good {
+  background-color: rgb(229,246,207);
+}
+
+.moderate {
+  background-color: rgb(254,243,201);
+}
+
+.sensitive {
+  background-color: rgb(255,225,205);
+}
+
+.unhealthy {
+  background-color: rgb(255,210,210);
+}
+
+.very-unhealthy {
+  background-color: rgb(229,215,235);
+}
+
+.hazardous {
+  background-color: rgb(229,213,218);
+}
+
+.aqi-spinner {
+  margin: 75px auto;
 }
