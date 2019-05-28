@@ -5,15 +5,38 @@
   (loading)='onLoading($event)'
 ></app-city-search>
 
-<!-- Card that shows city info -->
-<app-aqi-card 
-  *ngIf='firstSearchInitiated'
-  [aqi]='aqi' 
-  [loading]='loading'
-></app-aqi-card>
+<!-- Display when no city has been searched -->
+<mat-card *ngIf='!firstSearchInitiated'>
+  <h2>Search for a city to add to your list.</h2>
+</mat-card>
 
-<div *ngIf='!isCityListAtLimit'>
-  <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi'>
-    Add this city
-  </button>
+<!-- Card that shows city info -->
+<div class='row'>
+  <div class='col-md-5'>
+    <app-aqi-card 
+      *ngIf='firstSearchInitiated'
+      [aqi]='aqi' 
+      [loading]='loading'
+    ></app-aqi-card>
+  </div>
+
+  <div class='col-md-5 list-add-weather-spacing'>
+    <app-weather-card
+      *ngIf='firstSearchInitiated'
+      [aqi]='aqi'
+      [loading]='loading'
+    ></app-weather-card>
+
+    <div *ngIf='!isCityListAtLimit'>
+      <button mat-stroked-button color='primary' (click)='addCity()' [disabled]='!aqi' *ngIf='aqi' class='float-right add-button-spacing'>
+        Add this city <i class="material-icons">chevron_right</i>
+      </button>
+    </div>
+  </div>
+  
+  <div class='col-md-2'>
+    <app-indexscale *ngIf='firstSearchInitiated'></app-indexscale>
+  </div>
 </div>
+
+

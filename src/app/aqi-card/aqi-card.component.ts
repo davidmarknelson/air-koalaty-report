@@ -19,14 +19,15 @@ export class AqiCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.aqi) {
-      this.addAqiColorClass();
-    }
+    this.addAqiColorClass();
   }
 
   addAqiColorClass() {
-    let aqi = this.aqi.current.pollution.aqius;
-    if (aqi <= 50) {
+    let aqi;
+    if (this.aqi) aqi = this.aqi.current.pollution.aqius;
+    if (!this.aqi) {
+      this.aqiColorClass = '';
+    } else if (aqi <= 50) {
       this.aqiColorClass = 'good';
     } else if (aqi >= 51 && aqi <= 100) {
       this.aqiColorClass = 'moderate';
@@ -38,8 +39,6 @@ export class AqiCardComponent implements OnInit, OnChanges {
       this.aqiColorClass = 'very-unhealthy';
     } else if (aqi >= 301) {
       this.aqiColorClass = 'hazardous';
-    } else {
-      this.aqiColorClass = '';
     }
   }
 }

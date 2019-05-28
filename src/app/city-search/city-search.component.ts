@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 // Services
 import { AqiService } from '../services/aqi/aqi.service';
 import { StorageService } from '../services/storage/storage.service';
@@ -17,16 +18,15 @@ declare var google: any;
 export class CitySearchComponent implements OnInit {
   @ViewChild('citySearch')
   private citySearch: ElementRef;
+  @Output() aqi = new EventEmitter<Aqi>();
   @Output() firstSearchInitiated = new EventEmitter<boolean>();
   @Output() loading = new EventEmitter<boolean>();
-  @Output() aqi = new EventEmitter<Aqi>();
+  autocomplete: any;
   city: string;
   state: string;
   country: string;
-  searchForm: FormGroup;
-  autocomplete: any;
   searchComplete: boolean;
-
+  searchForm: FormGroup;
 
   constructor(
     private ngZone: NgZone,
@@ -61,35 +61,26 @@ export class CitySearchComponent implements OnInit {
   }
 
   getSearchedCityAqi() {
-    let cityObj = this.storageService.createCityObj(this.city, this.state, this.country);
-    let storedCity = this.storageService.checkStorageForCity(cityObj);
-    this.getAqiWithStoredCity(storedCity);
-    this.getAqiWithApi(storedCity);
-  }
-
-  getAqiWithStoredCity(storedCity) {
-    if (this.searchComplete && storedCity) {
-      if (storedCity) {
-        this.firstSearchInitiated.emit(true);
-        this.aqi.emit(storedCity);
+    if (this.searchComplete) {
+      this.getAqiFromStorageOrApi(this.city, this.state, this.country).subscribe(res => {
+        this.loading.emit(false);
+        this.aqi.emit(res);
         this.resetSearch();
-      }
+      }, err => this.loading.emit(false));
     }
   }
 
-  getAqiWithApi(storedCity) {
-    if (this.searchComplete && !storedCity) {
+  getAqiFromStorageOrApi(city, state, country): Observable<Aqi> {
+    let cityObj = this.storageService.createCityObj(city, state, country);
+    let storedCity = this.storageService.checkStorageForCity(cityObj);
+    if (storedCity) {
+      this.firstSearchInitiated.emit(true);
+      return of(storedCity);
+    } else {
       this.firstSearchInitiated.emit(true);
       this.loading.emit(true);
       this.aqi.emit(null);
-      this.aqiService.getCity(this.city, this.state, this.country).subscribe((res: Aqi) => {
-        this.aqi.emit(res);
-        this.loading.emit(false);
-        this.resetSearch();
-      },
-      err => {
-        this.loading.emit(false);
-      });
+      return this.aqiService.getCity(city, state, country);
     }
   }
 
