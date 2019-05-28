@@ -1,19 +1,18 @@
 form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 30px auto;
-  min-width: 150px;
-  max-width: 500px;
+  margin: 30px 0 50px 0;
+}
+
+.city-search-input {
   width: 100%;
 }
 
-mat-form-field {
-  width: 80%;
+.city-search-flex {
+  display: flex;
+  justify-content: center
 }
 
-button {
-  margin: 10px;
+.search-button {
+  margin: 10px 0;
 }
 
 button:disabled {

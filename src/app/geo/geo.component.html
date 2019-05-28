@@ -1,4 +1,4 @@
-<div class='row'>
+<div class='row geo-top-spacing'>
   <div class='col-md-5'>
     <app-aqi-card 
       *ngIf='!error'
@@ -7,13 +7,14 @@
     ></app-aqi-card>
   </div>
 
-  <div class='col-md-5'>
+  <div class='col-md-5 geo-weather-spacing'>
     <app-weather-card
       *ngIf='!error'
       [aqi]='aqi'
       [loading]='loading'
     ></app-weather-card>
   </div>
+  
   <div class='col-md-2'>
     <app-indexscale></app-indexscale>
   </div>

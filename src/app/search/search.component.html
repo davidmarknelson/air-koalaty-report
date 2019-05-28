@@ -11,8 +11,24 @@
 </mat-card>
 
 <!-- Display when request for AQI and city have been made and show the results -->
-<app-aqi-card 
-  *ngIf='firstSearchInitiated'
-  [aqi]='aqi' 
-  [loading]='loading'
-></app-aqi-card>
+<div class='row'>
+  <div class='col-md-5'>
+    <app-aqi-card 
+      *ngIf='firstSearchInitiated'
+      [aqi]='aqi' 
+      [loading]='loading'
+    ></app-aqi-card>
+  </div>
+
+  <div class='col-md-5 search-weather-spacing'>
+    <app-weather-card
+      *ngIf='firstSearchInitiated'
+      [aqi]='aqi'
+      [loading]='loading'
+    ></app-weather-card>
+  </div>
+  
+  <div class='col-md-2'>
+    <app-indexscale *ngIf='firstSearchInitiated'></app-indexscale>
+  </div>
+</div>

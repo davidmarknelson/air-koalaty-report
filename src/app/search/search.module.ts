@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
 import { CitySearchModule } from '../city-search/city-search.module';
 import { IndexscaleModule } from '../indexscale/indexscale.module';
+import { WeatherCardModule } from '../weather-card/weather-card.module';
 // Components
 import { SearchComponent } from './search.component';
 // Routing
@@ -25,7 +26,8 @@ import { SearchRoutingModule } from './search-routing.module';
     // Child Modules
     AqiCardModule,
     CitySearchModule,
-    IndexscaleModule
+    IndexscaleModule,
+    WeatherCardModule
   ]
 })
 export class SearchModule { }

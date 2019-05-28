@@ -1,3 +1,7 @@
-.aqi-bottom-spacing {
+.city-top-spacing {
+  margin-top: 30px;
+}
+
+.city-weather-spacing {
   margin-bottom: 50px;
 }

@@ -1,4 +1,4 @@
-<div class='row'>
+<div class='row city-top-spacing'>
   <div class='col-md-5'>
     <app-aqi-card 
       *ngIf='!error'
@@ -7,7 +7,7 @@
     ></app-aqi-card>
   </div>
 
-  <div class='col-md-5 aqi-bottom-spacing'>
+  <div class='col-md-5 city-weather-spacing'>
     <app-weather-card
       *ngIf='!error'
       [aqi]='aqi'
