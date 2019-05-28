@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // Angular Material
 import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
+// Environments
+import { environment } from '../../environments/environment';
 // Services
 import { StorageService } from '../services/storage/storage.service';
 
@@ -31,6 +33,11 @@ export class AuthInterceptorService implements HttpInterceptor {
     .pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
+          // Save list of countries with a timestamp
+          if (event.url === `${environment.apiUri}airvisual/countries`) {
+            let body = this.storageService.createCountriesValueWithTimestamp(event.body);
+            localStorage.setItem('countries', JSON.stringify(body));
+          }
           // Notify users when a city has been saved or deleted from the city list
           if (event.body.message) {
             this.snackBar.openSnackBar(event.body.message, 'Close', 'green-snackbar');

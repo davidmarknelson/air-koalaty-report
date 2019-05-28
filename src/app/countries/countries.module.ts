@@ -11,6 +11,8 @@ import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
 // Child Modules
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
+import { IndexscaleModule } from '../indexscale/indexscale.module';
+import { WeatherCardModule } from '../weather-card/weather-card.module';
 
 @NgModule({
   declarations: [CountriesComponent, CountryComponent, StateComponent, CityComponent],
@@ -21,7 +23,9 @@ import { AqiCardModule } from '../aqi-card/aqi-card.module';
     MatCardModule,
     MatProgressSpinnerModule,
     // Child Modules
-    AqiCardModule
+    AqiCardModule,
+    IndexscaleModule,
+    WeatherCardModule
   ]
 })
 export class CountriesModule { }

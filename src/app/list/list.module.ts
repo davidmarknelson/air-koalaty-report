@@ -9,6 +9,7 @@ import { MatSnackBarModule } from '@angular/material';
 // Child Modules
 import { AqiCardModule } from '../aqi-card/aqi-card.module';
 import { CitySearchModule } from '../city-search/city-search.module';
+import { IndexscaleModule } from '../indexscale/indexscale.module';
 import { ListAddComponent } from './list-add/list-add.component';
 import { ListComponent } from './list.component';
 import { WeatherCardModule } from '../weather-card/weather-card.module';
@@ -30,6 +31,7 @@ import { ListRoutingModule } from './list-routing.module';
     MatSnackBarModule,
     // Child Modules
     AqiCardModule,
+    IndexscaleModule,
     WeatherCardModule
   ]
 })

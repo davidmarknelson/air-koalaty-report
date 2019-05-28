@@ -1,3 +1,7 @@
+<div *ngIf='loading'>
+  <mat-spinner class='aqi-spinner'></mat-spinner>
+</div>
+
 <div *ngFor='let state of states'>
   <a [routerLink]="[state.state]">{{state.state}}</a>
 </div>

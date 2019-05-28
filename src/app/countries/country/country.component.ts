@@ -20,13 +20,11 @@ export class CountryComponent implements OnInit {
   ngOnInit() {
     let params = this.route.snapshot.params;
     this.country = params['country'];
+    this.loading = true;
     this.aqiService.getStates(this.country).subscribe(res => {
       this.loading = false;
       this.states = res
-    },
-    err => {
-      this.loading = false;
-    });
+    }, err => this.loading = false);
   }
 
 }

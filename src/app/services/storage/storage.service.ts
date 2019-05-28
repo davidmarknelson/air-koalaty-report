@@ -13,6 +13,16 @@ export class StorageService {
     return eventBody;
   }
 
+  createCountriesValueWithTimestamp(eventBody): object {
+    let countries = eventBody
+    let timestamp = Date.now();
+    let body = {
+      timestamp: timestamp,
+      countries: countries
+    }
+    return body;
+  }
+
   // Used in interceptor and components
   createAqiCityKey(cityObj): string {
     let city = cityObj.city;
@@ -36,9 +46,9 @@ export class StorageService {
     }
   }
 
-  hasTimestampExpired(storedCityObj): boolean {
-    if (!storedCityObj) return true;
-    let timestamp = storedCityObj.timestamp;
+  hasTimestampExpired(storedObj): boolean {
+    if (!storedObj) return true;
+    let timestamp = storedObj.timestamp;
     let now = Date.now();
     let hour = 60 * 60 * 1000;
     return (now - hour) > timestamp;

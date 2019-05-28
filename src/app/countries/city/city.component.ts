@@ -5,6 +5,7 @@ import { Aqi } from '../../services/aqi/aqi';
 // Services
 import { AqiService } from '../../services/aqi/aqi.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-city',
@@ -30,30 +31,20 @@ export class CityComponent implements OnInit {
     this.state = params['state'];
     this.city = params['city'];
     this.loading = true;
-    this.checkLocalStorage(this.city, this.state, this.country);
-    if (!this.aqi) {
-      this.getAqiFromApi();
-    }
+    this.getAqiFromLocalStorageOrApi(this.city, this.state, this.country).subscribe(res => {
+      this.loading = false;
+      this.aqi = res;
+    }, err => this.loading = false);
   }
 
-  checkLocalStorage(city, state, country) {
+  getAqiFromLocalStorageOrApi(city, state, country): Observable<Aqi> {
     let cityObj = this.storageService.createCityObj(city, state, country);
     let storedCity = this.storageService.checkStorageForCity(cityObj);
     if (storedCity) {
-      this.loading = false;
-      this.aqi = storedCity;
+      return of(storedCity);
     } else {
-      return null;
+      return this.aqiService.getCity(city, state, country);      
     }
   }
 
-  getAqiFromApi() {
-    this.aqiService.getCity(this. city, this.state, this.country).subscribe(res => {
-      this.loading = false;
-      this.aqi = res;
-    },
-    err => {
-      this.loading = false;
-    });
-  }
 }

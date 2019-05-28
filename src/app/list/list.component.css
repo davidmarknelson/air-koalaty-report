@@ -9,3 +9,19 @@
 .edit-button {
   margin-bottom: 20px;
 }
+
+.aqi-add-city-button {
+  margin-bottom: 30px;
+}
+
+.aqi-delete-city-button {
+  margin-bottom: 10px;
+}
+
+.aqi-city-row {
+  margin-bottom: 60px;
+}
+
+.aqi-indexscale {
+  margin-bottom: 50px;
+}

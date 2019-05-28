@@ -26,10 +26,7 @@ export class StateComponent implements OnInit {
     this.aqiService.getCities(this.state, this.country).subscribe(res => {
       this.loading = false;
       this.cities = res
-    },
-    err => {
-      this.loading = false;
-    });
+    }, err => this.loading = false);
   }
 
 }

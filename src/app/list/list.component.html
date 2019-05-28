@@ -1,30 +1,49 @@
-<div class='flex-row'>
+<div class='flex-row' *ngIf='showEditAndIndexScale'>
   <div class='space-fill'></div>
   <mat-button-toggle (click)='toggleEdit()' class='edit-button'>
     Edit
   </mat-button-toggle>
 </div>
 
-
-<div *ngFor='let city of aqiCities'>
-  <app-aqi-card 
-    [aqi]='city' 
-    [loading]='loading'
-  ></app-aqi-card>
-  <app-weather-card
-    [aqi]='city' 
-  ></app-weather-card>
-  <button mat-icon-button color='warn' (click)='openDeleteDialog(city)' *ngIf='canEdit'>
-    <i class="material-icons">delete</i>
-  </button>
+<div class='row'>
+  <div class='col-md-10'>
+    <div *ngFor='let city of aqiCities'>
+      <div class='row'>
+        <div class='col'>
+          <button mat-stroked-button color='warn' (click)='openDeleteDialog(city)' 
+                  *ngIf='canEdit' class='float-right aqi-delete-city-button'>
+            Delete {{city.city}} <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </div>
+      <div class='row aqi-city-row'>
+        <div class='col-md-6'>
+          <app-aqi-card 
+            [aqi]='city' 
+          ></app-aqi-card>
+        </div>
+      
+        <div class='col-md-6'>
+          <app-weather-card
+            [aqi]='city'
+          ></app-weather-card>
+        </div>
+      </div>
+    </div>
+    <div *ngIf='!isCityListMaxed'>  
+      <a routerLink='addcity' *ngIf='canEdit'>
+        <button mat-stroked-button color='primary' class='aqi-add-city-button float-right'>
+          Get City AQI <i class="material-icons">chevron_right</i>
+        </button>
+      </a>
+    </div>
+  </div>
+  <div class='col-md-2 aqi-indexscale'>
+    <app-indexscale *ngIf='showEditAndIndexScale'></app-indexscale>
+  </div>
 </div>
-<mat-spinner *ngIf='loading'></mat-spinner>
 
-<div *ngIf='!isCityListMaxed'>
-  <a routerLink='addcity' *ngIf='canEdit'>
-    <button mat-stroked-button color='primary'>
-      Get City AQI <i class="material-icons">chevron_right</i>
-    </button>
-  </a>
+<div *ngIf='loading'>
+  <mat-spinner class='aqi-spinner'></mat-spinner>
 </div>
 
