@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { from, Observable, of, iif } from 'rxjs';
-import { map, mergeMap, concatMap, finalize, filter, tap } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { from, Observable, of, Subject } from 'rxjs';
+import { map, mergeMap, concatMap, finalize, filter, takeUntil } from 'rxjs/operators';
 // Angular Material
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatDialog } from "@angular/material";
@@ -18,7 +18,8 @@ import { UserService } from '../services/user/user.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject();
   aqiCities: Array<Aqi> = [];
   canEdit: boolean;
   id: string;
@@ -48,6 +49,11 @@ export class ListComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   getCityListAndAqiData(id): Observable<any> {
     return this.user.getCityList(id).pipe(
       concatMap((user: User) => {
@@ -57,7 +63,8 @@ export class ListComponent implements OnInit {
         return this.getAqiFromStorageOrApi(city);        
       }), finalize(() => {
         this.loading = false;
-      }) 
+      }),
+      takeUntil(this.ngUnsubscribe) 
     )
   };
 
@@ -72,7 +79,8 @@ export class ListComponent implements OnInit {
         map(res => {
           res._id = city._id;
           return res;
-        })
+        }),
+        takeUntil(this.ngUnsubscribe)
       )
     }
   }
@@ -98,14 +106,17 @@ export class ListComponent implements OnInit {
     dialogRef.afterClosed().pipe(
       filter(data => data === true),
       concatMap(() => this.user.deleteCity(cityObj)), 
-      mergeMap(() => this.user.getCityList(this.id))).subscribe(res => {
+      mergeMap(() => this.user.getCityList(this.id)),
+      takeUntil(this.ngUnsubscribe)).subscribe(res => {
       this.aqiCities = this.aqiCities.filter(x => x !== city);
       this.cityListNotMaxed = res.cities.length < 3;
     });
   }
 
   checkCityListLengthForMax() {
-    this.user.getCityList(this.id).subscribe(res => {
+    this.user.getCityList(this.id).pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(res => {
       this.cityListNotMaxed = res.cities.length < 3;
     });
   }

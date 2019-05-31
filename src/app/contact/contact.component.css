@@ -28,3 +28,10 @@ mat-card-content {
   margin-bottom: 40px;
 }
 
+a, a:hover {
+  color: #0000EE;
+}
+
+a:visited {
+  color: #551A8B;
+}

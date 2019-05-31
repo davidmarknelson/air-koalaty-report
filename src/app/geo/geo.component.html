@@ -15,7 +15,11 @@
     ></app-weather-card>
   </div>
   
-  <div class='col-md-2'>
+  <div class='col-md-2' *ngIf='!error'>
     <app-indexscale></app-indexscale>
   </div>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf='error'>
+  Oops! Looks like there was an error. Please allow this website to use your location to view your current AQI.
 </div>

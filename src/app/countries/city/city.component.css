@@ -9,3 +9,7 @@
 .add-button-spacing {
   margin-top: 50px;
 }
+
+a, a:hover {
+  color: #0000EE;
+}

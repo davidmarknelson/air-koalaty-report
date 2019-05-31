@@ -10,7 +10,10 @@
       <div class='banner-content-container'>
         <div class='banner-content-background'>
             <h1 class='banner-title'>Air <span class='koala-text'>KOALA</span>ty Report</h1>
-            <p>The place to find the air quality and weather of different cities.</p>
+            <p>
+              Many people don't know the quality of the air they are breathing. 
+              This website helps fix this problem by showing the Air Quality Index (AQI) and weather of different cities.
+            </p>
         </div>
       </div>
     </div>
@@ -20,60 +23,8 @@
   <a href='https://unsplash.com/@photoholgic' class='photo-credit-link' target='_blank'><p class='photo-credit'>Photo by Holger Link on Unsplash</p></a>
 </mat-card>
 
-<!-- Geo Info -->
-<div class='row'>
-  <div class='col-md-6'>
-    <p>Find the air quality based on your geolocation.</p>
-  </div>
-  <div class='col-md-6'>
-    <img src="../../assets/images/landing-page-images/geo-hanoi.png" 
-          alt="Hanoi, Vietnam air quality from geolocation page."
-          class='geo-img img-thumbnail'>
-  </div>
-</div>
-
-<!-- City Search Info -->
-<div class='row'>
-  <div class='col-md-3'>
-    <p>Search for different cities with Google autocomplete.</p>
-  </div>
-  <div class='col-md-3'>
-    <img src="../../assets/images/landing-page-images/city-search-1.png" 
-          alt="Searching for New York."
-          class='geo-img img-thumbnail'>
-  </div>
-  <div class='col-md-3'>
-    <img src="../../assets/images/landing-page-images/city-search-2.png" 
-          alt="New York is in the search bar."
-          class='geo-img img-thumbnail'>
-  </div>
-  <div class='col-md-3'>
-    <img src="../../assets/images/landing-page-images/city-search-3.png" 
-          alt="New York air quality is shown."
-          class='geo-img img-thumbnail'>
-  </div>
-</div>
-
-<!-- Countries Info -->
-<div class='row'>
-  <div class='col-md-6'>
-    <p>Search for cities in different countries.</p>
-  </div>
-  <div class='col-md-6'>
-    <img src="../../assets/images/landing-page-images/countries.png" 
-          alt="List of countries on the countries page."
-          class='geo-img img-thumbnail'>
-  </div>
-</div>
-
-<!-- List Info -->
-<div class='row'>
-  <div class='col-md-6'>
-    <p>Save up to 3 cities on your personal list.</p>
-  </div>
-  <div class='col-md-6'>
-    <img src="../../assets/images/landing-page-images/list.png" 
-          alt="Saved list of cities."
-          class='geo-img img-thumbnail'>
-  </div>
+<div class='landing-button'>
+  <button mat-raised-button color="primary" routerLink='/geo'>
+    Get your AQI <i class="material-icons">chevron_right</i>
+  </button>
 </div>

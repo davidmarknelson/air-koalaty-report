@@ -29,7 +29,7 @@ router.put('/addcity', middleware.jwtCheck, middleware.parseReqBodyToAddCity, (r
 router.put('/removecity', middleware.jwtCheck, (req, res) => {
   User.findOneAndUpdate({userId: req.body.userId}, {$pull: {cities: {_id: req.body.cityId}}})
     .then(() => {
-      res.status(200).json({ message: 'City successfully deleted.' });
+      res.status(200).json({ message: 'City successfully removed.' });
     })
     .catch(err => res.status(500).json({ message: err.message })); 
 });

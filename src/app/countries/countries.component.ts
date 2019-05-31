@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
 // Interfaces
 import { Countries } from '../services/aqi/countries';
 // Services
@@ -11,7 +12,8 @@ import { StorageService } from '../services/storage/storage.service';
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.css']
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject();
   countries: Countries;
   error: boolean;
   loading: boolean;
@@ -29,13 +31,18 @@ export class CountriesComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   getCountriesFromStorageOrApi(): Observable<any> {
     let countries = JSON.parse(localStorage.getItem('countries'));
     let timestampExpired = this.storageService.hasTimestampExpired(countries);
     if (timestampExpired) {
-      return this.aqiService.getCountries();
+      return this.aqiService.getCountries().pipe(takeUntil(this.ngUnsubscribe));
     } else {
-      return of(countries.countries);
+      return of(countries.countries).pipe(takeUntil(this.ngUnsubscribe));
     }
   }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 // Services
 import { AqiService } from '../services/aqi/aqi.service';
 import { StorageService } from '../services/storage/storage.service';
@@ -15,7 +16,8 @@ declare var google: any;
   templateUrl: './city-search.component.html',
   styleUrls: ['./city-search.component.css']
 })
-export class CitySearchComponent implements OnInit {
+export class CitySearchComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject();
   @ViewChild('citySearch')
   private citySearch: ElementRef;
   @Output() aqi = new EventEmitter<Aqi>();
@@ -62,6 +64,11 @@ export class CitySearchComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   getSearchedCityAqi() {
     if (this.searchComplete) {
       this.error.emit(false);
@@ -82,12 +89,12 @@ export class CitySearchComponent implements OnInit {
     let storedCity = this.storageService.checkStorageForCity(cityObj);
     if (storedCity) {
       this.firstSearchInitiated.emit(true);
-      return of(storedCity);
+      return of(storedCity).pipe(takeUntil(this.ngUnsubscribe));
     } else {
       this.firstSearchInitiated.emit(true);
       this.loading.emit(true);
       this.aqi.emit(null);
-      return this.aqiService.getCity(city, state, country);
+      return this.aqiService.getCity(city, state, country).pipe(takeUntil(this.ngUnsubscribe));
     }
   }
 
