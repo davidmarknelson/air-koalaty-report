@@ -3,7 +3,12 @@
   (aqi)='onAqi($event)'
   (firstSearchInitiated)='onFirstSearchInitiated($event)'
   (loading)='onLoading($event)'
+  (error)='onError($event)'
 ></app-city-search>
+
+<div class="alert alert-danger" role="alert" *ngIf='error'>
+  Oops! Try a different city or try looking for a city in the <a routerLink='/countries'>countries page</a>.
+</div>
 
 <!-- Display when no city has been searched -->
 <mat-card *ngIf='!firstSearchInitiated'>
@@ -11,7 +16,7 @@
 </mat-card>
 
 <!-- Display when request for AQI and city have been made and show the results -->
-<div class='row'>
+<div class='row' *ngIf='!error'>
   <div class='col-md-5'>
     <app-aqi-card 
       *ngIf='firstSearchInitiated'
@@ -26,6 +31,12 @@
       [aqi]='aqi'
       [loading]='loading'
     ></app-weather-card>
+
+    <div *ngIf='cityListNotMaxed'>
+      <button mat-stroked-button color='accent' (click)='addCity()' *ngIf='aqi' class='float-right add-button-spacing'>
+        Add this city <i class="material-icons">chevron_right</i>
+      </button>
+    </div>
   </div>
   
   <div class='col-md-2'>

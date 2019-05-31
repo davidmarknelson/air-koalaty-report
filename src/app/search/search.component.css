@@ -1,3 +1,15 @@
 .search-weather-spacing {
   margin-bottom: 50px;
 }
+
+.add-button-spacing {
+  margin-top: 50px;
+}
+
+a, a:hover {
+  color: #0000EE;
+}
+
+a:visited {
+  color: #551A8B;
+}

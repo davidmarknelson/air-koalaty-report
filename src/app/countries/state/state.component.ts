@@ -11,10 +11,11 @@ import { AqiService } from '../../services/aqi/aqi.service';
   styleUrls: ['./state.component.css']
 })
 export class StateComponent implements OnInit {
-  country: any;
-  state: any;
+  country: string;
+  state: string;
   loading: boolean;
   cities: Cities;
+  error: boolean;
   
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
 
@@ -26,7 +27,10 @@ export class StateComponent implements OnInit {
     this.aqiService.getCities(this.state, this.country).subscribe(res => {
       this.loading = false;
       this.cities = res
-    }, err => this.loading = false);
+    }, err => {
+      this.error = true;
+      this.loading = false;
+    });
   }
 
 }

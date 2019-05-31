@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
-import { map, mergeMap, concatMap, finalize } from 'rxjs/operators';
+import { from, Observable, of, iif } from 'rxjs';
+import { map, mergeMap, concatMap, finalize, filter, tap } from 'rxjs/operators';
 // Angular Material
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatDialog } from "@angular/material";
@@ -22,9 +22,9 @@ export class ListComponent implements OnInit {
   aqiCities: Array<Aqi> = [];
   canEdit: boolean;
   id: string;
-  isCityListMaxed: boolean;
+  cityListNotMaxed: boolean;
   loading: boolean;
-  showEditAndIndexScale: boolean;
+  showIndexScale: boolean;
 
   constructor(
     public auth: AuthService, 
@@ -35,14 +35,14 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showEditAndIndexScale = false;
-    this.loading= true;
+    this.showIndexScale = false;
+    this.loading = true;
     this.canEdit = false;
     this.auth.getProfile((err, profile) => {
       if (err) { this.loading = false; }
       this.id = profile.sub;
       this.getCityListAndAqiData(this.id).subscribe(res => {
-        this.showEditAndIndexScale = true;
+        this.showIndexScale = true;
         this.aqiCities.push(res);
       });
     });
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
   getCityListAndAqiData(id): Observable<any> {
     return this.user.getCityList(id).pipe(
       concatMap((user: User) => {
-        this.isCityListMaxed = user.cities.length >= 3;
+        this.cityListNotMaxed = user.cities.length < 3;
         return from(user.cities);
       }), mergeMap(city => {
         return this.getAqiFromStorageOrApi(city);        
@@ -95,21 +95,18 @@ export class ListComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(
-      data => {
-        if (data) {
-          this.user.deleteCity(cityObj).subscribe(() => {
-            this.aqiCities = this.aqiCities.filter(x => x !== city);
-            this.checkCityListLengthForMax();
-          });
-        }
-      }
-    );  
+    dialogRef.afterClosed().pipe(
+      filter(data => data === true),
+      concatMap(() => this.user.deleteCity(cityObj)), 
+      mergeMap(() => this.user.getCityList(this.id))).subscribe(res => {
+      this.aqiCities = this.aqiCities.filter(x => x !== city);
+      this.cityListNotMaxed = res.cities.length < 3;
+    });
   }
 
   checkCityListLengthForMax() {
     this.user.getCityList(this.id).subscribe(res => {
-      this.isCityListMaxed = res.cities.length >= 3;
+      this.cityListNotMaxed = res.cities.length < 3;
     });
   }
   

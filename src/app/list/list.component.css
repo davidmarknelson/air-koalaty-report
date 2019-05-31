@@ -10,10 +10,6 @@
   margin-bottom: 20px;
 }
 
-.aqi-add-city-button {
-  margin-bottom: 60px;
-}
-
 .aqi-delete-city-button {
   margin-bottom: 10px;
 }
@@ -22,6 +18,12 @@
   margin-bottom: 60px;
 }
 
-.aqi-indexscale {
-  margin-bottom: 50px;
+.aqi-add-city-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 60px;
+}
+
+.add-countries-button {
+  margin-right: 5px;
 }

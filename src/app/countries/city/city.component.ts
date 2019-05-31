@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { Observable, of } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 // Interfaces
 import { Aqi } from '../../services/aqi/aqi';
 // Services
 import { AqiService } from '../../services/aqi/aqi.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { Observable, of } from 'rxjs';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-city',
@@ -18,11 +21,15 @@ export class CityComponent implements OnInit {
   city: string;
   aqi: Aqi;
   loading: boolean;
+  cityListNotMaxed: boolean;
+  id: string;
 
   constructor(
     private route: ActivatedRoute, 
     private aqiService: AqiService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private user: UserService, 
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -35,6 +42,13 @@ export class CityComponent implements OnInit {
       this.loading = false;
       this.aqi = res;
     }, err => this.loading = false);
+    this.auth.getProfile((err, profile) => {
+      if (err) { console.log(err); }
+      this.id = profile.sub;
+      if (this.id) {
+        this.checkCityListLengthForMax();
+      }
+    });
   }
 
   getAqiFromLocalStorageOrApi(city, state, country): Observable<Aqi> {
@@ -45,6 +59,22 @@ export class CityComponent implements OnInit {
     } else {
       return this.aqiService.getCity(city, state, country);      
     }
+  }
+
+  addCity() {
+    let city = this.user.createCityObjWithId(this.id, this.aqi);
+    this.user.addCity(city).pipe(
+        concatMap(() => this.user.getCityList(this.id))
+      ).subscribe(res => {
+      this.cityListNotMaxed = res.cities.length < 3;
+    });
+  }
+
+  checkCityListLengthForMax() {
+    this.user.getCityList(this.id).subscribe(res => {
+      this.cityListNotMaxed = res.cities.length < 3;
+      }
+    );
   }
 
 }

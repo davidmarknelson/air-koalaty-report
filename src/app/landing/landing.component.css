@@ -1,8 +1,76 @@
-.title-banner {
-  margin: 0 auto;
+/* Banner Styles */
+.landing-page-banner {
+  margin: 30px auto 50px auto;
+  height: 350px;
+  background-image: 
+    /* linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)),  */
+    linear-gradient(rgba(255, 64, 129, 0.4), rgba(3, 169, 244, 0.4)), 
+    url(../../assets/images/landing-page-images/skyline-sm.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.koala-logo-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.koala-logo-img {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
 
-.title-banner > mat-card-title {
+.banner-content-background {
+  background: rgba(245, 245, 245, 0.6);
+  padding-top: 10px;
+  border-radius: 5px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-title {
   font-size: 2em;
+}
+
+.koala-text {
+  font-family: 'Ranga';
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+.photo-credit {
+  margin: 0;
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  font-size: .7em;
+}
+
+.photo-credit-link {
+  margin: 0;
+  color: rgba(0, 0, 0, .5);
+}
+
+.photo-credit-link:hover {
+  color: black;
+}
+
+/* Geo page info styles */
+.geo-img {
+  /* max-width: 250px; */
 }

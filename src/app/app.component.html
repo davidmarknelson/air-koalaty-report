@@ -1,6 +1,6 @@
 <mat-toolbar color='primary' class='angular-navbar'>
   <a routerLink=''>
-    <button mat-raised-button>KOALAty</button>
+    <button mat-stroked-button class='logo-button'><img src="../assets/images/koala-logo/koala-sm.png" alt="air koalaty report koala logo"></button>
   </a>
   
   <div *ngIf='!mobile'>
@@ -47,6 +47,34 @@
   
 </mat-toolbar>
 
-<div class='container pad-content'>
+<div class='container pad-content fill-page'>
   <router-outlet></router-outlet>
 </div>
+
+<footer class='footer'>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-4'>
+        <div class='contact-button-container'>
+          <button mat-stroked-button routerLink='/contact' class='footer-contact-button'>
+            Contact
+          </button>
+        </div>
+      </div>
+
+      <div class='col-8'>
+        <div class='icon-container'>
+          <div class='fill-space'></div>
+          <p class='icon-credit'>Icon made by 
+            <a href="https://www.freepik.com/" title="Freepik" class='icon-credit-link'>Freepik</a> 
+            from 
+            <a href="https://www.flaticon.com/" title="Flaticon" class='icon-credit-link'>www.flaticon.com</a> 
+            is licensed by 
+            <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank"  class='icon-credit-link'>CC 3.0 BY</a>.
+          </p>
+        </div>
+        
+      </div>
+    </div> 
+  </div>
+</footer>

@@ -21,6 +21,7 @@ export class CitySearchComponent implements OnInit {
   @Output() aqi = new EventEmitter<Aqi>();
   @Output() firstSearchInitiated = new EventEmitter<boolean>();
   @Output() loading = new EventEmitter<boolean>();
+  @Output() error = new EventEmitter<boolean>();
   autocomplete: any;
   city: string;
   state: string;
@@ -38,6 +39,7 @@ export class CitySearchComponent implements OnInit {
 
   ngOnInit() {
     this.firstSearchInitiated.emit(false);
+    this.error.emit(false);
     this.loading.emit(false);
     this.searchComplete = false;
     this.createForm();
@@ -62,11 +64,16 @@ export class CitySearchComponent implements OnInit {
 
   getSearchedCityAqi() {
     if (this.searchComplete) {
+      this.error.emit(false);
       this.getAqiFromStorageOrApi(this.city, this.state, this.country).subscribe(res => {
         this.loading.emit(false);
         this.aqi.emit(res);
         this.resetSearch();
-      }, err => this.loading.emit(false));
+      }, err => {
+        this.loading.emit(false);
+        this.error.emit(true);
+        this.resetSearch();
+      });
     }
   }
 
@@ -96,19 +103,28 @@ export class CitySearchComponent implements OnInit {
   // Some cities have county, city, state, country variables and
   // some have only city, state, country. This checks for that.
   parseAutocompleteData(address) {
+    console.log(address)
     if (!address) return this.searchComplete = false;
-    if (address.length === 4) {
+    if (address.length === 5) {
       this.searchComplete = true;
       this.city = address['0'].long_name;
-      this.state = address['2'].long_name;
-      let country = this.parseUSA(address['3'].long_name);
-      this.country = country;
+      this.state = this.parseState(address['2'].long_name);
+      this.country = this.parseUSA(address['3'].long_name);
+    } else if (address.length === 4) {
+      this.searchComplete = true;
+      this.city = address['0'].long_name;
+      this.state = this.parseState(address['2'].long_name);
+      this.country = this.parseUSA(address['3'].long_name);
     } else if (address.length === 3) {
       this.searchComplete = true;
       this.city = address['0'].long_name;
-      this.state = address['1'].long_name;
-      let country = this.parseUSA(address['2'].long_name);
-      this.country = country;
+      this.state = this.parseState(address['1'].long_name);
+      this.country = this.parseUSA(address['2'].long_name);
+    } else if (address.length === 2) {
+      this.searchComplete = true;
+      this.city = address['0'].long_name;
+      this.state = this.parseState(address['0'].long_name);
+      this.country = this.parseUSA(address['1'].long_name);
     } else {
       this.searchComplete = false;
     }
@@ -122,6 +138,17 @@ export class CitySearchComponent implements OnInit {
     } else {
       return country;
     }
+  }
+
+  // This parses states to match the API
+  parseState(state) {
+    if (state === 'Mid-Western Development Region') return 'Mid Western';
+    if (state.includes('Development')) return state.split('Development ').join('');
+    if (state.includes('Province')) return state.split(' Province').join('');
+    if (state.includes('Division')) return state.split(' Division').join('');
+    if (state === 'South District') return 'Southern District';
+    if (state === 'Brussels') return 'Brussels Capital';
+    return state;
   }
 
   // This prevents users from using the enter key to submit the city

@@ -1,4 +1,4 @@
-<div class='flex-row' *ngIf='showEditAndIndexScale'>
+<div class='flex-row' *ngIf='!loading'>
   <div class='space-fill'></div>
   <mat-button-toggle (click)='toggleEdit()' class='edit-button'>
     Edit
@@ -12,7 +12,7 @@
         <div class='col'>
           <button mat-stroked-button color='warn' (click)='openDeleteDialog(city)' 
                   *ngIf='canEdit' class='float-right aqi-delete-city-button'>
-            Delete {{city.city}} <i class="material-icons">delete</i>
+            Remove {{city.city}} <i class="material-icons">delete</i>
           </button>
         </div>
       </div>
@@ -30,16 +30,23 @@
         </div>
       </div>
     </div>
-    <div *ngIf='!isCityListMaxed'>  
-      <a routerLink='addcity' *ngIf='canEdit'>
-        <button mat-stroked-button color='primary' class='aqi-add-city-button float-right'>
-          Get City AQI <i class="material-icons">chevron_right</i>
+    <div class='aqi-add-city-buttons' *ngIf='cityListNotMaxed'>  
+      <a routerLink='/countries' *ngIf='canEdit'>
+        <button mat-stroked-button color='accent' class='add-countries-button'>
+          Add from country <i class="material-icons">chevron_right</i>
+        </button>
+      </a>
+
+      <a routerLink='/search' *ngIf='canEdit'>
+        <button mat-stroked-button color='accent'>
+          Add from city <i class="material-icons">chevron_right</i>
         </button>
       </a>
     </div>
   </div>
-  <div class='col-md-2 aqi-indexscale'>
-    <app-indexscale *ngIf='showEditAndIndexScale'></app-indexscale>
+
+  <div class='col-md-2'>
+    <app-indexscale *ngIf='showIndexScale'></app-indexscale>
   </div>
 </div>
 

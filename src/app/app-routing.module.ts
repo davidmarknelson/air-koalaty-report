@@ -10,7 +10,10 @@ const routes: Routes = [
   { path: 'geo', loadChildren: './geo/geo.module#GeoModule' },
   { path: 'list', loadChildren: './list/list.module#ListModule' },
   { path: 'search', loadChildren: './search/search.module#SearchModule' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupModule' }
+  { path: 'signup', loadChildren: './signup/signup.module#SignupModule' },
+  { path: 'contact', loadChildren: './contact/contact.module#ContactModule' },
+  { path: 'notfound', loadChildren: './not-found/not-found.module#NotFoundModule' },
+  { path: '**', redirectTo: '/notfound' }
 ];
 
 @NgModule({

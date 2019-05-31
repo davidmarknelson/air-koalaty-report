@@ -13,6 +13,7 @@ import { AqiService } from '../../services/aqi/aqi.service';
 export class CountryComponent implements OnInit {
   country: string;
   states: States;
+  error: boolean;
   loading: boolean;
 
   constructor(private route: ActivatedRoute, private aqiService: AqiService) { }
@@ -24,7 +25,10 @@ export class CountryComponent implements OnInit {
     this.aqiService.getStates(this.country).subscribe(res => {
       this.loading = false;
       this.states = res
-    }, err => this.loading = false);
+    }, err => {
+      this.error = true;
+      this.loading = false;
+    });
   }
 
 }

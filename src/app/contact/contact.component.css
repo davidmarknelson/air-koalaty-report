@@ -1,0 +1,30 @@
+.contact-card {
+  margin-top: 30px;
+}
+
+.contact-header {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+mat-card-content {
+  margin: 30px 15px;
+}
+
+.contact-icon-container {
+  text-align: center;
+}
+
+.contact-icons {
+  color: #1a76a1;
+}
+
+.contact-icons:hover {
+  color: #03a9f4;
+}
+
+.contact-description {
+  margin-bottom: 40px;
+}
+

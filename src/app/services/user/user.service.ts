@@ -27,4 +27,14 @@ export class UserService {
   deleteCity(city): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}citylist/removecity`, city);
   }
+
+  createCityObjWithId(id, aqi) {
+    let city = {
+      userId: id,
+      city: aqi.city,
+      state: aqi.state,
+      country: aqi.country
+    }
+    return city;
+  }
 }

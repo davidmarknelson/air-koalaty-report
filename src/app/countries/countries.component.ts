@@ -13,6 +13,7 @@ import { StorageService } from '../services/storage/storage.service';
 })
 export class CountriesComponent implements OnInit {
   countries: Countries;
+  error: boolean;
   loading: boolean;
   
   constructor(private aqiService: AqiService, private storageService: StorageService) { }
@@ -22,7 +23,10 @@ export class CountriesComponent implements OnInit {
     this.getCountriesFromStorageOrApi().subscribe(res => {
       this.countries = res;
       this.loading = false;
-    }, err => this.loading = false);
+    }, err => {
+      this.error = true;
+      this.loading = false;
+    });
   }
 
   getCountriesFromStorageOrApi(): Observable<any> {

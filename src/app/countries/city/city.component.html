@@ -13,6 +13,12 @@
       [aqi]='aqi'
       [loading]='loading'
     ></app-weather-card>
+
+    <div *ngIf='cityListNotMaxed'>
+      <button mat-stroked-button color='accent' (click)='addCity()' *ngIf='aqi' class='float-right add-button-spacing'>
+        Add this city <i class="material-icons">chevron_right</i>
+      </button>
+    </div>
   </div>
   <div class='col-md-2' *ngIf='aqi'>
     <app-indexscale></app-indexscale>
