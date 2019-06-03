@@ -20,7 +20,7 @@ export class AqiService {
   aqiUrlCity = `${environment.apiUri}airvisual/city`;
 
   constructor(private http: HttpClient) {}
- 
+
   getLocation(): Observable<any> {
     return Observable.create(observer => {
       if(window.navigator && window.navigator.geolocation) {

@@ -19,12 +19,6 @@ router.use('/api/airvisual', airVisualRoutes);
 router.use('/api/citylist', cityListRoutes);
 
 // Handle errors
-router.use((req, res, next) => {
-  let error = new Error('Not found');
-  error.status = 404;
-  next(error);
-})
-
 router.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({

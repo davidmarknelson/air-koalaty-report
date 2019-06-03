@@ -2,7 +2,7 @@ const rp = require('request-promise-native');
 const router = require('express').Router();
 
 router.get('/geo', (req, res) => {
-  let url = `https://api.airvisual.com/v2/nearest_city?lat=${req.body.lat}&lon=${req.body.long}&key=${process.env.AIRVISUAL_API_KEY}`;
+  let url = `https://api.airvisual.com/v2/nearest_city?lat=${req.query.lat}&lon=${req.query.long}&key=${process.env.AIRVISUAL_API_KEY}`;
   rp({uri: url, json: true})
     .then(body => {
       res.status(200).json(body.data);

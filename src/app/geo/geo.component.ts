@@ -20,7 +20,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   loading: boolean;
   lat: string;
   long: string;
-  
+
   constructor(private aqiService: AqiService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
