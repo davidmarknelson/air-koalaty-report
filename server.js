@@ -45,14 +45,14 @@ app.use(routes);
 
 // Set static path to Angular app in dist
 if (process.env.NODE_ENV !== 'dev') {
-  app.use(express.static(__dirname + '/dist/air-koalaty-report'));
+  app.use(express.static(__dirname + '/dist/'));
 }
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
 if (process.env.NODE_ENV !== 'dev') {
   app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/air-koalaty-report/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
   });
 }
 
