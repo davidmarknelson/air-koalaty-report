@@ -1,6 +1,6 @@
 <mat-toolbar color='primary' class='angular-navbar'>
   <a routerLink=''>
-    <button mat-stroked-button class='logo-button'><img src="../assets/images/koala-logo/koala-sm.png" alt="air koalaty report koala logo"></button>
+    <button mat-stroked-button class='logo-button'><img src='../assets/images/koala-logo/koala-sm.png' alt='air koalaty report koala logo'></button>
   </a>
   
   <div *ngIf='!mobile'>
@@ -10,13 +10,13 @@
     <button mat-button routerLink='/list'>Your Saved List</button>
   </div>
   
-  <span class="fill-space"></span>
+  <span class='fill-space'></span>
 
   <!-- Button for users who aren't logged in -->
   <div *ngIf='!mobile'>
     <a *ngIf='!auth.isAuthenticated()' (click)='auth.login()'>
       <button mat-stroked-button>
-        Log In <i class="material-icons">chevron_right</i>
+        Log In <i class='material-icons'>chevron_right</i>
       </button>
     </a>
   
@@ -27,12 +27,12 @@
   </div>
 
   <!-- Button to show menu when screen is small -->
-  <button mat-button [matMenuTriggerFor]="menu" *ngIf='mobile'>
-    <i class="material-icons">
+  <button mat-button [matMenuTriggerFor]='menu' *ngIf='mobile'>
+    <i class='material-icons'>
       menu
     </i>
   </button>
-  <mat-menu #menu="matMenu">
+  <mat-menu #menu='matMenu'>
     <button mat-menu-item routerLink='/geo'>Your Geolocation AQI</button>
     <button mat-menu-item routerLink='/search'>Search for Cities</button>
     <button mat-menu-item routerLink='/countries'>Search Countries</button>
@@ -66,11 +66,11 @@
         <div class='icon-container'>
           <div class='fill-space'></div>
           <p class='icon-credit'>Icon made by 
-            <a href="https://www.freepik.com/" title="Freepik" class='icon-credit-link'>Freepik</a> 
+            <a href='https://www.freepik.com/' title='Freepik' class='icon-credit-link'>Freepik</a> 
             from 
-            <a href="https://www.flaticon.com/" title="Flaticon" class='icon-credit-link'>www.flaticon.com</a> 
+            <a href='https://www.flaticon.com/' title='Flaticon' class='icon-credit-link'>www.flaticon.com</a> 
             is licensed by 
-            <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank"  class='icon-credit-link'>CC 3.0 BY</a>.
+            <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0' target='_blank'  class='icon-credit-link'>CC 3.0 BY</a>.
           </p>
         </div>
         

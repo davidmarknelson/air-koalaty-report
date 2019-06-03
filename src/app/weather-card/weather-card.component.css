@@ -53,4 +53,5 @@
   top: 5px;
   position: absolute;
   z-index: 10;
+  text-decoration: underline;
 }

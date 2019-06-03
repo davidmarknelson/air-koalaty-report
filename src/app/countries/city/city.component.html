@@ -16,7 +16,7 @@
 
     <div *ngIf='cityListNotMaxed'>
       <button mat-stroked-button color='accent' (click)='addCity()' *ngIf='aqi' class='float-right add-button-spacing'>
-        Add this city <i class="material-icons">chevron_right</i>
+        Add this city <i class='material-icons'>chevron_right</i>
       </button>
     </div>
   </div>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="alert alert-danger" role="alert" *ngIf='error'>
+<div class='alert alert-danger' role='alert' *ngIf='error'>
   Oops! Looks like there was an error getting the city. 
   Try refreshing the page or going back to select a <a routerLink='..'>different city</a>.
 </div>

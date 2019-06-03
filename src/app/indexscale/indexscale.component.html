@@ -2,27 +2,27 @@
   <div class='col-md' [class.flex-button-container]='mobile'>
     <ng-template #popContentGood><strong>Good</strong> - {{good}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentGood"
+      [ngbPopover]='popContentGood'
       popoverClass='good'
-      placement="{{placement}}"
+      placement='{{placement}}'
       class='good aqi-button'>
       0 - 50
     </button>
       
     <ng-template #popContentModerate><strong>Moderate</strong> - {{moderate}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentModerate"
+      [ngbPopover]='popContentModerate'
       popoverClass='moderate'
-      placement="{{placement}}"
+      placement='{{placement}}'
       class='moderate aqi-button'>
       51 - 100
     </button>
 
     <ng-template #popContentSensitive><strong>Unhealthy for Sensitive Groups</strong> - {{sensitive}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentSensitive"
+      [ngbPopover]='popContentSensitive'
       popoverClass='sensitive'
-      placement="{{placement}}"
+      placement='{{placement}}'
       class='sensitive aqi-button'>
       101 - 150
     </button>
@@ -31,27 +31,27 @@
   <div class='col-md' [class.flex-button-container]='mobile'>
     <ng-template #popContentUnhealthy><strong>Unhealthy</strong> - {{unhealthy}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentUnhealthy"
+      [ngbPopover]='popContentUnhealthy'
       popoverClass='unhealthy'
-      placement="{{placement}}"
+      placement='{{placement}}'
       class='unhealthy aqi-button'>
       151 - 200
     </button>
 
     <ng-template #popContentVeryUnhealthy><strong>Very Unhealthy</strong> - {{veryUnhealthy}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentVeryUnhealthy"
+      [ngbPopover]='popContentVeryUnhealthy'
       popoverClass='very-unhealthy'
-      placement="{{placement}}"
+      placement='{{placement}}'
       class='very-unhealthy aqi-button'>
       201 - 300
     </button>
 
     <ng-template #popContentHazardous><strong>Hazardous</strong> - {{hazardous}}</ng-template>
     <button mat-stroked-button
-      [ngbPopover]="popContentHazardous"
+      [ngbPopover]='popContentHazardous'
       popoverClass='hazardous'
-      placement="{{placement}}"      
+      placement='{{placement}}'      
       class='hazardous aqi-button'>
       300+
     </button>

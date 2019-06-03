@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -12,39 +13,48 @@ mongoose.set('useCreateIndex', true);
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
-  console.error('MongoDB Connection Error. Please make sure that', process.env.MONGO_URI, 'is running.');
+  console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
 
 monDb.once('open', function callback() {
-  console.info('Connected to MongoDB:', process.env.MONGO_URI);
+  console.info('Connected to MongoDB.');
 });
+
+// Force SSL
+const forceSSL = function() {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(
+       ['https://', req.get('Host'), req.url].join('')
+      );
+    }
+  next(); }
+}
 
 // App
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
-
-// Set port
-const port = process.env.PORT || 8083;
-app.set('port', port);
-
-// Set static path to Angular app in dist
-// Don't run in dev
 if (process.env.NODE_ENV !== 'dev') {
-  app.use('/', express.static(path.join(__dirname, './dist')));
+  app.use(forceSSL());
 }
 
 // Routes
 app.use(routes);
 
-// Pass routing to Angular app
-// Don't run in dev
+// Set static path to Angular app in dist
 if (process.env.NODE_ENV !== 'dev') {
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '/dist/index.html'));
+  app.use(express.static(__dirname + '/dist/air-koalaty-report'));
+}
+
+// For all GET requests, send back index.html
+// so that PathLocationStrategy can be used
+if (process.env.NODE_ENV !== 'dev') {
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/dist/air-koalaty-report/index.html'));
   });
 }
 
 // Server
-app.listen(port, () => console.log(`Server running on localhost:${port}`));
+app.listen(process.env.PORT || 8083, () => console.log('Server running.'));

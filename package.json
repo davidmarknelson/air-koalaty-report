@@ -1,10 +1,14 @@
 {
   "name": "air-koalaty-report",
   "version": "0.0.0",
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node server.js",
+    "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -12,6 +16,9 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "~7.3.6",
+    "@angular/compiler-cli": "~7.2.0",
+    "typescript": "~3.2.2",
     "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "~7.2.0",
     "@angular/cdk": "^7.3.7",

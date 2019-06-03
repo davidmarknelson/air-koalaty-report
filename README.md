@@ -1,6 +1,6 @@
 # Air KOALAty Report
 
-This project is currently in development using Angular.
+This project is currently running live at https://airkoalatyreport.herokuapp.com/
 
 ## Development server
 
@@ -8,7 +8,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## API server
 
-In the `api/` directory, make sure `mongo` is running and then run `npm run api-dev` to run the api server.
+Make sure `mongo` is running and then run `npm run api-dev` to run the api server.
 
 ## Environment variables
 
@@ -18,7 +18,7 @@ Create a `.env` file with the same fields as the `.env.default` file. `AUTH0_API
 `clientID`, `domain`, `redirectUri`, `AUTH0_DOMAIN` are all variables from you can get from your free Auth0 account.
 
 ## World Air Quality Index variables
-You can get your free api key from `https://www.airvisual.com/`. `AIRVISUAL_URI` is the api uri. `AIRVISUAL_API_KEY` is your api key.
+You can get your free api key from https://www.airvisual.com/ `AIRVISUAL_URI` is the api uri. `AIRVISUAL_API_KEY` is your api key.
 
 ## Build
 

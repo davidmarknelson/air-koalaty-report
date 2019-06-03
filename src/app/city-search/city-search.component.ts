@@ -110,7 +110,6 @@ export class CitySearchComponent implements OnInit, OnDestroy {
   // Some cities have county, city, state, country variables and
   // some have only city, state, country. This checks for that.
   parseAutocompleteData(address) {
-    console.log(address)
     if (!address) return this.searchComplete = false;
     if (address.length === 5) {
       this.searchComplete = true;

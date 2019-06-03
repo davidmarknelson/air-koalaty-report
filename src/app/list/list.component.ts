@@ -42,10 +42,12 @@ export class ListComponent implements OnInit, OnDestroy {
     this.auth.getProfile((err, profile) => {
       if (err) { this.loading = false; }
       this.id = profile.sub;
-      this.getCityListAndAqiData(this.id).subscribe(res => {
-        this.showIndexScale = true;
-        this.aqiCities.push(res);
-      });
+      if (this.id) {
+        this.getCityListAndAqiData(this.id).subscribe(res => {
+          this.showIndexScale = true;
+          this.aqiCities.push(res);
+        });
+      }
     });
   }
 

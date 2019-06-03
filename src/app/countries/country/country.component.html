@@ -2,11 +2,11 @@
   <mat-spinner class='aqi-spinner'></mat-spinner>
 </div>
 
-<div class="alert alert-danger" role="alert" *ngIf='error'>
+<div class='alert alert-danger' role='alert' *ngIf='error'>
   Oops! Looks like there was an error getting the list of states. 
   Try refreshing the page or going back to the <a routerLink='/countries'>countries page</a>.
 </div>
 
 <div *ngFor='let state of states'>
-  <a [routerLink]="[state.state]">{{state.state}}</a>
+  <a [routerLink]='[state.state]'>{{state.state}}</a>
 </div>

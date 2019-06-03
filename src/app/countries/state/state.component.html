@@ -2,11 +2,11 @@
   <mat-spinner class='aqi-spinner'></mat-spinner>
 </div>
 
-<div class="alert alert-danger" role="alert" *ngIf='error'>
+<div class='alert alert-danger' role='alert' *ngIf='error'>
   Oops! Looks like there was an error getting the list of cities. 
   Try refreshing the page or going back to the <a routerLink='..'>states page</a>.
 </div>
 
 <div *ngFor='let city of cities'>
-  <a [routerLink]="[city.city]">{{city.city}}</a>
+  <a [routerLink]='[city.city]'>{{city.city}}</a>
 </div>

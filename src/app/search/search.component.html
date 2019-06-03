@@ -6,7 +6,7 @@
   (error)='onError($event)'
 ></app-city-search>
 
-<div class="alert alert-danger" role="alert" *ngIf='error'>
+<div class='alert alert-danger' role='alert' *ngIf='error'>
   Oops! Try a different city or try looking for a city in the <a routerLink='/countries'>countries page</a>.
 </div>
 
@@ -34,7 +34,7 @@
 
     <div *ngIf='cityListNotMaxed'>
       <button mat-stroked-button color='accent' (click)='addCity()' *ngIf='aqi' class='float-right add-button-spacing'>
-        Add this city <i class="material-icons">chevron_right</i>
+        Add this city <i class='material-icons'>chevron_right</i>
       </button>
     </div>
   </div>
