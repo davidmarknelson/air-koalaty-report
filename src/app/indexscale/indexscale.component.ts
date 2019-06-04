@@ -15,7 +15,10 @@ export class IndexscaleComponent implements OnInit {
   veryUnhealthy: string ='Health warnings of emergency conditions. The entire population is more likely to be affected.';
   hazardous: string = 'Health alert: everyone may experience more serious health effects.';
   mobile: boolean;
-  placement: string;
+  placementMiddle: string;
+  placementRight: string;
+  placementLeft: string;
+
 
   constructor() { }
 
@@ -30,10 +33,14 @@ export class IndexscaleComponent implements OnInit {
 
   checkIfMobile() {
     if (document.body.offsetWidth <= 767) {
-      this.placement = 'top';
+      this.placementRight = 'top-left';
+      this.placementMiddle = 'top';
+      this.placementLeft = 'top-right';
       this.mobile = true;
     } else {
-      this.placement = 'left';
+      this.placementRight = 'left';
+      this.placementMiddle = 'left';
+      this.placementLeft = 'left';
       this.mobile = false;
     }
   }

@@ -23,16 +23,16 @@ export class AqiService {
 
   getLocation(): Observable<any> {
     return Observable.create(observer => {
-      if(window.navigator && window.navigator.geolocation) {
-        window.navigator.geolocation.getCurrentPosition(
-          (position) => {
+      if(navigator.geolocation) {
+        window.navigator.geolocation.getCurrentPosition(position => {
             observer.next(position);
             observer.complete();
-          },
-          (error) => observer.error(error)
+          },error => {
+            observer.error(error);
+          }, {enableHighAccuracy: false, timeout: 6000}
         );
       } else {
-        observer.error('Unsupported Browser');
+        observer.error('Unsupported browser');
       }
     });
   }

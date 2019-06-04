@@ -8,7 +8,6 @@ export const environment = {
   domain: '', // Get info from .env
   redirectUri: '', // Get info from .env
   audience: 'http://localhost:8083/api/',
-  afterCallbackUri: 'localhost:4200/list',
   apiUri: 'http://localhost:8083/api/',
   googleMaps: '' // Get info from .env
 };

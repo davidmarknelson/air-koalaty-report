@@ -4,7 +4,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentGood'
       popoverClass='good'
-      placement='{{placement}}'
+      placement='{{placementRight}}'
       class='good aqi-button'>
       0 - 50
     </button>
@@ -13,7 +13,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentModerate'
       popoverClass='moderate'
-      placement='{{placement}}'
+      placement='{{placementMiddle}}'
       class='moderate aqi-button'>
       51 - 100
     </button>
@@ -22,7 +22,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentSensitive'
       popoverClass='sensitive'
-      placement='{{placement}}'
+      placement='{{placementLeft}}'
       class='sensitive aqi-button'>
       101 - 150
     </button>
@@ -33,7 +33,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentUnhealthy'
       popoverClass='unhealthy'
-      placement='{{placement}}'
+      placement='{{placementRight}}'
       class='unhealthy aqi-button'>
       151 - 200
     </button>
@@ -42,7 +42,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentVeryUnhealthy'
       popoverClass='very-unhealthy'
-      placement='{{placement}}'
+      placement='{{placementMiddle}}'
       class='very-unhealthy aqi-button'>
       201 - 300
     </button>
@@ -51,7 +51,7 @@
     <button mat-stroked-button
       [ngbPopover]='popContentHazardous'
       popoverClass='hazardous'
-      placement='{{placement}}'      
+      placement='{{placementLeft}}'      
       class='hazardous aqi-button'>
       300+
     </button>

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { takeUntil, map, concatMap } from 'rxjs/operators';
+import { takeUntil, timeout, map, concatMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 // Angular Material
 import { MatSnackBar } from '@angular/material';
@@ -35,6 +35,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   getCurrentCoordinatesAqi() {
     this.loading = true;
     this.aqiService.getLocation().pipe(
+      timeout(5000),
       map(pos => {
         this.lat = pos.coords.latitude.toString();
         this.long = pos.coords.longitude.toString();
@@ -49,7 +50,8 @@ export class GeoComponent implements OnInit, OnDestroy {
       this.error = true;
       this.loading = false;
       this.snackBar.open(`ERROR: ${err.message}`,'Close', {
-        panelClass: ['red-snackbar']
+        panelClass: ['red-snackbar'],
+        duration: 5000
       });
       console.log(err);
     });

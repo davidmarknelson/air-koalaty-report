@@ -47,7 +47,6 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.href = environment.afterCallbackUri;
         this.localLogin(authResult);
         this.router.navigate(['/list']);
       } else if (err) {
@@ -88,11 +87,10 @@ export class AuthService {
   public logout(): void {
     // Remove tokens and expiry time
     this._accessToken = '';
-    localStorage.removeItem('accessToken');
     this._idToken = '';
     this._expiresAt = 0;
     this._clearExpiration();
-    localStorage.removeItem('cityList');
+    localStorage.clear();
 
     this.auth0.logout({
       clientID: environment.clientID,
