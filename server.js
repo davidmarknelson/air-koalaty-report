@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const routes = require('./api/api');
 const cors = require('cors');
+const helmet = require('helmet');
 
 // MongoDB
 mongoose.connect(process.env.MONGO_URI, { useCreateIndex: false, useFindAndModify: false, useNewUrlParser: true });
@@ -36,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
+app.use(helmet());
 if (process.env.NODE_ENV !== 'dev') {
   app.use(forceSSL());
 }
