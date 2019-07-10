@@ -34,19 +34,17 @@ export class GeoComponent implements OnInit, OnDestroy {
 
   getCurrentCoordinatesAqi() {
     this.loading = true;
-    this.aqiService.getLocation().pipe(
-      timeout(5000),
-      map(pos => {
-        this.lat = pos.coords.latitude.toString();
-        this.long = pos.coords.longitude.toString();
-      }),
-      concatMap(() => this.aqiService.getGeoLocationAqi(this.lat, this.long)),
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe((res: Aqi) => {
-      this.loading = false;
-      this.aqi = res;
-    },
-    err => {
+    this.aqiService.getLocation().subscribe(pos => {
+      let lat = pos.coords.latitude.toString();
+      let long = pos.coords.longitude.toString();
+      this.aqiService.getGeoLocationAqi(lat, long).subscribe((res: Aqi) => {
+        this.loading = false;
+        this.aqi = res;
+      },
+      err => {
+        this.loading = false;
+      });
+    }, err => {
       this.error = true;
       this.loading = false;
       this.snackBar.open(`ERROR: ${err.message}`,'Close', {

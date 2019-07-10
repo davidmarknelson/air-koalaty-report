@@ -7,12 +7,15 @@
 ></app-city-search>
 
 <div class='alert alert-danger' role='alert' *ngIf='error'>
-  Oops! Try a different city or try looking for a city in the <a routerLink='/countries'>countries page</a>.
+  Oops! Try a different major city or try looking for a city in the <a routerLink='/countries'>countries page</a>.
 </div>
 
 <!-- Display when no city has been searched -->
 <mat-card *ngIf='!firstSearchInitiated'>
-  <h2>Search for a city to see the air quality index.</h2>
+  <h3>
+    Search for a major city to see the air quality index. If there are no results for the city you are searching for,
+    try searching for a city in the <a routerLink='/countries'>countries page</a>.
+  </h3>
 </mat-card>
 
 <!-- Display when request for AQI and city have been made and show the results -->
