@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { takeUntil, timeout, map, concatMap } from 'rxjs/operators';
+import { takeUntil, timeout } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 // Angular Material
 import { MatSnackBar } from '@angular/material';
@@ -34,7 +34,10 @@ export class GeoComponent implements OnInit, OnDestroy {
 
   getCurrentCoordinatesAqi() {
     this.loading = true;
-    this.aqiService.getLocation().subscribe(pos => {
+    this.aqiService.getLocation().pipe(
+      timeout(6500),
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(pos => {
       let lat = pos.coords.latitude.toString();
       let long = pos.coords.longitude.toString();
       this.aqiService.getGeoLocationAqi(lat, long).subscribe((res: Aqi) => {

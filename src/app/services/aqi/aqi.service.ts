@@ -29,7 +29,7 @@ export class AqiService {
             observer.complete();
           },error => {
             observer.error(error);
-          }, {enableHighAccuracy: false, timeout: 6000}
+          }, {enableHighAccuracy: false, timeout: 7000}
         );
       } else {
         observer.error('Unsupported browser');
