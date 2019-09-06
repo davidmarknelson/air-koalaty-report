@@ -19,8 +19,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   firstSearchInitiated: boolean;
   cityListNotMaxed: boolean;
   id: string;
+  info: boolean;
   private ngUnsubscribe = new Subject();
-
 
   constructor(
     private user: UserService, 
@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.info = false;
     this.auth.getProfile((err, profile) => {
       if (err) { console.log(err); }
       this.id = profile.sub;
@@ -65,6 +66,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.cityListNotMaxed = res.cities.length < 3;
       }
     );
+  }
+
+  showInfo() {
+    this.info = !this.info;
   }
 }
 

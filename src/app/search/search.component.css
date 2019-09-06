@@ -13,3 +13,13 @@ a, a:hover {
 a:visited {
   color: #551A8B;
 }
+
+.icon-row {
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info-icon {
+  color: #4fc3f7;
+}

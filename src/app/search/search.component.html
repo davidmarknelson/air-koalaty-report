@@ -1,3 +1,19 @@
+<div class='row'>
+  <div class="col-md-10">
+    <div class="alert alert-primary" role="alert" *ngIf='info'>
+      This information gets the closest air quality station based on latitude and longitude.
+      If this doesn't show you the exact city you wanted, try looking in the <a routerLink='/countries'>countries page</a>.
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class='icon-row'>
+      <button mat-stroked-button (click)='showInfo()'>
+        <i class='fas fa-info-circle info-icon fa-lg'></i> Info
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Search for a city -->
 <app-city-search
   (aqi)='onAqi($event)'
@@ -13,8 +29,7 @@
 <!-- Display when no city has been searched -->
 <mat-card *ngIf='!firstSearchInitiated'>
   <h3>
-    Search for a major city to see the air quality index. If there are no results for the city you are searching for,
-    try searching for a city in the <a routerLink='/countries'>countries page</a>.
+    Search for a city to see the air quality index.
   </h3>
 </mat-card>
 
