@@ -40,7 +40,7 @@
     "helmet": "^3.18.0",
     "jwks-rsa": "^1.4.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.5.7",
+    "mongoose": "^5.7.5",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "rxjs": "~6.3.3",
