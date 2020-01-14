@@ -2,8 +2,8 @@
   <div *ngIf='aqi'>
     <!-- Button to change measurements -->
     <button mat-icon-button (click)='toggleImperialAndMetric()' class='temp-and-speed-button'>
-      <span *ngIf='!isImperialSelected'>mi/&deg;F</span>
-      <span *ngIf='isImperialSelected'>km/&deg;C</span>
+      <span *ngIf='!isImperialSelected' class='underline'>mi/&deg;F</span>
+      <span *ngIf='isImperialSelected' class='underline'>km/&deg;C</span>
     </button>
 
     <div class='row weather-full-height'>

@@ -8,7 +8,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## API server
 
-Make sure `mongo` is running and then run `npm run api-dev` to run the api server.
+Make sure mongodb is running and then run `npm run api-dev` to run the api server.
 
 ## Environment variables
 

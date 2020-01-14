@@ -57,8 +57,8 @@ export class CitySearchComponent implements OnInit, OnDestroy {
           // only have { name: typedName } and autocomplete.geometry will be false. Info from autocomplete.geometry 
           // is needed for the api to get data.
           if (this.autocomplete.geometry) {
-            this.lat = (this.autocomplete.geometry.viewport.na.l + this.autocomplete.geometry.viewport.na.l) / 2;
-            this.lng = (this.autocomplete.geometry.viewport.ga.l + this.autocomplete.geometry.viewport.ga.l) / 2;
+            this.lat = this.autocomplete.geometry.location.lat();
+            this.lng = this.autocomplete.geometry.location.lng();
             this.searchComplete = true;
           };
         });
